@@ -1,33 +1,11 @@
 import { combineReducers } from 'redux';
+import { selectedSession, sessions } from './sessions';
+import results from './results';
 
-const result = (state = {}, action) => {
-  switch (action.type) {
-    case 'ADD_RESULT':
-      return {
-        id: action.id,
-        time: action.time,
-      };
-
-    default:
-      return state;
-  }
-};
-
-const results = (state = [], action) => {
-  switch (action.type) {
-    case 'ADD_RESULT':
-      return [
-        ...state,
-        result(undefined, action),
-      ];
-
-    default:
-      return state;
-  }
-};
-
-const timerApp =  combineReducers({
+const timerApp = combineReducers({
   results,
+  sessions,
+  selectedSession,
 });
 
 export default timerApp;

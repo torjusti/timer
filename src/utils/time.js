@@ -1,7 +1,7 @@
 export const parseTime = (time) => {
   let seconds = time / 1000;
   const minutes = Math.floor(seconds / 60);
-  seconds = (seconds - minutes * 60);
+  seconds -= minutes * 60;
   return { minutes, seconds };
 };
 

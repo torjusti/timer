@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addResult } from '../actions';
 import { formatElapsedTime } from '../utils/time';
 
 class TimerDisplay extends React.Component {
@@ -35,6 +34,7 @@ class TimerDisplay extends React.Component {
     if (this.state.spaceHoldStarted && Date.now() - this.state.spaceHoldStarted >= 1000) {
       this.setState({
         timerState: 'READY',
+        elapsedTime: 0, // Remove previous time when timer is ready to start a new solve.
       });
     }
   }
@@ -49,7 +49,7 @@ class TimerDisplay extends React.Component {
     // Force a tick to ensure elapsed time is up to date.
     this.tick();
 
-    this.props.dispatch(addResult(this.state.elapsedTime));
+    this.props.onAttemptFinished(this.props.selectedSession, this.state.elapsedTime);
   }
 
   setRunning() {
@@ -111,7 +111,7 @@ class TimerDisplay extends React.Component {
   render() {
     let elapsedTime;
 
-    if (this.state.timerState === 'RUNNING') {
+    if (this.state.timerState === 'RUNNING' || this.state.timerState === 'READY') {
       elapsedTime = formatElapsedTime(this.state.elapsedTime, 1);
     } else  {
       elapsedTime = formatElapsedTime(this.state.elapsedTime, 2);

@@ -1,11 +1,13 @@
 import React from 'react';
-import Timer from '../containers/Timer';
+import ResultManager from '../containers/ResultManager';
 import ActiveResultList from '../containers/ActiveResultList';
+import SessionManager from '../containers/SessionManager';
 
 const App = () => (
   <div className="App">
-    <Timer />
+    <ResultManager />
     <ActiveResultList />
+    <SessionManager />
   </div>
 );
 
