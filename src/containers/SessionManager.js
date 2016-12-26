@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SessionMenu from '../components/SessionMenu';
-import { setSession, createSession, deleteSession, clearSession } from '../actions';
+import { setSession, createSession, deleteSession, clearSession, renameSession } from '../actions';
 
 const mapStateToProps = (state) => (state) => ({
   sessions: state.sessions,
@@ -22,6 +22,10 @@ const mapDispatchToProps = (dispatch) => ({
 
   onSessionCleared: (id) => {
     dispatch(clearSession(id));
+  },
+
+  onSessionRenamed: (id, name) => {
+    dispatch(renameSession(id, name));
   },
 });
 

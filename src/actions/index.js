@@ -29,3 +29,9 @@ export const clearSession = (id) => ({
   type: 'CLEAR_SESSION',
   id,
 });
+
+export const renameSession =  (id, name) => ({
+  type: 'RENAME_SESSION',
+  id,
+  name,
+});

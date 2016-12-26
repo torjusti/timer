@@ -8,6 +8,16 @@ const session = (state = {}, action) => {
         id: action.id,
       };
 
+    case 'RENAME_SESSION':
+      if (state.id !== action.id) {
+        return state;
+      }
+
+      return {
+        ...state,
+        name: action.name,
+      }
+
     default:
       return state;
   }
@@ -27,6 +37,9 @@ export const sessions = (state = defaultSessions, action) => {
 
     case 'DELETE_SESSION':
       return state.filter((session) => session.id !== action.id);
+
+    case 'RENAME_SESSION':
+      return state.map((s) => session(s, action));
 
     default:
       return state;
