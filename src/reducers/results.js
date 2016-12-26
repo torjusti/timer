@@ -20,6 +20,9 @@ const results = (state = [], action) => {
         result(undefined, action),
       ];
 
+    case 'CLEAR_SESSION':
+      return state.filter(r => r.session !== action.id);
+
     default:
       return state;
   }

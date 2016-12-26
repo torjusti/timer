@@ -13,6 +13,7 @@ class SessionMenu extends React.Component {
     this.handleSessionNameChange = this.handleSessionNameChange.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.handleSessionDeletion = this.handleSessionDeletion.bind(this);
+    this.handleSessionClear =  this.handleSessionClear.bind(this);
   }
 
   handleChange(event) {
@@ -23,6 +24,10 @@ class SessionMenu extends React.Component {
     this.setState({
       sessionName: event.target.value,
     });
+  }
+
+  handleSessionClear() {
+    this.props.onSessionCleared(this.props.selectedSession);
   }
 
   handleSessionCreation() {
@@ -60,6 +65,7 @@ class SessionMenu extends React.Component {
         <input type="text" onChange={this.handleSessionNameChange} value={this.state.sessionName} onKeyUp={this.handleKeyUp} />
         <button onClick={this.handleSessionCreation}>Create session</button>
         <button onClick={this.handleSessionDeletion}>Delete current session</button>
+        <button onClick={this.handleSessionClear}>Clear current session</button>
       </div>
     );
   }

@@ -24,3 +24,8 @@ export const deleteSession = (id) => ({
   type: 'DELETE_SESSION',
   id,
 });
+
+export const clearSession = (id) => ({
+  type: 'CLEAR_SESSION',
+  id,
+});
