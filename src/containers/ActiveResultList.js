@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ResultList from '../components/ResultList';
-import { deleteResult }  from '../actions/results';
+import { deleteResult, togglePlusTwo }  from '../actions/results';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -11,6 +11,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps =  (dispatch) => ({
   onDelete: (id) => {
     dispatch(deleteResult(id));
+  },
+
+  onTogglePlusTwo: (session, id) => {
+    dispatch(togglePlusTwo(session, id));
   },
 });
 

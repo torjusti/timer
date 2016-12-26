@@ -5,7 +5,18 @@ const result = (state = {}, action) => {
         id: action.id,
         time: action.time,
         session: action.session,
+        plusTwo: false,
       };
+
+    case "TOGGLE_PLUS_TWO":
+      if (state.id !== action.id || state.session !== action.session) {
+        return state;
+      }
+
+      return {
+        ...state,
+        plusTwo: !state.plusTwo,
+      }
 
     default:
       return state;
@@ -24,7 +35,10 @@ const results = (state = [], action) => {
       return state.filter((r) => r.session !== action.id);
 
     case "DELETE_RESULT":
-      return state.filter((r) => r.session !== action.session && r.id !== action.id);
+      return state.filter((r) => r.session !== action.session || r.id !== action.id);
+
+    case "TOGGLE_PLUS_TWO":
+      return state.map((r) => result(r, action));
 
     default:
       return state;

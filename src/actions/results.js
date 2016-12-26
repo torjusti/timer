@@ -7,6 +7,12 @@ export const addResult = (session, time) => ({
   time,
 });
 
+export const togglePlusTwo =  (session, id) => ({
+  type: 'TOGGLE_PLUS_TWO',
+  session,
+  id,
+});
+
 export const deleteResult = (session, id)  => ({
   type: 'DELETE_RESULT',
   session,
