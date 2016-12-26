@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SessionMenu from '../components/SessionMenu';
-import { setSession, createSession, deleteSession, clearSession, renameSession } from '../actions';
+import { setSession, createSession, deleteSession, clearSession, renameSession } from '../actions/sessions';
 
 const mapStateToProps = (state) => (state) => ({
   sessions: state.sessions,

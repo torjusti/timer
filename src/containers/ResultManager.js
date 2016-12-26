@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Timer from '../components/Timer';
-import { addResult } from '../actions';
+import { addResult } from '../actions/results';
 
 const mapStateToProps = (state) => ({
   selectedSession: state.selectedSession,

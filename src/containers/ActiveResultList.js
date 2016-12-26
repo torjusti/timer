@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ResultList from '../components/ResultList';
-import { deleteResult }  from '../actions';
+import { deleteResult }  from '../actions/results';
 
 const mapStateToProps = (state, ownProps) => {
   return {

@@ -1,4 +1,4 @@
-import { createSession } from '../actions';
+import { createSession } from '../actions/sessions';
 
 const session = (state = {}, action) => {
   switch (action.type) {
