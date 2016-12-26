@@ -7,6 +7,12 @@ export const addResult = (session, time) => ({
   time,
 });
 
+export const deleteResult = (session, id)  => ({
+  type: 'DELETE_RESULT',
+  session,
+  id,
+});
+
 export const setSession = (id) => ({
   type: 'SET_SESSION',
   id,

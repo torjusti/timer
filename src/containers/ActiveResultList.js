@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import ResultList from '../components/ResultList';
+import { deleteResult }  from '../actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -7,8 +8,15 @@ const mapStateToProps = (state, ownProps) => {
   };
 }
 
+const mapDispatchToProps =  (dispatch) => ({
+  onDelete: (id) => {
+    dispatch(deleteResult(id));
+  },
+});
+
 const ActiveResultList = connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(ResultList);
 
 export default ActiveResultList;

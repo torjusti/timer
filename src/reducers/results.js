@@ -21,7 +21,10 @@ const results = (state = [], action) => {
       ];
 
     case 'CLEAR_SESSION':
-      return state.filter(r => r.session !== action.id);
+      return state.filter((r) => r.session !== action.id);
+
+    case "DELETE_RESULT":
+      return state.filter((r) => r.session !== action.session && r.id !== action.id);
 
     default:
       return state;

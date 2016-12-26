@@ -1,10 +1,15 @@
 import React from 'react';
-import { formatElapsedTime } from '../utils/time';
+import Result from './Result';
 
-const ResultList = ({ results }) => {
+const ResultList = ({ results, onDelete }) => {
   return (
     <ul className="ResultList">
-      {results.map((result) => <li key={result.id}>{formatElapsedTime(result.time, 2)}</li>)}
+      {results.map((result) =>
+        <Result key={result.id}
+          onDelete={() => onDelete(result.session, result.id)}
+          {...result}
+        />
+      )}
     </ul>
   );
 };
