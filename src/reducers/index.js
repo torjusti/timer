@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import { selectedSession, sessions } from './sessions';
 import results from './results';
 
