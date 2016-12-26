@@ -12,6 +12,7 @@ class SessionMenu extends React.Component {
     this.handleSessionCreation = this.handleSessionCreation.bind(this);
     this.handleSessionNameChange = this.handleSessionNameChange.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.handleSessionDeletion = this.handleSessionDeletion.bind(this);
   }
 
   handleChange(event) {
@@ -34,6 +35,13 @@ class SessionMenu extends React.Component {
     }
   }
 
+  handleSessionDeletion() {
+    // Do not allow deleting the last session.
+    if (this.props.sessions.length > 1) {
+      this.props.onSessionDelete(this.props.selectedSession);
+    }
+  }
+
   // Attempt creating session when enter is pressed.
   handleKeyUp(event) {
     if (event.keyCode === 13) {
@@ -42,6 +50,7 @@ class SessionMenu extends React.Component {
   }
 
   render() {
+    console.log(this.props.selectedSession);
     return (
       <div id="SessionMenu">
         <select value={this.props.selectedSession} onChange={this.handleChange}>
@@ -50,6 +59,7 @@ class SessionMenu extends React.Component {
 
         <input type="text" onChange={this.handleSessionNameChange} value={this.state.sessionName} onKeyUp={this.handleKeyUp} />
         <button onClick={this.handleSessionCreation}>Create session</button>
+        <button onClick={this.handleSessionDeletion}>Delete current session</button>
       </div>
     );
   }

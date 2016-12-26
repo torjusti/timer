@@ -19,3 +19,8 @@ export const createSession = (name) => ({
   id: nextSessionId++,
   name,
 });
+
+export const deleteSession = (id) => ({
+  type: 'DELETE_SESSION',
+  id,
+});

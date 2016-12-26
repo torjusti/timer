@@ -25,19 +25,24 @@ export const sessions = (state = defaultSessions, action) => {
         session(undefined, action),
       ];
 
+    case 'DELETE_SESSION':
+      return state.filter((session) => session.id !== action.id);
+
     default:
       return state;
   }
 };
 
-export const selectedSession = (state = 0, action) => {
+export const selectedSession = (state = 0, action, sessions) => {
   switch (action.type) {
     case 'SET_SESSION':
       return action.id;
 
-    // Select the new session when it is created.
     case 'CREATE_SESSION':
-      return action.id;
+      return sessions[sessions.length - 1].id;
+
+    case 'DELETE_SESSION':
+      return state - 1;
 
     default:
       return state;
