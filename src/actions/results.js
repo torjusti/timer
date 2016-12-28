@@ -18,3 +18,9 @@ export const deleteResult = (session, id)  => ({
   session,
   id,
 });
+
+export const toggleDNF = (session, id) => ({
+  type: 'TOGGLE_DNF',
+  session,
+  id,
+});

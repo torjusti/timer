@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ResultList from '../components/ResultList';
-import { deleteResult, togglePlusTwo }  from '../actions/results';
+import { deleteResult, togglePlusTwo, toggleDNF }  from '../actions/results';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -16,6 +16,10 @@ const mapDispatchToProps =  (dispatch) => ({
   onTogglePlusTwo: (session, id) => {
     dispatch(togglePlusTwo(session, id));
   },
+
+  onToggleDNF: (session, id) => {
+    dispatch(toggleDNF(session, id));
+  }
 });
 
 const ActiveResultList = connect(

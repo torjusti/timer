@@ -6,6 +6,7 @@ const result = (state = {}, action) => {
         time: action.time,
         session: action.session,
         plusTwo: false,
+        dnf: false,
       };
 
     case "TOGGLE_PLUS_TWO":
@@ -16,6 +17,16 @@ const result = (state = {}, action) => {
       return {
         ...state,
         plusTwo: !state.plusTwo,
+      }
+
+    case "TOGGLE_DNF":
+      if (state.id !== action.id || state.session !== action.session) {
+        return state;
+      }
+
+      return {
+        ...state,
+        dnf: !state.dnf,
       }
 
     default:
@@ -38,6 +49,9 @@ const results = (state = [], action) => {
       return state.filter((r) => r.session !== action.session || r.id !== action.id);
 
     case "TOGGLE_PLUS_TWO":
+      return state.map((r) => result(r, action));
+
+    case "TOGGLE_DNF":
       return state.map((r) => result(r, action));
 
     default:
