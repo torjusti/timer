@@ -1,17 +1,20 @@
 import React from 'react';
 import Result from './Result/';
+import { cubingAverage } from '../utils/cubingStatistics';
 
 const ResultList = ({ results, onDelete, onTogglePlusTwo, onToggleDNF }) => (
-  <ul className="ResultList">
-    {results.map((result) =>
+  <table className="ResultList">
+    {results.map((result, index) =>
       <Result key={result.id}
         onDelete={() => onDelete(result.session, result.id)}
         onTogglePlusTwo={() => onTogglePlusTwo(result.session, result.id)}
         onToggleDNF={() => onToggleDNF(result.session, result.id)}
+        currentAo5={index >= 4 && cubingAverage(results.slice(index - 4, index + 1))}
+        currentAo12={index >= 11 && cubingAverage(results.slice(index - 11, index + 1))}
         {...result}
       />
     )}
-  </ul>
+  </table>
 );
 
 export default ResultList;

@@ -2,7 +2,7 @@ let nextSessionId = 0;
 
 export const createSession = (name) => ({
   type: 'CREATE_SESSION',
-  id: nextSessionId++,
+  id: Date.now(),
   name,
 });
 

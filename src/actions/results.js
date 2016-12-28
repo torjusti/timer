@@ -2,7 +2,7 @@ let nextResultId = 0;
 
 export const addResult = (session, time) => ({
   type: 'ADD_RESULT',
-  id: nextResultId++,
+  id: Date.now(),
   session,
   time,
 });
