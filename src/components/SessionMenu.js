@@ -66,7 +66,6 @@ class SessionMenu extends React.Component {
   }
 
   render() {
-    console.log(this.props.selectedSession);
     return (
       <div id="SessionMenu">
         <select value={this.props.selectedSession} onChange={this.handleChange}>
