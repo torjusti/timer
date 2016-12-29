@@ -1,4 +1,4 @@
-const result = (state = {}, action) => {
+const result = (state = {}, action, scrambler, scramble) => {
   switch (action.type) {
     case 'ADD_RESULT':
       return {
@@ -7,6 +7,8 @@ const result = (state = {}, action) => {
         session: action.session,
         plusTwo: false,
         dnf: false,
+        scrambler,
+        scramble,
       };
 
     case "TOGGLE_PLUS_TWO":

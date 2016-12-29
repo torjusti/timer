@@ -1,25 +1,35 @@
 import { selectedSession, sessions } from './sessions';
 import results from './results';
+import { selectedScrambler, currentScramble } from './scrambles.js';
 
-const timerApp = (state = {}, action) => {
-  const intermediateState = {
-    sessions: sessions(state.sessions, action),
-    results: results(state.results, action),
-  };
+const timerApp = (state = {}, action) => ({
+  sessions: sessions(state.sessions, action),
 
-  switch (action.type) {
-    case "CREATE_SESSION":
-      return {
-        ...intermediateState,
-        selectedSession: selectedSession(state.selectedSession, action, intermediateState.sessions),
-      }
+  get selectedSession() {
+    switch (action.type) {
+      case "CREATE_SESSION":
+        return selectedSession(state.selectedSession, action, this.sessions);
 
-    default:
-      return {
-        ...intermediateState,
-        selectedSession: selectedSession(state.selectedSession, action),
-      }
-  }
-};
+      default:
+        return selectedSession(state.selectedSession, action);
+    }
+  },
+
+  get results() {
+    switch (action.type) {
+      case "ADD_RESULT":
+        return results(state.results, action, this.selectedScrambler, this.currentScramble);
+
+      default:
+        return results(state.results, action);
+    }
+  },
+
+  selectedScrambler: selectedScrambler(state.selectedScrambler, action),
+
+  get currentScramble() {
+    return currentScramble(state.currentScramble, action, this.selectedScrambler);
+  },
+});
 
 export default timerApp;

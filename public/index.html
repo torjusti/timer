@@ -18,14 +18,16 @@
   <body>
     <div id="root"></div>
     <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start`.
-      To create a production bundle, use `npm run build`.
+      We need to use script tags here, as these are compiled using GWT from Java. Since
+      all ES6 modules uses strict mode, we cannot have these as modules without significant work.
     -->
+    <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_222.js"></script>
+    <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_333.js"></script>
+    <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_clock.js"></script>
+    <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_minx.js"></script>
+    <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_NNN.js"></script>
+    <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_pyram.js"></script>
+    <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_skewb.js"></script>
+    <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_sq1.js"></script>
   </body>
 </html>
