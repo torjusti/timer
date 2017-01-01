@@ -12,6 +12,8 @@ export const cubingAverage = (results) => {
   if (results.length >= 5) {
     return isDNF(results) ? 'DNF' : average(timesFromResults(results));
   }
+
+  return null;
 }
 
 // Returns a list where each index is the current average of num at that index.
@@ -24,6 +26,8 @@ export const cubingAverages = (results, num) => {
     if (index >= num - 1) {
       return cubingAverage(results.slice(index - num + 1, index + 1));
     }
+
+    return undefined;
   });
 };
 

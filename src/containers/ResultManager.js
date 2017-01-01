@@ -4,11 +4,12 @@ import { addResult } from '../actions/results';
 
 const mapStateToProps = (state) => ({
   selectedSession: state.selectedSession,
+  selectedScrambler: state.selectedScrambler,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onAttemptFinished: (session, time) => {
-    dispatch(addResult(session, time));
+  onAttemptFinished: (session, time, selectedScrambler) => {
+    dispatch(addResult(session, time, selectedScrambler));
   },
 });
 

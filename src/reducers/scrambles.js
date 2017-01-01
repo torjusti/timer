@@ -1,4 +1,4 @@
-/* global scramblers */
+import { generateScramble } from '../utils/scrambles';
 
 export const selectedScrambler = (state = '333', action) => {
   switch (action.type) {
@@ -10,18 +10,13 @@ export const selectedScrambler = (state = '333', action) => {
   }
 };
 
-const generateScramble = (scrambler) => {
-  let scramble = scramblers[scrambler].getRandomScramble().scramble_string;
-  return scramble.split().join(' '); // Fix occasional double-spaces.
-};
-
-export const currentScramble = (state = generateScramble(333), action, selectedScrambler) => {
+export const currentScramble = (state = generateScramble(333), action) => {
   switch (action.type) {
     case "SELECT_SCRAMBLER":
-      return generateScramble(selectedScrambler);
+      return action.updatedScramble;
 
     case "ADD_RESULT":
-      return generateScramble(selectedScrambler);
+      return action.updatedScramble;
 
     default:
       return state;

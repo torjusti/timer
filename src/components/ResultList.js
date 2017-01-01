@@ -2,7 +2,7 @@ import React from 'react';
 import Result from './Result/';
 import { cubingAverage } from '../utils/cubingStatistics';
 
-const ResultList = ({ results, onDelete, onTogglePlusTwo, onToggleDNF }) => (
+const ResultList = ({ results, sessions, onDelete, onTogglePlusTwo, onToggleDNF }) => (
   <table className="ResultList">
     <thead>
       <tr>

@@ -1,5 +1,3 @@
-let nextSessionId = 0;
-
 export const createSession = (name) => ({
   type: 'CREATE_SESSION',
   id: Date.now(),

@@ -36,12 +36,12 @@ const result = (state = {}, action, scrambler, scramble) => {
   }
 };
 
-const results = (state = [], action) => {
+const results = (state = [], action, scrambler, scramble) => {
   switch (action.type) {
     case 'ADD_RESULT':
       return [
         ...state,
-        result(undefined, action),
+        result(undefined, action, scrambler, scramble),
       ];
 
     case 'CLEAR_SESSION':

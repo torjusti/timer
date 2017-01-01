@@ -1,10 +1,11 @@
-let nextResultId = 0;
+import { generateScramble } from '../utils/scrambles';
 
-export const addResult = (session, time) => ({
+export const addResult = (session, time, selectedScrambler) => ({
   type: 'ADD_RESULT',
   id: Date.now(),
   session,
   time,
+  updatedScramble: generateScramble(selectedScrambler),
 });
 
 export const togglePlusTwo =  (session, id) => ({

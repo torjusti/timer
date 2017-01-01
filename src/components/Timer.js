@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { formatElapsedTime } from '../utils/time';
 
-class TimerDisplay extends React.Component {
+class Timer extends React.Component {
   constructor(props) {
     super();
 
@@ -49,7 +48,7 @@ class TimerDisplay extends React.Component {
     // Force a tick to ensure elapsed time is up to date.
     this.tick();
 
-    this.props.onAttemptFinished(this.props.selectedSession, this.state.elapsedTime);
+    this.props.onAttemptFinished(this.props.selectedSession, this.state.elapsedTime, this.props.selectedScrambler);
   }
 
   setRunning() {
@@ -124,7 +123,5 @@ class TimerDisplay extends React.Component {
     );
   }
 };
-
-const Timer = connect()(TimerDisplay);
 
 export default Timer;
