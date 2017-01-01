@@ -22,7 +22,7 @@ const ResultList = ({ results, sessions, onDelete, onTogglePlusTwo, onToggleDNF 
           currentAo12={index >= 11 && cubingAverage(results.slice(index - 11, index + 1))}
           {...result}
         />
-      )}
+      ).reverse()}
     </tbody>
   </table>
 );
