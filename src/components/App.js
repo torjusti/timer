@@ -4,6 +4,7 @@ import ActiveResultList from '../containers/ActiveResultList';
 import SessionManager from '../containers/SessionManager';
 import StatisticsContainer from '../containers/StatisticsContainer';
 import ScrambleManager from '../containers/ScrambleManager';
+import thing from '../utils/solvers.js';
 
 const App = () => (
   <div className="App">
