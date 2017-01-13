@@ -23,9 +23,11 @@ const session = (state = {}, action) => {
   }
 };
 
-const defaultSessions = [
-  session(undefined, createSession('Default session')),
-];
+// We need to store the default session in order to use its ID in the
+// value for default selectedSession.
+const defaultSession = session(undefined, createSession('Default session'));
+
+const defaultSessions = [defaultSession];
 
 export const sessions = (state = defaultSessions, action) => {
   switch (action.type) {
@@ -46,7 +48,7 @@ export const sessions = (state = defaultSessions, action) => {
   }
 };
 
-export const selectedSession = (state = 0, action, sessions) => {
+export const selectedSession = (state = defaultSession.id, action, sessions) => {
   switch (action.type) {
     case 'SET_SESSION':
       return action.id;
