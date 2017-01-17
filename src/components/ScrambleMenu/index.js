@@ -1,4 +1,5 @@
 import React from 'react';
+import './ScrambleMenu.css';
 
 const scrambleTypes = ['333', 'lse', 'edges', 'corners', 'cmll', 'lsll', 'zbll',
   '2gll', 'pll', 'zzls', '333fm', '333ft', '333bf', '333oh', '222', 'clock',
@@ -6,15 +7,15 @@ const scrambleTypes = ['333', 'lse', 'edges', 'corners', 'cmll', 'lsll', 'zbll',
 
 const ScrambleMenu = ({ currentScramble, selectedScrambler, onScramblerChange }) => (
   <div className="ScrambleMenu">
-    <div className="ScrambleDisplay">
-      {currentScramble}
-    </div>
-
     <select className="SelectScrambler" value={selectedScrambler} onChange={(e) => onScramblerChange(e.target.value)}>
       {scrambleTypes.map((scrambleType) =>
         <option value={scrambleType} key={scrambleType}>{scrambleType}</option>
       )}
     </select>
+
+    <div className="ScrambleDisplay">
+      {currentScramble}
+    </div>
   </div>
 );
 

@@ -2,7 +2,11 @@ import React from 'react';
 import { formatElapsedTime } from '../../utils/time';
 import classNames from 'classnames';
 import Modal from 'react-modal';
-import './Result.css';
+import styled from 'styled-components';
+
+const Time = styled.span`
+  text-decoration: ${props => props.dnf && 'line-through'};
+`;
 
 class Result extends React.Component {
   constructor() {
@@ -33,17 +37,13 @@ class Result extends React.Component {
       dnf: this.props.dnf,
     });
 
-    let formattedTime = (
-      <span className={classes}>
-        {this.props.plusTwo ?
+    let formattedTime = this.props.plusTwo ?
         `${formatElapsedTime(this.props.time, 2)}+2=${formatElapsedTime(this.props.time + 2000, 2)}` :
-        formatElapsedTime(this.props.time, 2)}
-      </span>
-    );
+        formatElapsedTime(this.props.time, 2);
 
     return (
       <tr key={this.props.id}>
-        <td><span className={classes}>{formattedTime}</span></td>
+        <td><Time dnf={this.props.dnf}>{formattedTime}</Time></td>
         <td>{(this.props.currentAo5 && formatElapsedTime(this.props.currentAo5, 2)) || 'N/A'}</td>
         <td>{(this.props.currentAo12 && formatElapsedTime(this.props.currentAo12, 2)) || 'N/A'}</td>
         <td><button onClick={this.props.onDelete}>del</button></td>
