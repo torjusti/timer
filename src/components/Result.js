@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatElapsedTime } from '../../utils/time';
+import { formatElapsedTime } from '../utils/time';
 import classNames from 'classnames';
 import Modal from 'react-modal';
 import styled from 'styled-components';
