@@ -41,9 +41,11 @@ class Result extends React.Component {
         `${formatElapsedTime(this.props.time, 2)}+2=${formatElapsedTime(this.props.time + 2000, 2)}` :
         formatElapsedTime(this.props.time, 2);
 
+    const time = (<Time dnf={this.props.dnf}>{formattedTime}</Time>);
+
     return (
       <tr key={this.props.id}>
-        <td><Time dnf={this.props.dnf}>{formattedTime}</Time></td>
+        <td>{time}</td>
         <td>{(this.props.currentAo5 && formatElapsedTime(this.props.currentAo5, 2)) || 'N/A'}</td>
         <td>{(this.props.currentAo12 && formatElapsedTime(this.props.currentAo12, 2)) || 'N/A'}</td>
         <td><button onClick={this.props.onDelete}>del</button></td>
@@ -54,7 +56,7 @@ class Result extends React.Component {
         <Modal isOpen={this.state.modalIsOpen} contentLabel="Modal">
           <h2>Manage result</h2>
             <ul>
-              <li>Time: {formattedTime}</li>
+              <li>Time: {time}</li>
               <li>Scramble: {this.props.scramble}</li>
             </ul>
 
