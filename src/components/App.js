@@ -1,19 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
 import ResultManager from '../containers/ResultManager';
-import ActiveResultList from '../containers/ActiveResultList';
-import SessionManager from '../containers/SessionManager';
-import StatisticsContainer from '../containers/StatisticsContainer';
 import ScrambleManager from '../containers/ScrambleManager';
-import thing from '../utils/solvers.js';
+import Sidebar from './Sidebar';
 
-const App = () => (
-  <div className="App">
+const App = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export default () => (
+  <App>
     <ScrambleManager />
     <ResultManager />
-    <ActiveResultList />
-    <SessionManager />
-    <StatisticsContainer />
-  </div>
+    <Sidebar />
+  </App>
 );
-
-export default App;

@@ -19,6 +19,7 @@ const ScrambleDisplay = styled.div`
 
 const ScrambleMenuContainer = styled.div`
   display: flex;
+  width: 100%;
   background: #3875e0;
   padding: 1em;
 `;

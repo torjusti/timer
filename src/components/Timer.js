@@ -1,5 +1,17 @@
 import React from 'react';
 import { formatElapsedTime } from '../utils/time';
+import styled from 'styled-components';
+
+const TimerDisplay =  styled.div`
+  font-family: monospace;
+  font-size: 10rem;
+
+  width: 100%;
+
+  @media (min-width: 1200px) {
+    width: 75%;
+  }
+`;
 
 class Timer extends React.Component {
   constructor(props) {
@@ -117,9 +129,9 @@ class Timer extends React.Component {
     }
 
     return (
-      <div className="Timer">
+      <TimerDisplay>
         {elapsedTime}
-      </div>
+      </TimerDisplay>
     );
   }
 };

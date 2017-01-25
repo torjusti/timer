@@ -42,6 +42,7 @@ const Statistics = ({ results }) => {
 
   return (
     <div className="Statistics">
+      <h2>Statistics</h2>
       <ul>
         <li>Number of times: {results.length}</li>
         <li>Global mean: {globalMean}</li>

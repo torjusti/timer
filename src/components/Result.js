@@ -3,6 +3,7 @@ import { formatElapsedTime } from '../utils/time';
 import classNames from 'classnames';
 import Modal from 'react-modal';
 import styled from 'styled-components';
+import { Link } from 'react-router';
 
 const Time = styled.span`
   text-decoration: ${props => props.dnf && 'line-through'};
@@ -51,17 +52,7 @@ class Result extends React.Component {
         <td><button onClick={this.props.onDelete}>del</button></td>
         <td><button onClick={this.props.onTogglePlusTwo}>+2</button></td>
         <td><button onClick={this.props.onToggleDNF}>dnf</button></td>
-        <td><button onClick={this.openModal}>view</button></td>
-
-        <Modal isOpen={this.state.modalIsOpen} contentLabel="Modal">
-          <h2>Manage result</h2>
-            <ul>
-              <li>Time: {time}</li>
-              <li>Scramble: {this.props.scramble}</li>
-            </ul>
-
-          <button onClick={this.closeModal}>Done</button>
-        </Modal>
+        <td><Link to={`/result/${this.props.id}`} /></td>
       </tr>
     );
   }
