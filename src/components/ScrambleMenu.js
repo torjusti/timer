@@ -14,8 +14,15 @@ const ScrambleSelector = styled.select`
 const ScrambleDisplay = styled.div`
   flex-grow: 1;
   text-align: center;
-  color: #FFF;
   font-size: 1.5rem;
+`;
+
+const ScrambleDisplayAlgLink = styled.a`
+  color: #FFF;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const ScrambleMenuContainer = styled.div`
@@ -34,7 +41,9 @@ const ScrambleMenu = ({ currentScramble, selectedScrambler, onScramblerChange })
     </ScrambleSelector>
 
     <ScrambleDisplay>
-      {currentScramble}
+      <ScrambleDisplayAlgLink href={`https://alg.cubing.net/?setup=${currentScramble}`} target="_blank">
+        {currentScramble}
+      </ScrambleDisplayAlgLink>
     </ScrambleDisplay>
   </ScrambleMenuContainer>
 );
