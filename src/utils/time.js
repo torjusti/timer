@@ -11,8 +11,8 @@ export const formatElapsedTime = (time, precision) => {
   return parsedTime.minutes ? `${parsedTime.minutes}:${seconds}` : seconds;
 }
 
-export const formatResult = (time, plusTwo) => {
-  return this.props.plusTwo ?
-    `${formatElapsedTime(this.props.time, 2)}+2=${formatElapsedTime(this.props.time + 2000, 2)}` :
-      formatElapsedTime(this.props.time, 2);
+export const formatResult = (result) => {
+  return result.plusTwo ?
+    `${formatElapsedTime(result.time, 2)}+2=${formatElapsedTime(result.time + 2000, 2)}` :
+      formatElapsedTime(result.time, 2);
 };

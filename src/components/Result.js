@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatElapsedTime } from '../utils/time';
+import { formatResult, formatElapsedTime } from '../utils/time';
 import classNames from 'classnames';
 import Modal from 'react-modal';
 import styled from 'styled-components';
@@ -38,15 +38,11 @@ class Result extends React.Component {
       dnf: this.props.dnf,
     });
 
-    let formattedTime = this.props.plusTwo ?
-        `${formatElapsedTime(this.props.time, 2)}+2=${formatElapsedTime(this.props.time + 2000, 2)}` :
-        formatElapsedTime(this.props.time, 2);
-
-    const time = (<Time dnf={this.props.dnf}>{formattedTime}</Time>);
+    const time = (<Time dnf={this.props.dnf}>{formatResult(this.props)}</Time>);
 
     return (
       <tr key={this.props.id}>
-        <td>{time}</td>
+        <td><Link to={`/result/${this.props.id}`}>{time}</Link></td>
         <td>{(this.props.currentAo5 && formatElapsedTime(this.props.currentAo5, 2)) || 'N/A'}</td>
         <td>{(this.props.currentAo12 && formatElapsedTime(this.props.currentAo12, 2)) || 'N/A'}</td>
         <td><button onClick={this.props.onDelete}>del</button></td>
