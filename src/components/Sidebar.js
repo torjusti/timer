@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ActiveResultList from '../containers/ActiveResultList';
 import SessionManager from '../containers/SessionManager';
 import StatisticsContainer from '../containers/StatisticsContainer';
+import SolverContainer from '../containers/SolverContainer';
 
 const SidebarContainer = styled.div`;
   background: #EFEFEF;
@@ -19,6 +20,7 @@ const Sidebar = () => (
     <StatisticsContainer />
     <SessionManager />
     <ActiveResultList />
+    <SolverContainer />
   </SidebarContainer>
 );
 
