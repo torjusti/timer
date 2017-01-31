@@ -15,6 +15,7 @@ const ScrambleDisplay = styled.div`
   flex-grow: 1;
   text-align: center;
   color: #FFF;
+  font-size: 1.5rem;
 `;
 
 const ScrambleMenuContainer = styled.div`

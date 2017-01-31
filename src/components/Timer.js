@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 const TimerDisplay =  styled.div`
   font-family: monospace;
-  font-size: 10rem;
-
+  font-size: 15rem;
+  text-align: center;
   width: 100%;
 
   @media (min-width: 1200px) {
