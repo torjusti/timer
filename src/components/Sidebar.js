@@ -4,6 +4,7 @@ import ActiveResultList from '../containers/ActiveResultList';
 import SessionManager from '../containers/SessionManager';
 import StatisticsContainer from '../containers/StatisticsContainer';
 import SolverContainer from '../containers/SolverContainer';
+import ExportDataButton from '../containers/ExportDataButton';
 
 const SidebarContainer = styled.div`;
   background: #EFEFEF;
@@ -21,6 +22,7 @@ const Sidebar = () => (
     <SessionManager />
     <ActiveResultList />
     <SolverContainer />
+    <ExportDataButton />
   </SidebarContainer>
 );
 
