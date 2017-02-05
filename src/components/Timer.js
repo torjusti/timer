@@ -11,6 +11,14 @@ const TimerDisplay =  styled.div`
   @media (min-width: 1200px) {
     width: 75%;
   }
+
+  &.HOLDING {
+    color: red;
+  }
+
+  &.READY {
+    color: green;
+  }
 `;
 
 class Timer extends React.Component {
@@ -129,7 +137,7 @@ class Timer extends React.Component {
     }
 
     return (
-      <TimerDisplay>
+      <TimerDisplay className={this.state.timerState}>
         {elapsedTime}
       </TimerDisplay>
     );
