@@ -1,7 +1,5 @@
 import React from 'react';
 import { formatResult, formatElapsedTime } from '../utils/time';
-import classNames from 'classnames';
-import Modal from 'react-modal';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 
@@ -34,10 +32,6 @@ class Result extends React.Component {
   }
 
   render() {
-    const classes = classNames({
-      dnf: this.props.dnf,
-    });
-
     const time = (<Time dnf={this.props.dnf}>{formatResult(this.props)}</Time>);
 
     return (

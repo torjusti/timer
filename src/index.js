@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { Router, Route, Link, browserHistory } from 'react-router'
+import { Router, Route, browserHistory } from 'react-router'
 import timerApp from './reducers';
 import App from './components/App';
-import ResultManagement from './components/ResultManagement';
 import BigResultContainer from './containers/BigResultContainer';
 import './globalStyles.js';
 

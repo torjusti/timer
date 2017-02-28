@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const EOLineSolver = scramble => {
   // Corners
   const [URF, UFL, ULB, UBR, DFR, DLF, DBL, DRB] = [0, 1, 2, 3, 4, 5, 6, 7];
@@ -168,7 +170,7 @@ const EOLineSolver = scramble => {
 
       const storedSequence = states[StateRepresentation(sequenceResult)];
 
-      if (storedSequence && [0] / 3 | 0 !== sequence.slice(-1)[0] / 3 | 0) {
+      if (storedSequence && storedSequence[0] / 3 | 0 !== sequence.slice(-1)[0] / 3 | 0) {
         return combineSequenceAndInverse(sequence, storedSequence);
       }
 
