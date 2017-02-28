@@ -1,0 +1,4 @@
+{
+  "presets": ["babili"],
+  "plugins": ["babel-plugin-minify-mangle-properties"],
+}
