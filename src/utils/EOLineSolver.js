@@ -112,16 +112,16 @@ const getIndexFromOrientation = (orientation) => {
 const getPermutationFromIndex = (index) => {
   let permutation = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-	let a = index % 12;
-	let b = Math.floor(index / 12);
+  let a = index % 12;
+  let b = Math.floor(index / 12);
 
-	if (b >= a) {
+  if (b >= a) {
     b += 1;
   }
 
-	permutation[a] = 5;
+  permutation[a] = 5;
 
-	permutation[b] = 7;
+  permutation[b] = 7;
 
   return permutation;
 }
