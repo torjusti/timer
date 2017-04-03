@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from './Button';
 
 class SessionMenu extends React.Component {
   constructor() {
@@ -76,10 +75,10 @@ class SessionMenu extends React.Component {
         </select>
 
         <input type="text" onChange={this.handleSessionNameChange} value={this.state.sessionName} onKeyUp={this.handleKeyUp} />
-        <Button onClick={this.handleSessionCreation}>Create session</Button>
-        <Button onClick={this.handleSessionDeletion}>Delete current session</Button>
-        <Button onClick={this.handleSessionClear}>Clear current session</Button>
-        <Button onClick={this.handleSessionRename}>Rename current session</Button>
+        <button onClick={this.handleSessionCreation}>Create session</button>
+        <button onClick={this.handleSessionDeletion}>Delete current session</button>
+        <button onClick={this.handleSessionClear}>Clear current session</button>
+        <button onClick={this.handleSessionRename}>Rename current session</button>
       </div>
     );
   }
