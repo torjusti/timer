@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
+import { getResults } from '../selectors/results';
 import Statistics from '../components/Statistics';
 
 const mapStateToProps = (state) => ({
-  results: state.results.filter((result) => result.session === state.selectedSession),
+  results: getResults(state),
 });
 
 const StatisticsContainer = connect(mapStateToProps)(Statistics);

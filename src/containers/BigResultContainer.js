@@ -1,10 +1,9 @@
 import { connect } from 'react-redux';
+import { getResult } from '../selectors/results';
 import BigResult from '../components/BigResult';
 
 const mapStateToProps = (state, ownProps) => ({
-  result: state.results.find(r => ownProps.params &&
-    /^\d+$/.test(ownProps.params.id) &&
-    r.id === parseInt(ownProps.params.id, 10)),
+  result: getResult(state, ownProps.params && ownProps.params.id),
 });
 
 const ResultManager = connect(
