@@ -11,7 +11,6 @@ const downloadFile = (text) => {
 
 const ExportDataButton = ({ state }) => (
   <div>
-    <h3>Export data</h3>
     <button onClick={() => downloadFile(JSON.stringify(state))}>Download</button>
   </div>
 );

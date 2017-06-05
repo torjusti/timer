@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ResultManager from '../containers/ResultManager';
 import ScrambleManager from '../containers/ScrambleManager';
 import Sidebar from './Sidebar';
+import ResultColumn from './ResultColumn'
 
 const App = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ export default () => (
   <App>
     <ScrambleManager />
     <Container>
+      <ResultColumn />
       <ResultManager />
       <Sidebar />
     </Container>

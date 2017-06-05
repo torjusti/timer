@@ -68,8 +68,6 @@ class SessionMenu extends React.Component {
   render() {
     return (
       <div id="SessionMenu">
-        <h2>Manage sessions</h2>
-
         <select value={this.props.selectedSession} onChange={this.handleChange}>
           {this.props.sessions.map((session) => <option value={session.id} key={session.id}>{session.name}</option>)}
         </select>

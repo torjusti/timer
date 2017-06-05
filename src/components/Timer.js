@@ -11,7 +11,7 @@ const TimerDisplay =  styled.div`
   min-height: 100%;
 
   @media (min-width: 1200px) {
-    width: 75%;
+    width: 60%;
   }
 
   &.HOLDING {
