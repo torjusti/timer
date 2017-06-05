@@ -9,7 +9,8 @@ import ExportDataButton from '../containers/ExportDataButton';
 const SidebarContainer = styled.div`;
   background: #EFEFEF;
   text-shadow: 0 1 0 #000;
-  width: 100%;
+  flex-grow: 1;
+  min-height: 100%;
 
   @media (min-width: 1200px) {
     width: 25%;

@@ -7,8 +7,12 @@ injectGlobal`
     box-sizing: border-box;
   }
 
-  body {
+  html, body, #root {
     margin: 0;
+    height: 100%;
+  }
+
+  body {
     font-size: 1em;
   }
 `;

@@ -20,6 +20,7 @@ const ScrambleDisplay = styled.div`
 const ScrambleDisplayAlgLink = styled.a`
   color: #FFF;
   text-decoration: none;
+
   &:hover {
     text-decoration: underline;
   }

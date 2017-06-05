@@ -6,13 +6,21 @@ import Sidebar from './Sidebar';
 
 const App = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex: 1;
 `;
 
 export default () => (
   <App>
     <ScrambleManager />
-    <ResultManager />
-    <Sidebar />
+    <Container>
+      <ResultManager />
+      <Sidebar />
+    </Container>
   </App>
 );
