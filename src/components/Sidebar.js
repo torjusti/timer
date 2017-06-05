@@ -18,7 +18,7 @@ const SidebarContainer = styled.div`
   }
 `;
 
-const SidebarHeader = styled.h2`
+export const SidebarHeader = styled.h2`
   margin: 0 0 1em 0;
 `;
 

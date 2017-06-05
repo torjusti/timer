@@ -1,9 +1,15 @@
 import React from 'react';
 import Result from './Result';
+import styled from 'styled-components';
 import { cubingAverage } from '../utils/cubingStatistics';
 
+const Table = styled.table`
+  position: absolute;
+  width: 100%;
+`;
+
 const ResultList = ({ results, sessions, onDelete, onTogglePlusTwo, onToggleDNF }) => (
-  <table className="ResultList">
+  <Table>
     <thead>
       <tr>
         <th>Time</th>
@@ -24,7 +30,7 @@ const ResultList = ({ results, sessions, onDelete, onTogglePlusTwo, onToggleDNF 
         />
       ).reverse()}
     </tbody>
-  </table>
+  </Table>
 );
 
 export default ResultList;

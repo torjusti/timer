@@ -1,6 +1,7 @@
 import React from 'react';
 import ActiveResultList from '../containers/ActiveResultList';
 import styled from 'styled-components';
+import { SidebarHeader } from './Sidebar';
 
 const ResultColumnContainer = styled.div`
   flex-grow: 1;
@@ -8,15 +9,24 @@ const ResultColumnContainer = styled.div`
   width: 100%;
   background: #EFEFEF;
   padding: 1em;
-  
+
   @media (min-width: 1200px) {
     width: 20%;
   }
 `;
 
+const ScrollingTableContainer = styled.div`
+  display: flex;
+  height: 100%;
+  overflow-y: scroll;
+  position: relative;
+`;
+
 const ResultColumn = () => (
   <ResultColumnContainer>
-    <ActiveResultList />
+    <ScrollingTableContainer>
+      <ActiveResultList />
+    </ScrollingTableContainer>
   </ResultColumnContainer>
 );
 
