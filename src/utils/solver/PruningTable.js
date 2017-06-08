@@ -5,22 +5,22 @@ class PruningTable {
 
   setPruningValue(index, value) {
     if ((index & 1) === 0) {
-      this.table[Math.floor(index / 2)] &= 0xf0 | value;
+      this.table[~~(index / 2)] &= 0xf0 | value;
     } else {
-      this.table[Math.floor(index / 2)] &= 0x0f | (value << 4);
+      this.table[~~(index / 2)] &= 0x0f | (value << 4);
     }
   }
 
   getPruningValue(index) {
     if ((index & 1) === 0) {
-      return this.table[Math.floor(index / 2)] & 0x0f;
+      return this.table[~~(index / 2)] & 0x0f;
     } else {
-      return (this.table[Math.floor(index / 2)] & 0xf0) >>> 4;
+      return (this.table[~~(index / 2)] & 0xf0) >>> 4;
     }
   }
 
   computePruningTable(size, moveTable, solvedIndexes) {
-    let tableSize = Math.floor(size / 2);
+    let tableSize = ~~(size / 2);
 
     if (tableSize % 2 !== 0) {
       tableSize += 1;
@@ -40,6 +40,9 @@ class PruningTable {
 
     let depth = 0;
 
+    let done = 0;
+    let maxdone = 0;
+
     while (depth !== size) {
       for (let index = 0; index < size; index++) {
         if (this.getPruningValue(index) !== depth) {
@@ -51,11 +54,19 @@ class PruningTable {
 
           if (this.getPruningValue(position) === 0x0f) {
             this.setPruningValue(position, depth + 1);
+            done++;
           }
         }
       }
 
       depth++;
+
+      if (done  > maxdone) {
+        maxdone = done;
+
+      } else {
+        console.log('no changes...', done)
+      }
     }
   }
 }

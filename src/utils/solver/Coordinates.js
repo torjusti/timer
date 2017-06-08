@@ -34,7 +34,7 @@ const getOrientationFromIndex = (index, numPieces, numFlips) => {
     const ori = index % numFlips;
     orientation[i] = ori;
     parity += ori;
-    index = Math.floor(index / numFlips);
+    index = ~~(index / numFlips);
   }
 
   orientation[numPieces - 1] = (numFlips - parity % numFlips) % numFlips;
@@ -50,8 +50,9 @@ export const getEdgeOrientationFromIndex = (index) => getOrientationFromIndex(in
 const getPermutationFromIndex = (index, affectedPieces, size) => {
   const permutation = [];
 
+  // Invalidate all pieces.
   for (let i = 0; i < size; i++) {
-    permutation.push(0);
+    permutation.push(-1);
   }
 
   const indexes = [];
@@ -72,7 +73,7 @@ const getPermutationFromIndex = (index, affectedPieces, size) => {
   for (let i = 0; i < affectedPieces.length - 1; i++) {
     base /= factor + i;
 
-    const value = Math.floor(index / base);
+    const value = ~~(index / base);
     const rest = index % base;
 
     indexes.push(value);
@@ -112,7 +113,16 @@ export const getIndexFromPermutation = (permutation, affectedPieces) => {
     return permutation.indexOf(affectedPieces[0]);
   }
 
-  const indexes = affectedPieces.map(i => permutation.indexOf(i));
+  const indexes = [];
+
+  for (let i = 0; i < affectedPieces.length; i++) {
+    for (let j = 0; j < permutation.length; j++) {
+      if (permutation[j] == affectedPieces[i]) {
+        indexes[i] = j;
+        break;
+      }
+    }
+  }
 
   let base = permutation.length;
 

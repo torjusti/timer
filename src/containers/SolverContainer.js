@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import EOLineSolver from '../components/EOLineSolver';
+import Solvers from '../components/Solvers';
 
 const mapStateToProps = (state) => ({
   currentScramble: state.currentScramble,
@@ -7,6 +7,6 @@ const mapStateToProps = (state) => ({
 
 const SolverContainer =  connect(
   mapStateToProps,
-)(EOLineSolver);
+)(Solvers);
 
 export default SolverContainer;

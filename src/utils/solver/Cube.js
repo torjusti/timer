@@ -49,7 +49,7 @@ const rotateRight = (edges, elems) => {
 
 // Permutes an edge piece vector.
 export const edgePermutationMove = (pieces, moveIndex) => {
-  const move = edgeMoves[Math.floor(moveIndex / 3)];
+  const move = edgeMoves[~~(moveIndex / 3)];
   const pow = moveIndex % 3;
 
   for (let i = 0; i <= pow; i++) {
@@ -61,7 +61,7 @@ export const edgePermutationMove = (pieces, moveIndex) => {
 
 // Orients the pieces in an edge orientation vector.
 export const edgeOrientationMove = (pieces, moveIndex) => {
-  const moveNumber = Math.floor(moveIndex / 3);
+  const moveNumber = ~~(moveIndex / 3);
   const move = edgeMoves[moveNumber];
   const pow = moveIndex % 3;
 
@@ -80,7 +80,7 @@ export const edgeOrientationMove = (pieces, moveIndex) => {
 
 // Permutes the elements in a corner permutation vector.
 export const cornerPermutationMove = (pieces, moveIndex) => {
-  const move = cornerPermutationMoves[Math.floor(moveIndex / 3)];
+  const move = cornerPermutationMoves[~~(moveIndex / 3)];
   const pow = moveIndex % 3;
 
   for (let i = 0; i <= pow; i++) {
@@ -96,7 +96,7 @@ export const cornerPermutationMove = (pieces, moveIndex) => {
 
 // Orients the elements in a corner orientation vector.
 export const cornerOrientationMove = (pieces, moveIndex) => {
-  const move = Math.floor(moveIndex / 3);
+  const move = ~~(moveIndex / 3);
   const pow = moveIndex % 3;
 
   for (let i = 0; i <= pow; i++) {
