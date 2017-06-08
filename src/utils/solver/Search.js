@@ -68,20 +68,22 @@ class Search {
   }
 
   search(indexes, depth, lastMove, solution) {
-    if (depth === 0) {
-      for (let i = 0; i < indexes.length; i++) {
-        if (!this.tables[i].solvedIndexes.has(indexes[i])) {
-          return false;
-        }
-      }
-
-      return true;
-    }
+    let maximumDistance = -Infinity;
 
     for (let i = 0; i < indexes.length; i++) {
-      if (this.tables[i].pruningTable.getPruningValue(indexes[i]) > depth) {
+      const distance = this.tables[i].pruningTable.getPruningValue(indexes[i]);
+
+      if (distance > depth) {
         return false;
       }
+
+      if (distance > maximumDistance) {
+        maximumDistance = distance;
+      }
+    }
+
+    if (maximumDistance === 0) {
+      return true;
     }
 
     for (let move = 0; move < 6; move++) {
