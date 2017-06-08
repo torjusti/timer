@@ -65,7 +65,7 @@ class PruningTable {
         maxdone = done;
 
       } else {
-        console.log('no changes...', done)
+        console.log('no changes...', done, done + solvedIndexes.size);
       }
     }
   }

@@ -9,17 +9,15 @@ class Search {
     this.tables = [];
   }
 
-  addTables(size, doMove, defaultIndex, solvedIndexes) {
-    if (!solvedIndexes) {
-      solvedIndexes = new Set().add(defaultIndex);
-    }
+  addTables(settings) {
+    const solvedIndexes = settings.solvedIndexes || new Set().add(settings.defaultIndex);
 
-    const moveTable = new MoveTable(size, doMove);
-    const pruningTable = new PruningTable(size, moveTable, solvedIndexes);
+    const moveTable = new MoveTable(settings.size, settings.doMove);
+    const pruningTable = new PruningTable(settings.size, moveTable, solvedIndexes);
 
     this.tables.push({
       moveTable,
-      defaultIndex,
+      defaultIndex: settings.defaultIndex,
       solvedIndexes,
       pruningTable,
     });
@@ -28,45 +26,45 @@ class Search {
   addSimpleEdgeOrientationTable(pieces) {
     const EO_SIZE = Math.pow(2, 11);
 
-    this.addTables(
-      EO_SIZE,
-      edgeOrientationMove,
-      0,
-      getCorrectOrientations(EO_SIZE, pieces)
-    );
+    this.addTables({
+      size: EO_SIZE,
+      doMove: edgeOrientationMove,
+      defaultIndex: 0,
+      solvedIndexes: getCorrectOrientations(EO_SIZE, pieces),
+    });
   }
 
   addSimpleCornerOrientationTable(pieces) {
     const CO_SIZE = Math.pow(3, 7);
 
-    this.addTables(
-      CO_SIZE,
-      cornerOrientationMove,
-      0,
-      getCorrectOrientations(CO_SIZE, pieces)
-    );
+    this.addTables({
+      size: CO_SIZE,
+      doMove: cornerOrientationMove,
+      defaultIndex: 0,
+      solvedIndexes: getCorrectOrientations(CO_SIZE, pieces),
+    });
   }
 
   addSimpleEdgePermutationTable(pieces) {
     const size = factorial(12) / factorial(12 - pieces.length);
     const defaultIndex = getIndexFromPermutation([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], pieces);
 
-    this.addTables(
+    this.addTables({
       size,
-      (index, move) => edgePermutationMove(index, move, pieces),
+      doMove: (index, move) => edgePermutationMove(index, move, pieces),
       defaultIndex,
-    );
+    });
   }
 
   addSimpleCornerPermutationTable(pieces) {
     const size = factorial(8) / factorial(8 - pieces.length);
     const defaultIndex = getIndexFromPermutation([0, 1, 2, 3, 4, 5, 6, 7], pieces);
 
-    this.addTables(
+    this.addTables({
       size,
-      (index, move) => cornerPermutationMove(index, move, pieces),
+      doMove: (index, move) => cornerPermutationMove(index, move, pieces),
       defaultIndex,
-    );
+    });
   }
 
   search(indexes, depth, lastMove, solution) {
