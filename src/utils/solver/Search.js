@@ -30,7 +30,7 @@ class Search {
       size: EO_SIZE,
       doMove: edgeOrientationMove,
       defaultIndex: 0,
-      solvedIndexes: getCorrectOrientations(EO_SIZE, pieces),
+      solvedIndexes: pieces.length === 12 ? 0 : getCorrectOrientations(EO_SIZE, pieces),
     });
   }
 
@@ -41,7 +41,7 @@ class Search {
       size: CO_SIZE,
       doMove: cornerOrientationMove,
       defaultIndex: 0,
-      solvedIndexes: getCorrectOrientations(CO_SIZE, pieces),
+      solvedIndexes: pieces.length === 8 ? 0 : getCorrectOrientations(CO_SIZE, pieces),
     });
   }
 
@@ -68,7 +68,7 @@ class Search {
   }
 
   search(indexes, depth, lastMove, solution) {
-    let maximumDistance = -Infinity;
+    let maximumDistance = 0;
 
     for (let i = 0; i < indexes.length; i++) {
       const distance = this.tables[i].pruningTable.getPruningValue(indexes[i]);
