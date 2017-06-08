@@ -1,13 +1,4 @@
 import Search from './Search';
-import { factorial, getCorrectOrientations } from './Tools';
-import MoveTable from './MoveTable';
-import PruningTable from './PruningTable';
-
-import {
-  getIndexFromPermutation,
-  edgeOrientationMove,
-  edgePermutationMove,
-} from './Coordinates';
 
 class CrossSearcher extends Search {
   initialize() {

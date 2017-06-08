@@ -54,6 +54,7 @@ export const formatMoveSequence = moves => {
       case 2:
         sequence += '\'';
         break;
+      default:
     }
   });
 

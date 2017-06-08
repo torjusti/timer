@@ -1,15 +1,4 @@
 import Search from './Search';
-import { factorial, getCorrectOrientations } from './Tools';
-import MoveTable from './MoveTable';
-import PruningTable from './PruningTable';
-
-import {
-  getIndexFromPermutation,
-  edgeOrientationMove,
-  edgePermutationMove,
-  cornerOrientationMove,
-  cornerPermutationMove,
-} from './Coordinates';
 
 class XCrossSearcher extends Search {
   initialize() {

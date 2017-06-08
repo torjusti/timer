@@ -1,13 +1,5 @@
 import Search from './Search';
-import { factorial } from './Tools';
-import MoveTable from './MoveTable';
-import PruningTable from './PruningTable';
-
-import {
-  getIndexFromPermutation,
-  edgeOrientationMove,
-  edgePermutationMove,
-} from './Coordinates';
+import { edgeOrientationMove } from './Coordinates';
 
 class EOLineSearcher extends Search {
   initialize() {
@@ -16,7 +8,7 @@ class EOLineSearcher extends Search {
     this.addTables({
       size: NUM_FLIPS,
       doMove: edgeOrientationMove,
-      defaultIndex: 0, 
+      defaultIndex: 0,
     });
 
     this.addSimpleEdgePermutationTable([5, 7]);

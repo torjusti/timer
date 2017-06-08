@@ -1,7 +1,6 @@
 import React from 'react';
 import ActiveResultList from '../containers/ActiveResultList';
 import styled from 'styled-components';
-import { SidebarHeader } from './Sidebar';
 
 const ResultColumnContainer = styled.div`
   flex-grow: 1;

@@ -117,7 +117,7 @@ export const getIndexFromPermutation = (permutation, affectedPieces) => {
 
   for (let i = 0; i < affectedPieces.length; i++) {
     for (let j = 0; j < permutation.length; j++) {
-      if (permutation[j] == affectedPieces[i]) {
+      if (permutation[j] === affectedPieces[i]) {
         indexes[i] = j;
         break;
       }
@@ -146,7 +146,7 @@ export const getIndexFromPermutation = (permutation, affectedPieces) => {
 // Returns the new orientation index after performing a move.
 export const edgeOrientationMove = (index, move) => {
   let orientation = getEdgeOrientationFromIndex(index);
-  orientation =  doEdgeOrientationMove(orientation, move);
+  orientation = doEdgeOrientationMove(orientation, move);
   return getIndexFromEdgeOrientation(orientation);
 };
 

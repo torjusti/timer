@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import ActiveResultList from '../containers/ActiveResultList';
 import SessionManager from '../containers/SessionManager';
 import StatisticsContainer from '../containers/StatisticsContainer';
 import SolverContainer from '../containers/SolverContainer';
