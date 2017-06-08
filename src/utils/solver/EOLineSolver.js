@@ -3,14 +3,7 @@ import { edgeOrientationMove } from './Coordinates';
 
 class EOLineSearcher extends Search {
   initialize() {
-    const NUM_FLIPS = Math.pow(2, 11);
-
-    this.addTables({
-      size: NUM_FLIPS,
-      doMove: edgeOrientationMove,
-      defaultIndex: 0,
-    });
-
+    this.addSimpleEdgeOrientationTable([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
     this.addSimpleEdgePermutationTable([5, 7]);
   }
 }

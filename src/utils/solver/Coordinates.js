@@ -55,12 +55,12 @@ const getPermutationFromIndex = (index, affectedPieces, size) => {
     permutation.push(-1);
   }
 
-  const indexes = [];
-
   if (affectedPieces.length === 1) {
     permutation[index] = affectedPieces[0];
     return permutation;
   }
+
+  const indexes = [];
 
   const factor = 1 + size - affectedPieces.length;
 
