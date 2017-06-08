@@ -1,5 +1,4 @@
 import Search from './Search';
-import { edgeOrientationMove } from './Coordinates';
 
 class EOLineSearcher extends Search {
   initialize() {
