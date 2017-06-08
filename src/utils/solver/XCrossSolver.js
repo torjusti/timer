@@ -13,9 +13,9 @@ import {
 
 class XCrossSearcher extends Search {
   initialize() {
-    this.addSimpleEdgeOrientationTable([4, 5, 6, 7]);
+    this.addSimpleEdgeOrientationTable([4, 5, 6, 7, 8]);
     this.addSimpleEdgePermutationTable([4, 5]);
-    this.addSimpleEdgePermutationTable([4, 5, 6]);
+    this.addSimpleEdgePermutationTable([6, 7, 8]);
     this.addSimpleCornerOrientationTable([4]);
     this.addSimpleCornerPermutationTable([4]);
   }
