@@ -38,12 +38,9 @@ class PruningTable {
       }
     }
 
-    let depth = 0;
+    let depth = 0, done = solvedIndexes.size;
 
-    let done = 0;
-    let maxdone = 0;
-
-    while (depth !== size) {
+    while (done !== size) {
       for (let index = 0; index < size; index++) {
         if (this.getPruningValue(index) !== depth) {
           continue;
@@ -60,13 +57,6 @@ class PruningTable {
       }
 
       depth++;
-
-      if (done  > maxdone) {
-        maxdone = done;
-
-      } else {
-        console.log('no changes...', done, done + solvedIndexes.size);
-      }
     }
   }
 }
