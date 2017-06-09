@@ -20,6 +20,8 @@ const ScrambleDisplay = styled.div`
 const ScrambleDisplayAlgLink = styled.a`
   color: #FFF;
   text-decoration: none;
+  font-family: monospace;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 
   &:hover {
     text-decoration: underline;
@@ -30,6 +32,8 @@ const ScrambleMenuContainer = styled.div`
   display: flex;
   width: 100%;
   background: #3875e0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  z-index: 1;
   padding: 1em;
 `;
 
