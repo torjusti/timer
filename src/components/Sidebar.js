@@ -29,7 +29,6 @@ const Sidebar = () => (
     <SidebarHeader>Manage sessions</SidebarHeader>
     <SessionManager />
 
-    <SidebarHeader>EOLine Solutions</SidebarHeader>
     <SolverContainer />
 
     <SidebarHeader>Export data</SidebarHeader>

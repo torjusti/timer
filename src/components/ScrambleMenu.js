@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 // All available scramblers.
 const scrambleTypes = ['333', 'lse', 'edges', 'corners', 'cmll', 'lsll', 'zbll',
-  '2gll', 'pll', 'zzls', '333fm', '333ft', '333bf', '333oh', '222', 'clock',
-  'minx', '444', '555', '666', '777', '444bf', '555bf', 'pyram', 'skewb', 'sq1'];
+  '2gll', 'pll', 'zzls', '222', 'clock', 'minx', '444', '555', '666', '777',
+  '444bf', '555bf', 'pyram', 'skewb', 'sq1'];
 
 const ScrambleSelector = styled.select`
   background: rgba(255, 255, 255, 0.8);
