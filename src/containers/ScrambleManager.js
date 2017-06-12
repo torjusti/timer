@@ -3,8 +3,8 @@ import ScrambleMenu from '../components/ScrambleMenu';
 import { selectScrambler } from '../actions/scrambles';
 
 const mapStateToProps = (state) => ({
-  currentScramble: state.currentScramble,
   selectedScrambler: state.selectedScrambler,
+  currentScramble: state.currentScramble,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const ScrambleManager =  connect(
+const ScrambleManager = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(ScrambleMenu);

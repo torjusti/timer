@@ -19,6 +19,7 @@ class Solvers extends React.Component {
       Cross: 'Initializing...',
       XCross: 'Initializing...',
       scramble: '',
+      sentScramble: '',
     };
   }
 
@@ -39,15 +40,29 @@ class Solvers extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.solverWorker.postMessage(JSON.stringify({
+      scramble: this.props.currentScramble,
+    }));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state.sentScramble !== nextProps.scramble) {
+      this.solverWorker.postMessage(JSON.stringify({
+        scramble: nextProps.currentScramble,
+      }));
+
+      this.setState({
+        sentScramble: nextProps.currentScramble,
+      });
+    }
+  }
+
   render() {
     // We only have custom solvers for 3x3 scrambles.
     if (this.props.scrambler !== '333') {
       return null;
     }
-
-    this.solverWorker.postMessage(JSON.stringify({
-      scramble: this.props.currentScramble,
-    }));
 
     return (
       <div>
