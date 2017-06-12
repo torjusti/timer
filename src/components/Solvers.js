@@ -41,7 +41,7 @@ class Solvers extends React.Component {
 
   render() {
     // We only have custom solvers for 3x3 scrambles.
-    if (this.props.selectedScrambler === '333') {
+    if (this.props.scrambler !== '333') {
       return null;
     }
 
