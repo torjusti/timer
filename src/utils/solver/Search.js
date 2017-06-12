@@ -67,7 +67,7 @@ class Search {
     });
   }
 
-  search(indexes, depth, lastMove, solution) {
+  search(indexes, depth, lastMove, solution, validMoves) {
     let maximumDistance = 0;
 
     for (let i = 0; i < indexes.length; i++) {
@@ -89,13 +89,17 @@ class Search {
     for (let move = 0; move < 6; move++) {
       if (move !== lastMove && move !== lastMove - 3) {
         for (let pow = 0; pow < 3; pow++) {
+          if (validMoves && !validMoves.has(move * 3 + pow)) {
+            continue;
+          }
+
           const updatedIndexes = [];
 
           for (let i = 0; i < indexes.length; i++) {
             updatedIndexes.push(this.tables[i].moveTable.doMove(indexes[i], move * 3 + pow));
           }
 
-          const result = this.search(updatedIndexes, depth - 1, move, solution);
+          const result = this.search(updatedIndexes, depth - 1, move, solution, validMoves);
 
           if (result) {
             solution.push(move * 3 + pow);
@@ -108,7 +112,7 @@ class Search {
     return false;
   }
 
-  solve(scramble) {
+  solve(scramble, validMoves) {
     if (!this.initialized) {
       this.initialize();
       this.initialized = true;
@@ -132,7 +136,7 @@ class Search {
 
     // Every cube is solvable with a depth of 20. However, such depths are too slow to ever end up solved.
     for (let depth = 0; depth < 20; depth++) {
-      if (this.search(indexes, depth, -1, solution)) {
+      if (this.search(indexes, depth, -1, solution, validMoves)) {
         break;
       }
     }
