@@ -2,7 +2,7 @@ import { parseScramble, formatMoveSequence } from './Scrambles';
 import MoveTable from './MoveTable';
 import PruningTable from './PruningTable';
 import { getIndexFromPermutation, edgePermutationMove, edgeOrientationMove, cornerOrientationMove, cornerPermutationMove } from './Coordinates';
-import { factorial, getCorrectOrientations } from './Tools';
+import { factorial, getCorrectEdgeOrientations, getCorrectCornerOrientations } from './Tools';
 
 class Search {
   constructor() {
@@ -30,7 +30,7 @@ class Search {
       size: EO_SIZE,
       doMove: edgeOrientationMove,
       defaultIndex: 0,
-      solvedIndexes: pieces.length === 12 ? 0 : getCorrectOrientations(EO_SIZE, pieces),
+      solvedIndexes: pieces.length === 12 ? 0 : getCorrectEdgeOrientations(EO_SIZE, pieces),
     });
   }
 
@@ -41,7 +41,7 @@ class Search {
       size: CO_SIZE,
       doMove: cornerOrientationMove,
       defaultIndex: 0,
-      solvedIndexes: pieces.length === 8 ? 0 : getCorrectOrientations(CO_SIZE, pieces),
+      solvedIndexes: pieces.length === 8 ? 0 : getCorrectCornerOrientations(CO_SIZE, pieces),
     });
   }
 

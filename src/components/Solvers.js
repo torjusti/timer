@@ -18,6 +18,7 @@ class Solvers extends React.Component {
       EOLine: 'Initializing...',
       Cross: 'Initializing...',
       XCross: 'Initializing...',
+      FirstBlock: 'Initializing...',
       scramble: '',
       sentScramble: '',
     };
@@ -34,6 +35,7 @@ class Solvers extends React.Component {
           EOLine: result.EOLine,
           Cross: result.Cross,
           XCross: result.XCross,
+          FirstBlock: result.FirstBlock,
           scramble: result.scramble,
         });
       }
@@ -71,6 +73,7 @@ class Solvers extends React.Component {
           <li><SolverTitle>EOLine:</SolverTitle> {this.state.EOLine}</li>
           <li><SolverTitle>Cross:</SolverTitle> {this.state.Cross}</li>
           <li><SolverTitle>XCross:</SolverTitle> {this.state.XCross}</li>
+          <li><SolverTitle>FirstBlock:</SolverTitle> {this.state.FirstBlock}</li>
         </ul>
       </div>
     );
