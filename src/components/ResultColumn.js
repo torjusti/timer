@@ -8,6 +8,7 @@ const ResultColumnContainer = styled.div`
   width: 100%;
   background: #EFEFEF;
   padding: 1em;
+  border-right: 1px solid #E9E9E9;
 
   @media (min-width: 1200px) {
     width: 20%;

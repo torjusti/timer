@@ -57,7 +57,7 @@ export const selectedSession = (state = defaultSession.id, action, sessions) => 
       return sessions[sessions.length - 1].id;
 
     case 'DELETE_SESSION':
-      return state - 1;
+      return sessions[sessions.length - 1].id;
 
     default:
       return state;

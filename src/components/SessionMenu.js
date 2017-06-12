@@ -1,4 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const SelectSessionMenu = styled.select`
+  width: 100%;
+`;
+
+const SessionName = styled.input`
+  width: 100%;
+  margin-top: .3em;
+`;
+
+const SessionButton = styled.button`
+  margin: .3em .3em 0 0;
+`;
 
 class SessionMenu extends React.Component {
   constructor() {
@@ -7,14 +21,6 @@ class SessionMenu extends React.Component {
     this.state = {
       sessionName: '',
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSessionCreation = this.handleSessionCreation.bind(this);
-    this.handleSessionNameChange = this.handleSessionNameChange.bind(this);
-    this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.handleSessionDeletion = this.handleSessionDeletion.bind(this);
-    this.handleSessionClear = this.handleSessionClear.bind(this);
-    this.handleSessionRename = this.handleSessionRename.bind(this);
   }
 
   handleChange(event) {
@@ -29,7 +35,7 @@ class SessionMenu extends React.Component {
 
   handleSessionRename() {
     if (this.state.sessionName) {
-      this.props.onSessionRenamed(this.props.selectedSession, this.state.sessionName)
+      this.props.onSessionRenamed(this.props.selectedSession, this.state.sessionName);
 
       this.setState({
         sessionName: '',
@@ -68,15 +74,21 @@ class SessionMenu extends React.Component {
   render() {
     return (
       <div id="SessionMenu">
-        <select value={this.props.selectedSession} onChange={this.handleChange}>
+        <SelectSessionMenu value={this.props.selectedSession} onChange={(e) => this.handleChange(e)}>
           {this.props.sessions.map((session) => <option value={session.id} key={session.id}>{session.name}</option>)}
-        </select>
+        </SelectSessionMenu>
 
-        <input type="text" onChange={this.handleSessionNameChange} value={this.state.sessionName} onKeyUp={this.handleKeyUp} />
-        <button onClick={this.handleSessionCreation}>Create session</button>
-        <button onClick={this.handleSessionDeletion}>Delete current session</button>
-        <button onClick={this.handleSessionClear}>Clear current session</button>
-        <button onClick={this.handleSessionRename}>Rename current session</button>
+        <SessionName
+          type="text"
+          onChange={(e) => this.handleSessionNameChange(e)}
+          value={this.state.sessionName}
+          onKeyUp={(e) => this.handleKeyUp(e)}
+        />
+
+        <SessionButton onClick={() => this.handleSessionCreation()}><i className="fa fa-plus" aria-hidden="true"></i></SessionButton>
+        <SessionButton onClick={() => this.handleSessionDeletion()}><i className="fa fa-trash-o" aria-hidden="true"></i></SessionButton>
+        <SessionButton onClick={() => this.handleSessionClear()}><i className="fa fa-square-o" aria-hidden="true"></i></SessionButton>
+        <SessionButton onClick={() => this.handleSessionRename()}><i className="fa fa-pencil" aria-hidden="true"></i></SessionButton>
       </div>
     );
   }

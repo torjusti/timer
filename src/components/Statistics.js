@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { average, mean } from '../utils/statistics';
 import { formatElapsedTime } from '../utils/time';
 import { isDNF, fastestCubingAverage, cubingAverage, timesFromResults } from '../utils/cubingStatistics';
@@ -24,6 +25,10 @@ const calculateStatistics = (results) => {
   };
 };
 
+const StatList = styled.ul`
+  margin: 0;
+`;
+
 const Statistics = ({ results }) => {
   const stats = calculateStatistics(results);
 
@@ -42,7 +47,7 @@ const Statistics = ({ results }) => {
 
   return (
     <div className="Statistics">
-      <ul>
+      <StatList>
         <li>Number of times: {results.length}</li>
         <li>Global mean: {globalMean}</li>
         <li>Global average: {globalAverage}</li>
@@ -50,7 +55,7 @@ const Statistics = ({ results }) => {
         <li>Best ao12: {bestAo12}</li>
         <li>Current ao5: {curAo5}</li>
         <li>Current ao12: {curAo12}</li>
-      </ul>
+      </StatList>
     </div>
   );
 };

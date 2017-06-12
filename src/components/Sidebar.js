@@ -11,14 +11,20 @@ const SidebarContainer = styled.div`
   flex-grow: 1;
   min-height: 100%;
   padding: 1em;
+  border-left: 1px solid #E9E9E9;
 
   @media (min-width: 1200px) {
     width: 20%;
   }
+
+  > h2:first-child {
+    margin-top: 0;
+  }
 `;
 
 export const SidebarHeader = styled.h2`
-  margin: 0 0 1em 0;
+  margin: .5em 0 .5em 0;
+  font-family: Roboto, sans-serif;
 `;
 
 const Sidebar = () => (

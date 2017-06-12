@@ -11,6 +11,8 @@ const timerApp = (state = {}, action) => {
   updatedState.currentScramble = currentScramble(state.currentScramble, action, updatedState.selectedScrambler);
 
   switch (action.type) {
+    case "DELETE_SESSION":
+    
     case "CREATE_SESSION":
       updatedState.selectedSession = selectedSession(state.selectedSession, action, updatedState.sessions);
       break;

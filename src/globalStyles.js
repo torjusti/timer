@@ -14,5 +14,6 @@ injectGlobal`
 
   body {
     font-size: 1em;
+    font-family: Open Sans, sans-serif;
   }
 `;
