@@ -48,11 +48,11 @@ export const getEdgeOrientationFromIndex = (index) => getOrientationFromIndex(in
 
 // Retrieves the unique permutation of the affected pieces in a list of given length corresponding to the given index.
 const getPermutationFromIndex = (index, affectedPieces, size) => {
-  const permutation = [];
+  const permutation = new Array(size);
 
   // Invalidate all pieces.
   for (let i = 0; i < size; i++) {
-    permutation.push(-1);
+    permutation[i] = -1;
   }
 
   if (affectedPieces.length === 1) {
@@ -60,7 +60,7 @@ const getPermutationFromIndex = (index, affectedPieces, size) => {
     return permutation;
   }
 
-  const indexes = [];
+  const indexes = new Array(affectedPieces.length);
 
   const factor = 1 + size - affectedPieces.length;
 
@@ -76,24 +76,20 @@ const getPermutationFromIndex = (index, affectedPieces, size) => {
     const value = ~~(index / base);
     const rest = index % base;
 
-    indexes.push(value);
-
-    if (i === affectedPieces.length - 2) {
-      indexes.push(rest);
-    }
+    indexes[i] = value;
+    
+    indexes[i + 1] = rest;
 
     index -= index - rest;
   }
 
-  for (let i = 0; i < indexes.length - 1; i++) {
+  for (let i = 0; i < indexes.length; i++) {
     for (let j = i + 1; j < indexes.length; j++) {
       if (indexes[i] >= indexes[j]) {
         indexes[i] += 1;
       }
     }
-  }
 
-  for (let i = 0; i < affectedPieces.length; i++) {
     permutation[indexes[i]] = affectedPieces[i];
   }
 
