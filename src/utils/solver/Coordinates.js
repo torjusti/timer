@@ -82,7 +82,7 @@ const getPermutationFromIndex = (index, affectedPieces, size) => {
       indexes.push(rest);
     }
 
-    index -= base * value;
+    index -= index - rest;
   }
 
   for (let i = 0; i < indexes.length - 1; i++) {
