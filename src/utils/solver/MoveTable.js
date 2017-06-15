@@ -21,14 +21,7 @@ class MoveTable {
           this.table[i][move] = result;
 
           const pow = move % 3;
-
-          let inverse = move - pow;
-
-          if (pow === 0) {
-            inverse += 2;
-          } else if (pow === 1) {
-            inverse += 1;
-          }
+          const inverse = move - 2 * pow + 2;
 
           this.table[result][inverse] = i;
         }
