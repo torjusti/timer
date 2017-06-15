@@ -1,6 +1,8 @@
+import { cartesian } from './Tools';
+
 class PruningTable {
-  constructor(size, moveTable, solvedIndexes) {
-    this.computePruningTable(size, moveTable, solvedIndexes);
+  constructor(moveTables) {
+    this.computePruningTable(moveTables);
   }
 
   setPruningValue(index, value) {
@@ -19,7 +21,9 @@ class PruningTable {
     }
   }
 
-  computePruningTable(size, moveTable, solvedIndexes) {
+  computePruningTable(moveTables) {
+    let size = moveTables.reduce((acc, obj) => acc * obj.moveTable.getSize(), 1);
+
     let tableSize = ~~(size / 2);
 
     if (tableSize % 2 !== 0) {
@@ -32,13 +36,26 @@ class PruningTable {
       this.table.push(-1);
     }
 
-    if (solvedIndexes) {
-      for (let index of solvedIndexes) {
-        this.setPruningValue(index, 0);
-      }
+    let depth = 0, done = 0;
+
+    const powers = [1];
+
+    for (let i = 1; i < moveTables.length; i++) {
+      powers.push(moveTables[i - 1].moveTable.getSize() * powers[i - 1]);
     }
 
-    let depth = 0, done = solvedIndexes.size;
+    const permutations = cartesian(moveTables.map(data => data.solvedIndexes));
+
+    for (let i = 0; i < permutations.length; i++) {
+      let index = 0;
+
+      for (let j = 0; j < permutations[i].length; j++) {
+        index += powers[j] * permutations[i][j];
+      }
+
+      this.setPruningValue(index, 0);
+      done += 1;
+    }
 
     while (done !== size) {
       for (let index = 0; index < size; index++) {
@@ -47,16 +64,35 @@ class PruningTable {
         }
 
         for (let move = 0; move < 18; move++) {
-          let position = moveTable.doMove(index, move);
+          const indexes = [];
+
+          let currentIndex = index;
+
+          for (let i = powers.length - 1; i >= 0; i--) {
+            indexes.unshift(~~(currentIndex / powers[i]));
+            currentIndex = currentIndex % powers[i];
+          }
+
+          const updatedIndexes = [];
+
+          for (let i = 0; i < indexes.length; i++) {
+            updatedIndexes.push(moveTables[i].moveTable.doMove(indexes[i], move));
+          }
+
+          let position = 0;
+
+          for (let i = 0; i < updatedIndexes.length; i++) {
+            position += powers[i] * updatedIndexes[i];
+          }
 
           if (this.getPruningValue(position) === 0x0f) {
             this.setPruningValue(position, depth + 1);
-            done++;
+            done += 1;
           }
         }
       }
 
-      depth++;
+      depth += 1;
     }
   }
 }

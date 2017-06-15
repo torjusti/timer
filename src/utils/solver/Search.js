@@ -6,72 +6,107 @@ import { factorial, getCorrectEdgeOrientations, getCorrectCornerOrientations } f
 
 class Search {
   constructor() {
-    this.tables = [];
+    this.moveTables = [];
+
+    this.pruningTables = [];
   }
 
-  addTables(settings) {
-    const solvedIndexes = settings.solvedIndexes || new Set().add(settings.defaultIndex);
+  addPruningTable(moveTableIndexes) {
+    // We need the size of the tables to be sorted, as we encode indexes in different
+    // bases when working with composite tables.
+    moveTableIndexes.sort((a, b) => this.moveTables[a].moveTable.getSize() - this.moveTables[b].moveTable.getSize());
 
-    const moveTable = new MoveTable(settings.size, settings.doMove);
-    const pruningTable = new PruningTable(settings.size, moveTable, solvedIndexes);
+    const moveTables = [];
 
-    this.tables.push({
-      moveTable,
-      defaultIndex: settings.defaultIndex,
-      solvedIndexes,
+    moveTableIndexes.forEach(i => moveTables.push(this.moveTables[i]));
+
+    const pruningTable = new PruningTable(moveTables);
+
+    this.pruningTables.push({
       pruningTable,
+      moveTableIndexes,
     });
   }
 
-  addSimpleEdgeOrientationTable(pieces) {
+  addTables(settings, noPruningTable) {
+    const solvedIndexes = settings.solvedIndexes || [settings.defaultIndex];
+
+    const moveTable = new MoveTable(settings.size, settings.doMove);
+
+    this.moveTables.push({
+      moveTable,
+      defaultIndex: settings.defaultIndex,
+      solvedIndexes,
+    });
+
+    if (noPruningTable) {
+      return this.moveTables.length - 1;
+    }
+
+    this.addPruningTable([this.moveTables.length - 1]);
+  }
+
+  addSimpleEdgeOrientationTable(pieces, noPruningTable) {
     const EO_SIZE = Math.pow(2, 11);
 
-    this.addTables({
+    return this.addTables({
       size: EO_SIZE,
       doMove: edgeOrientationMove,
       defaultIndex: 0,
       solvedIndexes: pieces.length === 12 ? 0 : getCorrectEdgeOrientations(EO_SIZE, pieces),
-    });
+    }, noPruningTable);
   }
 
-  addSimpleCornerOrientationTable(pieces) {
+  addSimpleCornerOrientationTable(pieces, noPruningTable) {
     const CO_SIZE = Math.pow(3, 7);
 
-    this.addTables({
+    return this.addTables({
       size: CO_SIZE,
       doMove: cornerOrientationMove,
       defaultIndex: 0,
       solvedIndexes: pieces.length === 8 ? 0 : getCorrectCornerOrientations(CO_SIZE, pieces),
-    });
+    }, noPruningTable);
   }
 
-  addSimpleEdgePermutationTable(pieces) {
+  addSimpleEdgePermutationTable(pieces, noPruningTable) {
     const size = factorial(12) / factorial(12 - pieces.length);
     const defaultIndex = getIndexFromPermutation([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], pieces);
 
-    this.addTables({
+    return this.addTables({
       size,
       doMove: (index, move) => edgePermutationMove(index, move, pieces),
       defaultIndex,
-    });
+    }, noPruningTable);
   }
 
-  addSimpleCornerPermutationTable(pieces) {
+  addSimpleCornerPermutationTable(pieces, noPruningTable) {
     const size = factorial(8) / factorial(8 - pieces.length);
     const defaultIndex = getIndexFromPermutation([0, 1, 2, 3, 4, 5, 6, 7], pieces);
 
-    this.addTables({
+    return this.addTables({
       size,
       doMove: (index, move) => cornerPermutationMove(index, move, pieces),
       defaultIndex,
-    });
+    }, noPruningTable);
   }
 
   search(indexes, depth, lastMove, solution) {
     let maximumDistance = 0;
 
-    for (let i = 0; i < indexes.length; i++) {
-      const distance = this.tables[i].pruningTable.getPruningValue(indexes[i]);
+    for (let i = 0; i < this.pruningTables.length; i++) {
+      const powers = [1];
+
+      for (let j = 1; j < this.pruningTables[i].moveTableIndexes.length; j++) {
+        powers.push(this.moveTables[this.pruningTables[i].moveTableIndexes[j - 1]].moveTable.getSize() * powers[j - 1]);
+      }
+
+      let index = 0;
+
+      for (let j = 0; j < this.pruningTables[i].moveTableIndexes.length; j++) {
+        index += indexes[this.pruningTables[i].moveTableIndexes[j]] * powers[j];
+      }
+
+      const distance = this.pruningTables[i].pruningTable.getPruningValue(index);
 
       if (distance > depth) {
         return false;
@@ -92,7 +127,7 @@ class Search {
           const updatedIndexes = [];
 
           for (let i = 0; i < indexes.length; i++) {
-            updatedIndexes.push(this.tables[i].moveTable.doMove(indexes[i], move * 3 + pow));
+            updatedIndexes.push(this.moveTables[i].moveTable.doMove(indexes[i], move * 3 + pow));
           }
 
           const result = this.search(updatedIndexes, depth - 1, move, solution);
@@ -118,13 +153,13 @@ class Search {
 
     const indexes = [];
 
-    for (let i = 0; i < this.tables.length; i++) {
-      indexes.push(this.tables[i].defaultIndex);
+    for (let i = 0; i < this.moveTables.length; i++) {
+      indexes.push(this.moveTables[i].defaultIndex);
     }
 
     moves.forEach(move => {
       for (let i = 0; i < indexes.length; i++) {
-        indexes[i] = this.tables[i].moveTable.doMove(indexes[i], move);
+        indexes[i] = this.moveTables[i].moveTable.doMove(indexes[i], move);
       }
     });
 

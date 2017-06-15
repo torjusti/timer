@@ -1,5 +1,4 @@
-import CrossSolver from './solver/CrossSolver';
-import XCrossSolver from './solver/XCrossSolver';
+import { CrossSolver, XCrossSolver } from './solver/CrossSolver';
 import EOLineSolver from './solver/EOLineSolver';
 import FirstBlockSolver from './solver/FirstBlockSolver';
 

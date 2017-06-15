@@ -39,6 +39,10 @@ class MoveTable {
   doMove(index, move) {
     return this.table[index][move];
   }
+
+  getSize() {
+    return this.table.length;
+  }
 }
 
 export default MoveTable;
