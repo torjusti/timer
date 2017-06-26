@@ -74,13 +74,15 @@ const getPermutationFromIndex = (index, affectedPieces, size) => {
     base /= factor + i;
 
     const value = ~~(index / base);
+
     const rest = index % base;
 
     indexes[i] = value;
-    
+
+    // If this is the last index, the value is simply the rest.
     indexes[i + 1] = rest;
 
-    index -= index - rest;
+    index = rest;
   }
 
   for (let i = 0; i < indexes.length; i++) {
