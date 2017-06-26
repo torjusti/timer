@@ -36,7 +36,7 @@ const cornerOrientationMoves = [
 // This helps us compute the result cube after a move is applied, as
 // all moves permute pieces to the right by one in a circular fashion.
 const rotateRight = (edges, elems) => {
-  const updatedPieces = edges.slice();
+  const updatedPieces = edges.slice(0);
 
   updatedPieces[elems[0]] = edges[elems[elems.length - 1]];
 
@@ -84,7 +84,7 @@ export const cornerPermutationMove = (pieces, moveIndex) => {
   const pow = moveIndex % 3;
 
   for (let i = 0; i <= pow; i++) {
-    const round = pieces.slice();
+    const round = pieces.slice(0);
 
     for (let j = 0; j < 8; j++) {
       pieces[j] = round[move[j]];
@@ -100,7 +100,7 @@ export const cornerOrientationMove = (pieces, moveIndex) => {
   const pow = moveIndex % 3;
 
   for (let i = 0; i <= pow; i++) {
-    const round = pieces.slice();
+    const round = pieces.slice(0);
 
     for (let j = 0; j < 8; j++) {
       const from = cornerPermutationMoves[move][j];

@@ -10,19 +10,25 @@ export const factorial = n => {
 
 // Cartesian product.
 export const cartesian = arg => {
-  var r = [], max = arg.length-1;
-   function helper(arr, i) {
-       for (var j=0, l=arg[i].length; j<l; j++) {
-           var a = arr.slice(0); // clone arr
-           a.push(arg[i][j]);
-           if (i==max)
-               r.push(a);
-           else
-               helper(a, i+1);
-       }
-   }
-   helper([], 0);
-   return r;
+  const result = [], max = arg.length - 1;
+
+  const helper = (arr, i) => {
+    for (let j = 0; j < arg[i].length; j++) {
+      const copy = arr.slice(0);
+
+      copy.push(arg[i][j]);
+
+      if (i === max) {
+        result.push(copy);
+      } else {
+        helper(copy, i + 1);
+      }
+    }
+  };
+
+  helper([], 0);
+
+  return result;
 };
 
 // Returns all indexes in the given space where all given
