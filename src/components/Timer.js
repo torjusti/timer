@@ -112,6 +112,10 @@ class Timer extends React.Component {
   }
 
   handleKeyDown(event) {
+    if (event.keyCode === 32 && event.target === document.body) {
+      event.preventDefault();
+    }
+
     if (this.state.timerState === 'RUNNING') {
       this.finishAttempt();
     } else if (this.state.timerState === 'NORMAL' && event.keyCode === 32 && !this.state.spaceHoldStarted) {
