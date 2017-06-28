@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 import { Router, Route, browserHistory } from 'react-router'
 import timerApp from './reducers';
 import App from './components/App';
+import SettingsContainer from './containers/SettingsContainer';
 import BigResultContainer from './containers/BigResultContainer';
 import './globalStyles.js';
 
@@ -20,7 +21,8 @@ const Root = () => (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App} />
-      <Route path="result/:id" component={BigResultContainer} />
+      <Route path="/settings" component={SettingsContainer} />
+      <Route path="/result/:id" component={BigResultContainer} />
     </Router>
   </Provider>
 );

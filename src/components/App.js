@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
+import colors from './colors';
 import ResultManager from '../containers/ResultManager';
 import ScrambleManager from '../containers/ScrambleManager';
 import Sidebar from './Sidebar';
@@ -17,12 +18,14 @@ const Container = styled.div`
 `;
 
 export default () => (
-  <App>
-    <ScrambleManager />
-    <Container>
-      <ResultColumn />
-      <ResultManager />
-      <Sidebar />
-    </Container>
-  </App>
+  <ThemeProvider theme={colors}>
+    <App>
+      <ScrambleManager />
+      <Container>
+        <ResultColumn />
+        <ResultManager />
+        <Sidebar />
+      </Container>
+    </App>
+  </ThemeProvider>
 );

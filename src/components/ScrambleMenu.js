@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router';
 import styled from 'styled-components';
+import theme from './theme';
 
 // All available scramblers.
 const scrambleTypes = ['333', 'lse', 'edges', 'corners', 'cmll', 'lsll', 'zbll',
@@ -31,10 +33,21 @@ const ScrambleDisplayAlgLink = styled.a`
 const ScrambleMenuContainer = styled.div`
   display: flex;
   width: 100%;
-  background: #3875e0;
+  background: ${theme.header};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   z-index: 1;
   padding: 1em;
+`;
+
+const SettingsButton = styled(Link)`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  color: #FFF;
+  background: ${theme.header.darken(0.1)};
+  padding: 0 .8em;
+  text-decoration: none;
 `;
 
 const ScrambleMenu = ({ currentScramble, selectedScrambler, onScramblerChange }) => (
@@ -50,6 +63,10 @@ const ScrambleMenu = ({ currentScramble, selectedScrambler, onScramblerChange })
         {currentScramble}
       </ScrambleDisplayAlgLink>
     </ScrambleDisplay>
+
+    <SettingsButton to="/settings">
+      <i className="fa fa-cog" aria-hidden="true"></i>
+  </SettingsButton>
   </ScrambleMenuContainer>
 );
 

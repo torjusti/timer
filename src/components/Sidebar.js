@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import SessionManager from '../containers/SessionManager';
 import StatisticsContainer from '../containers/StatisticsContainer';
 import SolverContainer from '../containers/SolverContainer';
-import ExportDataButton from '../containers/ExportDataButton';
 
 const SidebarContainer = styled.div`
   background: #EFEFEF;
@@ -36,9 +35,6 @@ const Sidebar = () => (
     <SessionManager />
 
     <SolverContainer />
-
-    <SidebarHeader>Export data</SidebarHeader>
-    <ExportDataButton />
   </SidebarContainer>
 );
 
