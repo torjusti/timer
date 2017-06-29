@@ -1,11 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SidebarHeader } from './Sidebar';
 
 const SolverWorker = require('worker!../utils/solvers.worker.js'); // eslint-disable-line
 
 const SolverTitle = styled.span`
-  font-style: italic;
+
+`;
+
+const SolverList = styled.ul`
+  padding: 0;
+  list-style-position: inside;
+  list-style: none;
+  font-family: monospace;
+`;
+
+const Solution = styled.span`
+  font-family: monospace;
 `;
 
 class Solvers extends React.Component {
@@ -67,15 +77,12 @@ class Solvers extends React.Component {
     }
 
     return (
-      <div>
-        <SidebarHeader>Solutions</SidebarHeader>
-        <ul>
-          <li><SolverTitle>EOLine:</SolverTitle> {this.state.EOLine}</li>
-          <li><SolverTitle>Cross:</SolverTitle> {this.state.Cross}</li>
-          <li><SolverTitle>XCross:</SolverTitle> {this.state.XCross}</li>
-          <li><SolverTitle>FirstBlock:</SolverTitle> {this.state.FirstBlock}</li>
-        </ul>
-      </div>
+      <SolverList>
+        <li><SolverTitle>EOLine:</SolverTitle> <Solution>{this.state.EOLine}</Solution></li>
+        <li><SolverTitle>Cross:</SolverTitle> <Solution>{this.state.Cross}</Solution></li>
+        <li><SolverTitle>XCross:</SolverTitle> <Solution>{this.state.XCross}</Solution></li>
+        <li><SolverTitle>FB:</SolverTitle> <Solution>{this.state.FirstBlock}</Solution></li>
+      </SolverList>
     );
   }
 }

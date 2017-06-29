@@ -3,17 +3,18 @@ import styled from 'styled-components';
 import SessionManager from '../containers/SessionManager';
 import StatisticsContainer from '../containers/StatisticsContainer';
 import SolverContainer from '../containers/SolverContainer';
+import theme from './theme';
 
 const SidebarContainer = styled.div`
-  background: #EFEFEF;
+  background: ${theme.sidebar};
   text-shadow: 0 1 0 #000;
   flex-grow: 1;
   min-height: 100%;
   padding: 1em;
-  border-left: 1px solid #E9E9E9;
+  border-left: 1px solid ${theme.sidebarBorder};
 
   @media (min-width: 1200px) {
-    width: 20%;
+    width: 23%;
   }
 
   > h2:first-child {

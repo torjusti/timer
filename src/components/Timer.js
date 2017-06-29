@@ -3,16 +3,10 @@ import { formatElapsedTime } from '../utils/time';
 import styled from 'styled-components';
 
 const TimerDisplay =  styled.div`
+  width: 100%;
   font-family: monospace;
   font-size: 15rem;
   text-align: center;
-  width: 100%;
-  flex-grow: 1;
-  min-height: 100%;
-
-  @media (min-width: 1200px) {
-    width: 60%;
-  }
 
   &.HOLDING {
     color: red;

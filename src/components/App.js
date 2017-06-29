@@ -17,13 +17,26 @@ const Container = styled.div`
   flex: 1;
 `;
 
+const Main = styled.main`
+  display: flex;
+  flex-wrap: wrap;
+
+  min-height: 100%;
+
+  @media (min-width: 1200px) {
+    width: 60%;
+  }
+`;
+
 export default () => (
   <ThemeProvider theme={colors}>
     <App>
       <ScrambleManager />
       <Container>
         <ResultColumn />
-        <ResultManager />
+        <Main>
+          <ResultManager />
+        </Main>
         <Sidebar />
       </Container>
     </App>
