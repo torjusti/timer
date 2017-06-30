@@ -12,7 +12,9 @@ const timerApp = (state = {}, action) => {
 
   switch (action.type) {
     case "DELETE_SESSION":
-    
+      updatedState.selectedSession = selectedSession(state.selectedSession, action, updatedState.sessions);
+      break;
+
     case "CREATE_SESSION":
       updatedState.selectedSession = selectedSession(state.selectedSession, action, updatedState.sessions);
       break;
