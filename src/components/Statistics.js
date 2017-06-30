@@ -8,6 +8,8 @@ const calculateStatistics = (results) => {
   const times = timesFromResults(results);
 
   return {
+    // Best single in the entire session.
+    bestSingle: Math.min(...times),
     // Mean ignoring DNF results.
     globalMean: times.length ? mean(times) : null,
     // Average ignoring DNF results.
@@ -40,6 +42,7 @@ const Statistics = ({ results }) => {
     stats.globalDNF ? `DNF (${formatElapsedTime(stats.globalAverage, 2)})` : formatElapsedTime(stats.globalAverage, 2) :
     'N/A';
 
+  const bestSingle = stats.bestSingle ? formatElapsedTime(stats.bestSingle, 2) : 'N/A';
   const bestAo5 = stats.bestAo5 ? formatElapsedTime(stats.bestAo5, 2) : 'N/A';
   const bestAo12 = stats.bestAo12 ? formatElapsedTime(stats.bestAo12, 2) : 'N/A';
   const curAo5 = stats.curAo5 ? formatElapsedTime(stats.curAo5, 2) : 'N/A';
@@ -49,6 +52,7 @@ const Statistics = ({ results }) => {
     <div className="Statistics">
       <StatList>
         <li>Number of times: {results.length}</li>
+        <li>Best single: {bestSingle}</li>
         <li>Global mean: {globalMean}</li>
         <li>Global average: {globalAverage}</li>
         <li>Best ao5: {bestAo5}</li>
