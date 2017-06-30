@@ -24,6 +24,10 @@ const calculateStatistics = (results) => {
     curAo5: results.length >= 5 ? cubingAverage(results.slice(-5)) : null,
     // Current average of 12.
     curAo12: results.length >= 12 ? cubingAverage(results.slice(-12)) : null,
+    // Current average of 100.
+    curAo100: results.length >= 100 ? cubingAverage(results.slice(-100)) : null,
+    // Best average of 100.
+    bestAo100: fastestCubingAverage(results, 100),
   };
 };
 
@@ -47,6 +51,8 @@ const Statistics = ({ results }) => {
   const bestAo12 = stats.bestAo12 ? formatElapsedTime(stats.bestAo12, 2) : 'N/A';
   const curAo5 = stats.curAo5 ? formatElapsedTime(stats.curAo5, 2) : 'N/A';
   const curAo12 = stats.curAo12 ? formatElapsedTime(stats.curAo12, 2) : 'N/A';
+  const curAo100 = stats.curAo100 ? formatElapsedTime(stats.curAo100, 2) : 'N/A';
+  const bestAo100 = stats.bestAo100 ? formatElapsedTime(stats.curAo100, 2) : 'N/A';
 
   return (
     <div className="Statistics">
@@ -59,6 +65,8 @@ const Statistics = ({ results }) => {
         <li>Best ao12: {bestAo12}</li>
         <li>Current ao5: {curAo5}</li>
         <li>Current ao12: {curAo12}</li>
+        <li>Current ao100: {curAo100}</li>
+        <li>Best ao100: {bestAo100}</li>
       </StatList>
     </div>
   );
