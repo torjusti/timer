@@ -69,10 +69,9 @@ export const edgeOrientationMove = (pieces, moveIndex) => {
 
   // F and B moves affect the orientation, but only if it is only a single slice move in either direction.
   if ((moveNumber === 0 || moveNumber === 3) && pow % 2 === 0) {
-    updatedPieces[move[0]] = (updatedPieces[move[0]] + 1) % 2;
-    updatedPieces[move[1]] = (updatedPieces[move[1]] + 1) % 2;
-    updatedPieces[move[2]] = (updatedPieces[move[2]] + 1) % 2;
-    updatedPieces[move[3]] = (updatedPieces[move[3]] + 1) % 2;
+    for (let i = 0; i < 4; i++) {
+      updatedPieces[move[i]] = (updatedPieces[move[i]] + 1) % 2;
+    }
   }
 
   return updatedPieces;
