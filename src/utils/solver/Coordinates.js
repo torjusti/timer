@@ -55,35 +55,24 @@ const getPermutationFromIndex = (index, affectedPieces, size) => {
     permutation[i] = -1;
   }
 
-  if (affectedPieces.length === 1) {
-    permutation[index] = affectedPieces[0];
-    return permutation;
-  }
-
   const indexes = new Array(affectedPieces.length);
 
   const factor = 1 + size - affectedPieces.length;
 
   let base = size;
 
-  for (let i = affectedPieces.length - 2; i >= 0; i--) {
+  for (let i = 0; i < affectedPieces.length - 1; i++) {
     base *= factor + i;
   }
 
   for (let i = 0; i < affectedPieces.length - 1; i++) {
     base /= factor + i;
-
     const value = ~~(index / base);
-
-    const rest = index % base;
-
+    index = index % base;
     indexes[i] = value;
-
-    // If this is the last index, the value is simply the rest.
-    indexes[i + 1] = rest;
-
-    index = rest;
   }
+
+  indexes[indexes.length - 1] = index;
 
   for (let i = 0; i < indexes.length; i++) {
     for (let j = i + 1; j < indexes.length; j++) {
@@ -107,10 +96,6 @@ export const getCornerPermutationFromIndex = (index, affectedPieces) => getPermu
 // number in the range from 0 up but not unto the number of ways the affected pieces
 // may be permuted in a list of the given length. The function is identical for both edges and corners.
 export const getIndexFromPermutation = (permutation, affectedPieces) => {
-  if (affectedPieces.length === 1) {
-    return permutation.indexOf(affectedPieces[0]);
-  }
-
   const indexes = [];
 
   for (let i = 0; i < affectedPieces.length; i++) {
@@ -124,7 +109,7 @@ export const getIndexFromPermutation = (permutation, affectedPieces) => {
 
   let base = permutation.length;
 
-  let previous = indexes[indexes.length - 1];
+  let index = indexes[indexes.length - 1];
 
   for (let i = indexes.length - 2; i >= 0; i--) {
     for (let j = indexes.length - 1; j > i; j--) {
@@ -133,12 +118,12 @@ export const getIndexFromPermutation = (permutation, affectedPieces) => {
       }
     }
 
-    previous += base * indexes[i];
+    index += base * indexes[i];
 
     base *= 1 + permutation.length - indexes.length + i;
   }
 
-  return previous;
+  return index;
 };
 
 // Returns the new orientation index after performing a move.
