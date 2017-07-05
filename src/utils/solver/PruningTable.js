@@ -24,11 +24,7 @@ class PruningTable {
   computePruningTable(moveTables) {
     let size = moveTables.reduce((acc, obj) => acc * obj.moveTable.getSize(), 1);
 
-    let tableSize = ~~(size / 2);
-
-    if (tableSize % 2 !== 0) {
-      tableSize += 1;
-    }
+    let tableSize = Math.ceil(size / 4) * 2;
 
     this.table = [];
 
@@ -64,13 +60,19 @@ class PruningTable {
         }
 
         for (let move = 0; move < 18; move++) {
-          const updatedIndexes = [];
+          const indexes = [];
 
           let currentIndex = index;
 
           for (let i = powers.length - 1; i >= 0; i--) {
-            updatedIndexes.unshift(moveTables[i].moveTable.doMove(~~(currentIndex / powers[i]), move));
+            indexes.unshift(~~(currentIndex / powers[i]));
             currentIndex = currentIndex % powers[i];
+          }
+
+          const updatedIndexes = [];
+
+          for (let i = 0; i < indexes.length; i++) {
+            updatedIndexes.push(moveTables[i].moveTable.doMove(indexes[i], move));
           }
 
           let position = 0;
