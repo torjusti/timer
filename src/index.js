@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger'
 import { Router, Route, browserHistory } from 'react-router'
 import timerApp from './reducers';
 import App from './components/App';
@@ -11,7 +12,11 @@ import './globalStyles.js';
 
 const initialState = localStorage.state ? JSON.parse(localStorage.state) : undefined;
 
-let store = createStore(timerApp, initialState);
+let store = createStore(
+  timerApp,
+  initialState,
+  applyMiddleware(logger)
+);
 
 store.subscribe(() => {
   localStorage.setItem('state', JSON.stringify(store.getState()));
