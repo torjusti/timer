@@ -60,25 +60,11 @@ class PruningTable {
         }
 
         for (let move = 0; move < 18; move++) {
-          const indexes = [];
-
-          let currentIndex = index;
+          let currentIndex = index, position = 0;
 
           for (let i = powers.length - 1; i >= 0; i--) {
-            indexes.unshift(~~(currentIndex / powers[i]));
+            position += powers[i] * moveTables[i].moveTable.doMove(~~(currentIndex / powers[i]), move);
             currentIndex = currentIndex % powers[i];
-          }
-
-          const updatedIndexes = [];
-
-          for (let i = 0; i < indexes.length; i++) {
-            updatedIndexes.push(moveTables[i].moveTable.doMove(indexes[i], move));
-          }
-
-          let position = 0;
-
-          for (let i = 0; i < updatedIndexes.length; i++) {
-            position += powers[i] * updatedIndexes[i];
           }
 
           if (this.getPruningValue(position) === 0x0f) {
