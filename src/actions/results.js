@@ -20,6 +20,15 @@ export const deleteResult = (session, id)  => ({
   id,
 });
 
+/**
+ * Accepts an array with IDs which will be deleted.
+ */
+export const deleteResults = (session, ids) => ({
+  type: 'DELETE_RESULTS',
+  session,
+  ids,
+});
+
 export const toggleDNF = (session, id) => ({
   type: 'TOGGLE_DNF',
   session,

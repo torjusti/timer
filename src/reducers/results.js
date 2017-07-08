@@ -48,7 +48,10 @@ const results = (state = [], action, scrambler, scramble) => {
       return state.filter((r) => r.session !== action.id);
 
     case "DELETE_RESULT":
-      return state.filter((r) => r.session !== action.session || r.id !== action.id);
+      return state.filter((r) => r.id !== action.id);
+
+    case "DELETE_RESULTS":
+      return state.filter((r) => action.ids.indexOf(r.id) < 0);
 
     case "TOGGLE_PLUS_TWO":
       return state.map((r) => result(r, action));
