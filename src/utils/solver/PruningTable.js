@@ -17,7 +17,7 @@ class PruningTable {
     if ((index & 1) === 0) {
       return this.table[~~(index / 2)] & 0x0f;
     } else {
-      return (this.table[~~(index / 2)] & 0xf0) >>> 4;
+      return (this.table[~~(index / 2)] & 0xf0) >> 4;
     }
   }
 
