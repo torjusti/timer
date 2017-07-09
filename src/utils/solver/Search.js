@@ -14,7 +14,7 @@ class Search {
   addPruningTable(moveTableIndexes) {
     // We need the size of the tables to be sorted, as we encode indexes in different
     // bases when working with composite tables.
-    moveTableIndexes.sort((a, b) => this.moveTables[a].moveTable.getSize() - this.moveTables[b].moveTable.getSize());
+    moveTableIndexes.sort((a, b) => this.moveTables[a].getSize() - this.moveTables[b].getSize());
 
     const moveTables = [];
 
@@ -28,16 +28,10 @@ class Search {
     });
   }
 
-  addTables(settings, noPruningTable) {
-    const solvedIndexes = settings.solvedIndexes || [settings.defaultIndex];
+  addMoveTable(settings, noPruningTable) {
+    const moveTable = new MoveTable(settings.size, settings.doMove, settings.defaultIndex, settings.solvedIndexes);
 
-    const moveTable = new MoveTable(settings.size, settings.doMove);
-
-    this.moveTables.push({
-      moveTable,
-      defaultIndex: settings.defaultIndex,
-      solvedIndexes,
-    });
+    this.moveTables.push(moveTable);
 
     if (noPruningTable) {
       return this.moveTables.length - 1;
@@ -49,7 +43,7 @@ class Search {
   addSimpleEdgeOrientationTable(pieces, noPruningTable) {
     const EO_SIZE = Math.pow(2, 11);
 
-    return this.addTables({
+    return this.addMoveTable({
       size: EO_SIZE,
       doMove: edgeOrientationMove,
       defaultIndex: 0,
@@ -60,7 +54,7 @@ class Search {
   addSimpleCornerOrientationTable(pieces, noPruningTable) {
     const CO_SIZE = Math.pow(3, 7);
 
-    return this.addTables({
+    return this.addMoveTable({
       size: CO_SIZE,
       doMove: cornerOrientationMove,
       defaultIndex: 0,
@@ -72,7 +66,7 @@ class Search {
     const size = factorial(12) / factorial(12 - pieces.length);
     const defaultIndex = getIndexFromPermutation([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], pieces);
 
-    return this.addTables({
+    return this.addMoveTable({
       size,
       doMove: (index, move) => edgePermutationMove(index, move, pieces),
       defaultIndex,
@@ -83,7 +77,7 @@ class Search {
     const size = factorial(8) / factorial(8 - pieces.length);
     const defaultIndex = getIndexFromPermutation([0, 1, 2, 3, 4, 5, 6, 7], pieces);
 
-    return this.addTables({
+    return this.addMoveTable({
       size,
       doMove: (index, move) => cornerPermutationMove(index, move, pieces),
       defaultIndex,
@@ -97,7 +91,7 @@ class Search {
       const powers = [1];
 
       for (let j = 1; j < this.pruningTables[i].moveTableIndexes.length; j++) {
-        powers.push(this.moveTables[this.pruningTables[i].moveTableIndexes[j - 1]].moveTable.getSize() * powers[j - 1]);
+        powers.push(this.moveTables[this.pruningTables[i].moveTableIndexes[j - 1]].getSize() * powers[j - 1]);
       }
 
       let index = 0;
@@ -127,7 +121,7 @@ class Search {
           const updatedIndexes = [];
 
           for (let i = 0; i < indexes.length; i++) {
-            updatedIndexes.push(this.moveTables[i].moveTable.doMove(indexes[i], move * 3 + pow));
+            updatedIndexes.push(this.moveTables[i].doMove(indexes[i], move * 3 + pow));
           }
 
           const result = this.search(updatedIndexes, depth - 1, move, solution);
@@ -159,7 +153,7 @@ class Search {
 
     moves.forEach(move => {
       for (let i = 0; i < indexes.length; i++) {
-        indexes[i] = this.moveTables[i].moveTable.doMove(indexes[i], move);
+        indexes[i] = this.moveTables[i].doMove(indexes[i], move);
       }
     });
 

@@ -22,7 +22,7 @@ class PruningTable {
   }
 
   computePruningTable(moveTables) {
-    let size = moveTables.reduce((acc, obj) => acc * obj.moveTable.getSize(), 1);
+    let size = moveTables.reduce((acc, obj) => acc * obj.getSize(), 1);
 
     let tableSize = Math.ceil(size / 4) * 2;
 
@@ -37,7 +37,7 @@ class PruningTable {
     const powers = [1];
 
     for (let i = 1; i < moveTables.length; i++) {
-      powers.push(moveTables[i - 1].moveTable.getSize() * powers[i - 1]);
+      powers.push(moveTables[i - 1].getSize() * powers[i - 1]);
     }
 
     const permutations = cartesian(moveTables.map(data => data.solvedIndexes));
@@ -63,7 +63,7 @@ class PruningTable {
           let currentIndex = index, position = 0;
 
           for (let i = powers.length - 1; i >= 0; i--) {
-            position += powers[i] * moveTables[i].moveTable.doMove(~~(currentIndex / powers[i]), move);
+            position += powers[i] * moveTables[i].doMove(~~(currentIndex / powers[i]), move);
             currentIndex = currentIndex % powers[i];
           }
 

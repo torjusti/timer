@@ -1,5 +1,7 @@
 class MoveTable {
-  constructor(size, doMove) {
+  constructor(size, doMove, defaultIndex, solvedIndexes) {
+    this.defaultIndex = defaultIndex;
+    this.solvedIndexes = solvedIndexes || [defaultIndex];
     this.createMoveTable(size, doMove);
   }
 
