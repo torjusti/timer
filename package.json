@@ -2,6 +2,7 @@
   "name": "timer",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ive.land",
   "devDependencies": {
     "react-scripts": "0.8.4"
   },

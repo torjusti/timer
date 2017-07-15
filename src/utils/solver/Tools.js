@@ -8,6 +8,14 @@ export const factorial = n => {
   return n * factorial(n - 1);
 }
 
+let choose = (n, k) => {
+  if (k === 0) {
+    return 1;
+  }
+
+  return n * choose(n - 1, k - 1) / k;
+};
+
 // Cartesian product.
 export const cartesian = arg => {
   const result = [], max = arg.length - 1;

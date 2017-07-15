@@ -6,6 +6,7 @@ import FirstBlockSolver from './solver/FirstBlockSolver';
 onmessage = event => {
   const scramble = JSON.parse(event.data).scramble;
 
+  setTimeout(() => {
   postMessage(JSON.stringify({
     Cross: CrossSolver(scramble),
     XCross: XCrossSolver(scramble),
@@ -13,4 +14,5 @@ onmessage = event => {
     FirstBlock: FirstBlockSolver(scramble),
     scramble, // Used to only rerender when the scramble changes.
   }));
+}, 5000);
 };

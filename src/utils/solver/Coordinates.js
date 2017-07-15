@@ -5,6 +5,8 @@ import {
   cornerPermutationMove as doCornerPermutationMove,
 } from './Cube';
 
+import { choose } from './Tools';
+
 // Computes an unique index in the range from 0 to but not up to
 // the maximum number of unique flips of the pieces.
 // Thus, this function is a bijection, however there is no guaranteed logical
@@ -121,6 +123,45 @@ export const getIndexFromPermutation = (permutation, affectedPieces) => {
   }
 
   return index;
+};
+
+export const getIndexFromPosition = (occupied) => {
+  let sum = 0, k = occupied.filter(piece => piece === 1).length - 1, n = occupied.length - 1;
+
+  while (k >= 0) {
+    if (occupied[n]) {
+      k -= 1;
+    } else {
+      sum += choose(n, k);
+    }
+
+    n -= 1;
+  }
+
+  return sum;
+};
+
+export const getPositionFromIndex = (coord, pieces, size) => {
+  let sum = 0, k = pieces - 1, n = size - 1, permutation = [];
+
+  for (let i = 0; i < size; i++) {
+    permutation.push(false);
+  }
+
+  while (k >= 0) {
+    let cur = sum + choose(n, k);
+
+    if (coord - cur >= 0) {
+      sum = cur;
+    } else {
+      k -= 1;
+      permutation[n] = true;
+    }
+
+    n -= 1;
+  }
+
+  return permutation;
 };
 
 // Returns the new orientation index after performing a move.
