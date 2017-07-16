@@ -1,7 +1,7 @@
 import Search from './Search';
 import MoveTable from './MoveTable';
 import { edgePermutationMove, cornerPermutationMove } from './Cube';
-import { combineSequences } from './Scrambles';
+import { combineSequences, parseScramble } from './Scrambles';
 
 import {
   getIndexFromPosition,
@@ -14,6 +14,10 @@ import {
 } from './Coordinates';
 
 class PhaseOneSolver extends Search {
+  checkLastMove(lastMove) {
+    return lastMove % 2 != 0 && ~~(lastMove / 3) !== 6 && ~(lastMove / 3) !== 15;
+  }
+
   initialize() {
     const Slice = this.addMoveTable({
       size: 495, // 12 choose 4
@@ -76,7 +80,7 @@ const phaseTwoSolver = new PhaseTwoSolver();
 
 const solver = scramble => {
   let phaseOne = phaseOneSolver.solve(scramble);
-  let phaseTwo = phaseTwoSolver.solve(combineSequences(scramble, phaseOne));
+  let phaseTwo = phaseTwoSolver.solve(combineSequences(scramble, phaseOne), 0, 20, parseScramble(phaseOne).slice(-1)[0]);
   console.log('Kociemba:', combineSequences(phaseOne, phaseTwo));
   return combineSequences(phaseOne, phaseTwo);
 }
