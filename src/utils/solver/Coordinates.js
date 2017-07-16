@@ -90,6 +90,10 @@ export const getEdgePermutationFromIndex = (index, affectedPieces) => getPermuta
 
 export const getCornerPermutationFromIndex = (index, affectedPieces) => getPermutationFromIndex(index, affectedPieces, 8);
 
+export const getIndexFromPhaseTwoPermutation = (permutation) => getIndexFromPermutation(permutation.slice(0, 8), [0, 1, 2, 3, 4, 5, 6, 7]);
+
+export const getIndexFromPhaseTwoSlicePermutation = (permutation) => getIndexFromPermutation(permutation.slice(8, 12), [8, 9, 10, 11]);
+
 // This function is a bijection which will map the given permutation to an unique number.
 // The range of the numbers depends on the affected pieces - the number will be an unique
 // number in the range from 0 up but not unto the number of ways the affected pieces
@@ -145,7 +149,7 @@ export const getPositionFromIndex = (coord, pieces, size) => {
   let sum = 0, k = pieces - 1, n = size - 1, permutation = [];
 
   for (let i = 0; i < size; i++) {
-    permutation.push(false);
+    permutation.push(0);
   }
 
   while (k >= 0) {
@@ -155,14 +159,19 @@ export const getPositionFromIndex = (coord, pieces, size) => {
       sum = cur;
     } else {
       k -= 1;
-      permutation[n] = true;
+      permutation[n] = 1;
     }
+// Returns the new orientation index after performing a move.
 
     n -= 1;
   }
 
   return permutation;
 };
+
+export const getEdgePositionFromIndex = (coord, pieces) => getPositionFromIndex(coord, pieces, 12);
+
+export const getCornerPositionFromIndex = (coord, pieces) => getPositionFromIndex(coord, pieces, 8);
 
 // Returns the new orientation index after performing a move.
 export const edgeOrientationMove = (index, move) => {
@@ -178,6 +187,7 @@ export const edgePermutationMove = (index, move, affectedPieces) => {
   return getIndexFromPermutation(permutation, affectedPieces);
 };
 
+// Returns the new orientation index after performing a move.
 export const cornerOrientationMove = (index, move) => {
   let orientation = getCornerOrientationFromIndex(index);
   orientation = doCornerOrientationMove(orientation, move);
@@ -189,4 +199,28 @@ export const cornerPermutationMove = (index, move, affectedPieces) => {
   let permutation = getCornerPermutationFromIndex(index, affectedPieces);
   permutation = doCornerPermutationMove(permutation, move);
   return getIndexFromPermutation(permutation, affectedPieces);
+};
+
+export const edgePositionMove = (index, move, pieces) => {
+  let permutation = getEdgePositionFromIndex(index, pieces);
+  permutation = doEdgePermutationMove(permutation, move);
+  return getIndexFromPosition(permutation, pieces);
+};
+
+export const cornerPositionMove = (index, move, pieces) => {
+  let permutation = getCornerPositionFromIndex(index, pieces);
+  permutation = doCornerPermutationMove(permutation, move);
+  return getIndexFromPosition(permutation);
+};
+
+export const phaseTwoPermutationMove = (index, move) => {
+  let permutation = getPermutationFromIndex(index, [0, 1, 2, 3, 4, 5, 6, 7], 8).concat([8, 9, 10, 11]);
+  permutation = doEdgePermutationMove(permutation, move);
+  return getIndexFromPhaseTwoPermutation(permutation);
+};
+
+export const phaseTwoSlicePermutationMove = (index, move) => {
+  let permutation = [0, 1, 2, 3, 4, 5, 6, 7].concat(getPermutationFromIndex(index, [8, 9, 10, 11], 4));
+  permutation = doEdgePermutationMove(permutation, move);
+  return getIndexFromPhaseTwoSlicePermutation(permutation);
 };

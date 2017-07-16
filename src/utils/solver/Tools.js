@@ -1,14 +1,16 @@
 import { getEdgeOrientationFromIndex, getCornerOrientationFromIndex } from './Coordinates';
 
 export const factorial = n => {
-  if (n === 1) {
-    return 1;
+  let res = 1;
+
+  for (let i = 2; i <= n; i++) {
+    res *= i;
   }
 
-  return n * factorial(n - 1);
+  return res;
 }
 
-let choose = (n, k) => {
+export const choose = (n, k) => {
   if (k === 0) {
     return 1;
   }

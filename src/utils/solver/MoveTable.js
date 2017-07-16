@@ -1,11 +1,11 @@
 class MoveTable {
-  constructor(size, doMove, defaultIndex, solvedIndexes) {
+  constructor(size, doMove, defaultIndex, solvedIndexes, moves) {
     this.defaultIndex = defaultIndex;
     this.solvedIndexes = solvedIndexes || [defaultIndex];
-    this.createMoveTable(size, doMove);
+    this.createMoveTable(size, doMove, moves);
   }
 
-  createMoveTable(size, doMove) {
+  createMoveTable(size, doMove, moves) {
     this.table = [];
 
     for (let i = 0; i < size; i++) {
@@ -16,7 +16,9 @@ class MoveTable {
     // resulting index after applying the move, and also map the
     // inverse move back to the inital index.
     for (let i = 0; i < size; i++) {
-      for (let move = 0; move < 18; move++) {
+      for (let j = 0; j < moves.length; j++) {
+        const move = moves[j];
+
         if (!this.table[i][move]) {
           const result = doMove(i, move);
 

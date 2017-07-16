@@ -40,6 +40,10 @@ export const parseScramble = scramble => {
   return moves;
 };
 
+export const combineSequences = (first, last) => {
+    return first.trim() + ' ' + last.trim();
+};
+
 export const formatMoveSequence = moves => {
   let sequence = '';
 

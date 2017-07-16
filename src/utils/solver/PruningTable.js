@@ -1,8 +1,8 @@
 import { cartesian } from './Tools';
 
 class PruningTable {
-  constructor(moveTables) {
-    this.computePruningTable(moveTables);
+  constructor(moveTables, moves) {
+    this.computePruningTable(moveTables, moves);
   }
 
   setPruningValue(index, value) {
@@ -21,7 +21,7 @@ class PruningTable {
     }
   }
 
-  computePruningTable(moveTables) {
+  computePruningTable(moveTables, moves) {
     let size = moveTables.reduce((acc, obj) => acc * obj.getSize(), 1);
 
     let tableSize = Math.ceil(size / 4) * 2;
@@ -54,12 +54,15 @@ class PruningTable {
     }
 
     while (done !== size) {
+      if  (size === 24 && done === 6) break;
       for (let index = 0; index < size; index++) {
         if (this.getPruningValue(index) !== depth) {
           continue;
         }
 
-        for (let move = 0; move < 18; move++) {
+        for (let moveIndex = 0; moveIndex < moves.length; moveIndex++) {
+          const move = moves[moveIndex];
+
           let currentIndex = index, position = 0;
 
           for (let i = powers.length - 1; i >= 0; i--) {

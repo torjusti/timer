@@ -9,6 +9,8 @@ class Search {
     this.moveTables = [];
 
     this.pruningTables = [];
+
+    this.moves = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
   }
 
   addPruningTable(moveTableIndexes) {
@@ -20,7 +22,7 @@ class Search {
 
     moveTableIndexes.forEach(i => moveTables.push(this.moveTables[i]));
 
-    const pruningTable = new PruningTable(moveTables);
+    const pruningTable = new PruningTable(moveTables, this.moves);
 
     this.pruningTables.push({
       pruningTable,
@@ -29,7 +31,7 @@ class Search {
   }
 
   addMoveTable(settings, noPruningTable) {
-    const moveTable = new MoveTable(settings.size, settings.doMove, settings.defaultIndex, settings.solvedIndexes);
+    const moveTable = new MoveTable(settings.size, settings.doMove, settings.defaultIndex, settings.solvedIndexes, this.moves);
 
     this.moveTables.push(moveTable);
 
@@ -115,36 +117,29 @@ class Search {
       return true;
     }
 
-    for (let move = 0; move < 6; move++) {
-      if (move !== lastMove && move !== lastMove - 3) {
-        for (let pow = 0; pow < 3; pow++) {
+    for (let i = 0; i < this.moves.length; i++) {
+      const move = this.moves[i];
+
+      if (~~(move / 3) !== ~~(lastMove / 3) && ~~(move / 3) !== ~~(lastMove / 3) - 3) {
           const updatedIndexes = [];
 
-          for (let i = 0; i < indexes.length; i++) {
-            updatedIndexes.push(this.moveTables[i].doMove(indexes[i], move * 3 + pow));
+          for (let j = 0; j < indexes.length; j++) {
+            updatedIndexes.push(this.moveTables[j].doMove(indexes[j], move));
           }
 
           const result = this.search(updatedIndexes, depth - 1, move, solution);
 
           if (result) {
-            solution.push(move * 3 + pow);
+            solution.push(move);
             return true;
           }
-        }
       }
     }
 
     return false;
   }
 
-  solve(scramble) {
-    if (!this.initialized) {
-      this.initialize();
-      this.initialized = true;
-    }
-
-    const moves = parseScramble(scramble);
-
+  getIndexes(moves) {
     const indexes = [];
 
     for (let i = 0; i < this.moveTables.length; i++) {
@@ -157,10 +152,23 @@ class Search {
       }
     });
 
+    return indexes;
+  }
+
+  solve(scramble, minDepth, maxDepth) {
+    if (!this.initialized) {
+      this.initialize();
+      this.initialized = true;
+    }
+
+    const moves = parseScramble(scramble);
+
+    const indexes = this.getIndexes(moves);
+
     const solution = [];
 
     // Every cube is solvable with a depth of 20. However, such depths are too slow to ever end up solved.
-    for (let depth = 0; depth < 20; depth++) {
+    for (let depth = minDepth || 0; depth < maxDepth || 20; depth++) {
       if (this.search(indexes, depth, -1, solution)) {
         break;
       }
