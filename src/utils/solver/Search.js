@@ -171,7 +171,6 @@ class Search {
 
     const solution = [];
 
-    console.log(lastMove)
     // Every cube is solvable with a depth of 20. However, such depths are too slow to ever end up solved.
     for (let depth = minDepth || 0; depth < maxDepth || 20; depth++) {
       if (this.search(indexes, depth, lastMove || -1, solution)) {
