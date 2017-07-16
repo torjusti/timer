@@ -65,7 +65,7 @@ class PhaseTwoSolver extends Search {
 
     const CornerPermutation = this.addSimpleCornerPermutationTable([0, 1, 2, 3, 4, 5, 6, 7], true);
 
-    this.addPruningTable([EdgePermutation]);
+    this.addPruningTable([SlicePermutation, EdgePermutation]);
 
     this.addPruningTable([SlicePermutation, CornerPermutation])
   }
