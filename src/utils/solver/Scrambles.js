@@ -18,6 +18,11 @@ export const validateSequence = sequence => {
 };
 
 export const parseScramble = scramble => {
+  // If we are given an array, we just assume it is valid.
+  if (Array.isArray(scramble)) {
+    return scramble;
+  }
+
   const moves = [];
 
   scramble.trim().split(' ').forEach(move => {

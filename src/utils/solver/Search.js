@@ -162,23 +162,26 @@ class Search {
     return indexes;
   }
 
-  * solve(scramble, minDepth, maxDepth, lastMove) {
+  * solve(scramble, minDepth, maxDepth, format = true, lastMove) {
     if (!this.initialized) {
       this.initialize();
       this.initialized = true;
     }
 
+    minDepth = minDepth || 0;
+    maxDepth = maxDepth || 20;
+
     const moves = parseScramble(scramble);
 
     const indexes = this.getIndexes(moves);
 
-    for (let depth = (minDepth || 0); depth < (maxDepth || 20); depth++) {
+    for (let depth = minDepth; depth < maxDepth; depth++) {
       const generator = this.search(indexes, depth, lastMove || -1, [], depth);
 
       let solution = generator.next().value;
 
       while (solution) {
-        yield formatMoveSequence(solution);
+        yield format ? formatMoveSequence(solution) : solution;
         solution = generator.next().value;
       }
     }

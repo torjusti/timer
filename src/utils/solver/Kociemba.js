@@ -1,7 +1,7 @@
 import Search from './Search';
 import MoveTable from './MoveTable';
 import { edgePermutationMove, cornerPermutationMove } from './Cube';
-import { combineSequences, parseScramble } from './Scrambles';
+import { combineSequences, formatMoveSequence, parseScramble } from './Scrambles';
 
 import {
   getIndexFromPosition,
@@ -76,11 +76,36 @@ const phaseOneSolver = new PhaseOneSolver();
 const phaseTwoSolver = new PhaseTwoSolver();
 
 const solver = scramble => {
-  let generator = phaseOneSolver.solve(scramble);
+  let maxDepth = 30, parsedScramble = parseScramble(scramble), solution;
 
-  for (let solution of generator) {
-    console.log(solution);
+  outer: for (let depth = 0; depth < maxDepth; depth++) {
+    let phaseOneSolutions = phaseOneSolver.solve(scramble, depth, depth, false);
+
+    for (let phaseOne of phaseOneSolutions) {
+      if (phaseOne.length >= maxDepth) {
+        break outer;
+      }
+
+      let lastMove = phaseOne.slice(-1)[0];
+
+      let phaseTwo = phaseTwoSolver.solve(
+        parsedScramble.concat(phaseOne),
+        0, maxDepth - phaseOne.length,
+        false, lastMove,
+      ).next().value;
+
+      if (phaseTwo) {
+        solution = phaseOne.concat(phaseTwo);
+
+        if (solution.length < maxDepth) {
+          maxDepth = solution.length - 1;
+        }
+      }
+    }
   }
+
+  console.log('Kociemba:', formatMoveSequence(solution));
+  return formatMoveSequence(solution);
 }
 
 export default solver;
