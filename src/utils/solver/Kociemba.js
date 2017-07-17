@@ -14,10 +14,6 @@ import {
 } from './Coordinates';
 
 class PhaseOneSolver extends Search {
-  checkLastMove(lastMove) {
-    return lastMove % 2 != 0 && ~~(lastMove / 3) !== 6 && ~(lastMove / 3) !== 15;
-  }
-
   initialize() {
     const Slice = this.addMoveTable({
       size: 495, // 12 choose 4
@@ -76,13 +72,15 @@ class PhaseTwoSolver extends Search {
 }
 
 const phaseOneSolver = new PhaseOneSolver();
+
 const phaseTwoSolver = new PhaseTwoSolver();
 
 const solver = scramble => {
-  let phaseOne = phaseOneSolver.solve(scramble);
-  let phaseTwo = phaseTwoSolver.solve(combineSequences(scramble, phaseOne), 0, 20, parseScramble(phaseOne).slice(-1)[0]);
-  console.log('Kociemba:', combineSequences(phaseOne, phaseTwo));
-  return combineSequences(phaseOne, phaseTwo);
+  let generator = phaseOneSolver.solve(scramble);
+
+  for (let solution of generator) {
+    console.log(solution);
+  }
 }
 
 export default solver;

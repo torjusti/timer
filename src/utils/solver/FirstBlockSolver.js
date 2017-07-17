@@ -18,6 +18,6 @@ class FirstBlockSearch extends Search {
 
 const solver = new FirstBlockSearch();
 
-const FirstBlockSolver = scramble => solver.solve(scramble);
+const FirstBlockSolver = scramble => solver.solve(scramble).next().value;
 
 export default FirstBlockSolver;

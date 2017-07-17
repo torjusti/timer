@@ -9,6 +9,6 @@ class EOLineSearcher extends Search {
 
 const solver = new EOLineSearcher();
 
-const EOLineSolver = scramble => solver.solve(scramble);
+const EOLineSolver = scramble => solver.solve(scramble).next().value;
 
 export default EOLineSolver;

@@ -16,6 +16,6 @@ class XCrossSearcher extends Search {
 
 const XCrossSolverInstance = new XCrossSearcher();
 
-const XCrossSolver = scramble => XCrossSolverInstance.solve(scramble);
+const XCrossSolver = scramble => XCrossSolverInstance.solve(scramble).next().value;
 
 export default XCrossSolver;

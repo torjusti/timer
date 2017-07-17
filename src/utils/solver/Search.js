@@ -86,7 +86,7 @@ class Search {
     }, noPruningTable);
   }
 
-  search(indexes, depth, lastMove, solution) {
+  * search(indexes, depth, lastMove, solution, startDepth) {
     let maximumDistance = 0;
 
     for (let i = 0; i < this.pruningTables.length; i++) {
@@ -114,29 +114,32 @@ class Search {
     }
 
     if (maximumDistance === 0) {
-      if (this.checkLastMove) {
-        return this.checkLastMove(lastMove);
+      if (this.phaseOne) {
+        if (lastMove % 2 == 0 && ~~(lastMove / 3) === 6 && ~(lastMove / 3) === 15) {
+          return false;
+        }
       }
 
-      return true;
+      return solution;
     }
 
-    for (let i = 0; i < this.moves.length; i++) {
-      const move = this.moves[i];
+    if (depth > 0) {
+      for (let i = 0; i < this.moves.length; i++) {
+        const move = this.moves[i];
 
-      if (~~(move / 3) !== ~~(lastMove / 3) && ~~(move / 3) !== ~~(lastMove / 3) - 3) {
+        if (~~(move / 3) !== ~~(lastMove / 3) && ~~(move / 3) !== ~~(lastMove / 3) - 3) {
           const updatedIndexes = [];
 
           for (let j = 0; j < indexes.length; j++) {
             updatedIndexes.push(this.moveTables[j].doMove(indexes[j], move));
           }
 
-          const result = this.search(updatedIndexes, depth - 1, move, solution);
+          const result = this.search(updatedIndexes, depth - 1, move, solution.concat([move]), startDepth).next().value;
 
           if (result) {
-            solution.push(move);
-            return true;
+            yield result;
           }
+        }
       }
     }
 
@@ -159,7 +162,7 @@ class Search {
     return indexes;
   }
 
-  solve(scramble, minDepth, maxDepth, lastMove) {
+  * solve(scramble, minDepth, maxDepth, lastMove) {
     if (!this.initialized) {
       this.initialize();
       this.initialized = true;
@@ -169,18 +172,18 @@ class Search {
 
     const indexes = this.getIndexes(moves);
 
-    const solution = [];
+    for (let depth = (minDepth || 0); depth < (maxDepth || 20); depth++) {
+      const generator = this.search(indexes, depth, lastMove || -1, [], depth);
 
-    // Every cube is solvable with a depth of 20. However, such depths are too slow to ever end up solved.
-    for (let depth = minDepth || 0; depth < maxDepth || 20; depth++) {
-      if (this.search(indexes, depth, lastMove || -1, solution)) {
-        break;
+      let solution = generator.next().value;
+
+      while (solution) {
+        yield formatMoveSequence(solution);
+        solution = generator.next().value;
       }
     }
 
-    solution.reverse();
-
-    return formatMoveSequence(solution);
+    return;
   }
 }
 

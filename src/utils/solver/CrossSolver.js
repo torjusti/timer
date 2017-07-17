@@ -10,6 +10,6 @@ class CrossSearcher extends Search {
 
 const solver = new CrossSearcher();
 
-const CrossSolver = scramble => solver.solve(scramble);
+const CrossSolver = scramble => solver.solve(scramble).next().value;
 
 export default CrossSolver;
