@@ -95,10 +95,11 @@ const solver = scramble => {
       ).next().value;
 
       if (phaseTwo) {
-        solution = phaseOne.concat(phaseTwo);
+        let candidate = phaseOne.concat(phaseTwo);
 
-        if (solution.length < maxDepth) {
-          maxDepth = solution.length - 1;
+        if (candidate.length < maxDepth) {
+          maxDepth = candidate.length - 1;
+          solution = candidate;
         }
       }
     }
