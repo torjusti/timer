@@ -10,12 +10,24 @@ export const factorial = n => {
   return res;
 }
 
+const binomials = [];
+
 export const choose = (n, k) => {
-  if (k === 0) {
-    return 1;
+  while (n >= binomials.length) {
+    let s = binomials.length, nextRow = [];
+
+    nextRow[0] = 1;
+
+    for (let i = 1, prev= s - 1; i < s; i += 1) {
+      nextRow[i] = binomials[prev][i-1] + binomials[prev][i];
+    }
+
+    nextRow[s] = 1;
+
+    binomials.push(nextRow);
   }
 
-  return n * choose(n - 1, k - 1) / k;
+  return binomials[n][k];
 };
 
 // Cartesian product.
