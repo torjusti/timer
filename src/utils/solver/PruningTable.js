@@ -18,7 +18,7 @@ class PruningTable {
 
     this.table = [];
 
-    for (let i = 0; i < size / 8; i++) {
+    for (let i = 0; i < (size + 7) >> 3; i++) {
       this.table.push(-1);
     }
 
