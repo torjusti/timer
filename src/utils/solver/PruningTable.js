@@ -44,8 +44,18 @@ class PruningTable {
     }
 
     while (done !== size) {
+      // When we are halfway done with the entries in the pruning table, we
+      // flip to backward search. This speeds up the initialization phase.
+      const inverse = done >= size / 2;
+      const find = inverse ? 0xf : depth;
+      const check = inverse ? depth : 0xf;
+
+      depth += 1;
+
+      let value = 0;
+
       for (let index = 0; index < size; index++) {
-        if (this.getPruningValue(index) !== depth) {
+        if (this.getPruningValue(index) !== find) {
           continue;
         }
 
@@ -59,14 +69,20 @@ class PruningTable {
             currentIndex = currentIndex % powers[i];
           }
 
-          if (this.getPruningValue(position) === 0x0f) {
-            this.setPruningValue(position, depth + 1);
-            done += 1;
+          if (this.getPruningValue(position) !== check) {
+            continue;
           }
+
+          done += 1;
+
+          if (inverse) {
+            this.setPruningValue(index, depth);
+            break;
+          }
+
+          this.setPruningValue(position, depth);
         }
       }
-
-      depth += 1;
     }
   }
 }
