@@ -1537,7 +1537,8 @@ function toFaceCube(cc){
     for (n = 0; n < 3; ++n)
       f[cornerFacelet[c][(n + ori) % 3]] = ts[cornerColor[j][n]];
   }
-  for (e = 0; e < 12; ++e) {
+  for (e = 0; e < 12; ++e) {  console.log('start...')
+
     j = cc.ep[e];
     ori = cc.eo[e];
     for (n = 0; n < 2; ++n)
@@ -1793,8 +1794,9 @@ function drawSquare(r, cx, cy, w, fillColor) {
   }
 
   // normally called from outside this file but I moved it here
-  ini(null, Math);
-
+  ini(null, Math, (msg) => {
+    //console.log(msg)
+  });
   scramblers['lse'] = {
     getRandomScramble: getLSEScramble
   };

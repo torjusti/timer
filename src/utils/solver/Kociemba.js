@@ -16,19 +16,22 @@ import {
 
 class PhaseOneSolver extends Search {
   initialize() {
+    console.time('phase1')
     const Slice = this.addMoveTable({
       size: 495, // 12 choose 4
       doMove: (index, move) => edgePositionMove(index, move, 4),
       defaultIndex: getIndexFromPosition([0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1]),
     }, true);
 
+    console.time('oritables')
     const CornerOrientation = this.addSimpleCornerOrientationTable([0, 1, 2, 3, 4, 5, 6, 7], true);
     const EdgeOrientation = this.addSimpleEdgeOrientationTable([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], true);
-
+    console.timeEnd('oritables')
     this.addPruningTable([Slice, CornerOrientation]);
     this.addPruningTable([Slice, EdgeOrientation]);
 
     this.phaseOne = true;
+    console.timeEnd('phase1')
   }
 }
 

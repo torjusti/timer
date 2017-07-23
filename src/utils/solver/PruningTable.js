@@ -6,29 +6,19 @@ class PruningTable {
   }
 
   setPruningValue(index, value) {
-    if ((index & 1) === 0) {
-      this.table[~~(index / 2)] &= 0xf0 | value;
-    } else {
-      this.table[~~(index / 2)] &= 0x0f | (value << 4);
-    }
+     this.table[index >> 3] ^= (0xf ^ value) << ((index & 7) << 2);
   }
 
   getPruningValue(index) {
-    if ((index & 1) === 0) {
-      return this.table[~~(index / 2)] & 0x0f;
-    } else {
-      return (this.table[~~(index / 2)] & 0xf0) >> 4;
-    }
+    return this.table[index >> 3] >> ((index & 7) << 2) & 0xf;
   }
 
   computePruningTable(moveTables, moves) {
     let size = moveTables.reduce((acc, obj) => acc * obj.getSize(), 1);
 
-    let tableSize = Math.ceil(size / 4) * 2;
-
     this.table = [];
 
-    for (let i = 0; i < tableSize; i++) {
+    for (let i = 0; i < size / 8; i++) {
       this.table.push(-1);
     }
 
@@ -54,7 +44,6 @@ class PruningTable {
     }
 
     while (done !== size) {
-      if  (size === 24 && done === 6) break;
       for (let index = 0; index < size; index++) {
         if (this.getPruningValue(index) !== depth) {
           continue;
