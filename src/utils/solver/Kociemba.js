@@ -10,7 +10,8 @@ import {
   getIndexFromPhaseTwoPermutation,
   getIndexFromPhaseTwoSlicePermutation,
   phaseTwoSlicePermutationMove,
-  getIndexFromPermutation
+  getIndexFromPermutation,
+  getParity,
 } from './Coordinates';
 
 class PhaseOneSolver extends Search {
@@ -31,6 +32,30 @@ class PhaseOneSolver extends Search {
   }
 }
 
+class ParityMoveTable {
+  constructor() {
+    this.table = [
+      [1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1],
+      [0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0],
+    ];
+
+    this.defaultIndex = 0;
+
+    this.solvedIndexes = [0];
+  }
+
+  // FIXME: Find a better solution for move table defining. We could just use
+  // arrays and set a property, but that is hacky. Currently, this method
+  // is just ripped from the normal move table method.
+  doMove(index, move) {
+    return this.table[index][move];
+  }
+
+  getSize() {
+    return this.table.length;
+  }
+}
+
 class PhaseTwoSolver extends Search {
   getIndexes(moves) {
     let ep = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
@@ -44,7 +69,8 @@ class PhaseTwoSolver extends Search {
     return [
       getIndexFromPhaseTwoPermutation(ep),
       getIndexFromPhaseTwoSlicePermutation(ep),
-      getIndexFromPermutation(cp, [0, 1, 2, 3, 4, 5, 6, 7]),
+      getIndexFromPermutation(cp, [0, 1, 2, 3, 4, 5]),
+      getParity(cp),
     ];
   }
 
@@ -52,7 +78,7 @@ class PhaseTwoSolver extends Search {
     this.moves = [1, 10, 4, 13, 6, 7, 8, 15, 16, 17];
 
     const EdgePermutation = this.addMoveTable({
-      size: 40320,
+      size: 20160,
       doMove: (index, move) => phaseTwoPermutationMove(index, move),
       defaultIndex: getIndexFromPhaseTwoPermutation([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]),
     }, true);
@@ -63,11 +89,13 @@ class PhaseTwoSolver extends Search {
       defaultIndex: getIndexFromPhaseTwoSlicePermutation([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]),
     }, true);
 
-    const CornerPermutation = this.addSimpleCornerPermutationTable([0, 1, 2, 3, 4, 5, 6, 7], true);
+    const CornerPermutation = this.addSimpleCornerPermutationTable([0, 1, 2, 3, 4, 5], true);
 
-    this.addPruningTable([SlicePermutation, EdgePermutation]);
+    this.moveTables.push(new ParityMoveTable());
 
-    this.addPruningTable([SlicePermutation, CornerPermutation])
+    this.addPruningTable([SlicePermutation, EdgePermutation, this.moveTables.length - 1]);
+
+    this.addPruningTable([SlicePermutation, CornerPermutation, this.moveTables.length - 1]);
   }
 }
 

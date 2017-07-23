@@ -133,7 +133,7 @@ export const getCornerPermutationFromIndex = (index, affectedPieces) => getPermu
  * a smaller permutation vector of length 8 describing the permutation
  * of the edge not in the equator slice during phase two.
  */
-export const getIndexFromPhaseTwoPermutation = (permutation) => getIndexFromPermutation(permutation.slice(0, 8), [0, 1, 2, 3, 4, 5, 6, 7]);
+export const getIndexFromPhaseTwoPermutation = (permutation) => getIndexFromPermutation(permutation.slice(0, 8), [0, 1, 2, 3, 4, 5]);
 
 /**
  * Returns a smaller permutation vector of length 8 describing the
@@ -229,6 +229,20 @@ export const getPositionFromIndex = (coord, pieces, size) => {
   return permutation;
 };
 
+export const getParity = (pieces) => {
+  let sum = 0;
+
+  for (let i = pieces.length - 1; i > 0; i -= 1) {
+    for (let j = i - 1; j >= 0; j -= 1) {
+      if (pieces[j] > pieces[i]) {
+        sum += 1;
+      }
+    }
+  }
+
+  return sum % 2;
+};
+
 /**
  * Returns an index describing the position of the given edge pieces.
  */
@@ -276,7 +290,7 @@ export const cornerPositionMove = (index, move, pieces) => {
 };
 
 export const phaseTwoPermutationMove = (index, move) => {
-  let permutation = getPermutationFromIndex(index, [0, 1, 2, 3, 4, 5, 6, 7], 8).concat([8, 9, 10, 11]);
+  let permutation = getPermutationFromIndex(index, [0, 1, 2, 3, 4, 5], 8).concat([8, 9, 10, 11]);
   permutation = doEdgePermutationMove(permutation, move);
   return getIndexFromPhaseTwoPermutation(permutation);
 };
