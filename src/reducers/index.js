@@ -1,5 +1,4 @@
 import { selectedSession, sessions } from './sessions';
-import results from './results';
 import { selectedScrambler, currentScramble } from './scrambles.js';
 
 const timerApp = (state = {}, action) => {
@@ -9,15 +8,18 @@ const timerApp = (state = {}, action) => {
 
   updatedState.currentScramble = currentScramble(state.currentScramble, action, updatedState.selectedScrambler);
 
-  updatedState.selectedSession = selectedSession(state.selectedSession, action, updatedState.sessions);
-
   updatedState.sessions = sessions(
     state.sessions,
     action,
-    updatedState.selectedSession,
+    // We do not need to pass the updated selected session, as
+    // the actions which change this do not require this knowledge
+    // in the sessions reducer.
+    state.selectedSession,
     updatedState.selectedScrambler,
     updatedState.currentScramble,
   );
+
+  updatedState.selectedSession = selectedSession(state.selectedSession, action, updatedState.sessions);
 
   return updatedState;
 };
