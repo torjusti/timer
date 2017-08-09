@@ -1,8 +1,10 @@
+import uuid from 'uuid/v4';
+
 import { generateScramble } from '../utils/scrambles';
 
 export const addResult = (session, time, selectedScrambler) => ({
   type: 'ADD_RESULT',
-  id: Date.now(),
+  id: uuid(),
   session,
   time,
   updatedScramble: generateScramble(selectedScrambler),

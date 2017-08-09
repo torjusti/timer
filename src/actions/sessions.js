@@ -1,6 +1,8 @@
+import uuid from 'uuid/v4';
+
 export const createSession = (name) => ({
   type: 'CREATE_SESSION',
-  id: Date.now(),
+  id: uuid(),
   name,
 });
 
