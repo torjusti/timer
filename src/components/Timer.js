@@ -64,7 +64,7 @@ class Timer extends React.Component {
     // Force a tick to ensure elapsed time is up to date.
     this.tick();
 
-    this.props.onAttemptFinished(this.props.selectedSession, this.state.elapsedTime, this.props.selectedScrambler);
+    this.props.onAttemptFinished(this.state.elapsedTime, this.props.selectedScrambler);
   }
 
   setRunning() {

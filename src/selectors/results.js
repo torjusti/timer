@@ -1,15 +1,23 @@
 import { createSelector } from 'reselect';
 
-// Get the results in the current session.
+/**
+ * Retrieve the array containing all results in the currently selected session.
+ */
 export const getResults = createSelector(
-  state => state.results,
+  state => state.sessions,
   state => state.selectedSession,
-  (results, selectedSession) => results.filter((result) => result.session === selectedSession),
+  (sessions, selectedSession) => sessions.find((session) => session.id === selectedSession).results,
 );
 
-// Get a single result.
+/**
+ * Retrive a single result based in its ID. Note that the function will only
+ * find results stored in the currently selected session.
+ */
 export const getResult = createSelector(
-  state => state.results,
+  state => state.sessions,
+  state => state.selectedSession,
   (_, id) => id,
-  (results, id) => results.find(r => id && /^\d+$/.test(id) && r.id === parseInt(id, 10)),
+  (sessions, selectedSession, id) =>
+    sessions.find((session) => session.id === selectedSession).results
+    .find(r => id && /^\d+$/.test(id) && r.id === parseInt(id, 10)),
 );

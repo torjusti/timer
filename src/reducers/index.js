@@ -1,36 +1,25 @@
 import { selectedSession, sessions } from './sessions';
-import results from './results';
 import { selectedScrambler, currentScramble } from './scrambles.js';
 
 const timerApp = (state = {}, action) => {
   const updatedState = {
-    sessions: sessions(state.sessions, action),
     selectedScrambler: selectedScrambler(state.selectedScrambler, action),
   };
 
   updatedState.currentScramble = currentScramble(state.currentScramble, action, updatedState.selectedScrambler);
 
-  switch (action.type) {
-    case "DELETE_SESSION":
-      updatedState.selectedSession = selectedSession(state.selectedSession, action, updatedState.sessions);
-      break;
+  updatedState.sessions = sessions(
+    state.sessions,
+    action,
+    // We do not need to pass the updated selected session, as
+    // the actions which change this do not require this knowledge
+    // in the sessions reducer.
+    state.selectedSession,
+    updatedState.selectedScrambler,
+    updatedState.currentScramble,
+  );
 
-    case "CREATE_SESSION":
-      updatedState.selectedSession = selectedSession(state.selectedSession, action, updatedState.sessions);
-      break;
-
-    default:
-      updatedState.selectedSession = selectedSession(state.selectedSession, action);
-  }
-
-  switch (action.type) {
-    case "ADD_RESULT":
-      updatedState.results = results(state.results, action, updatedState.selectedScrambler, updatedState.currentScramble);
-      break;
-
-    default:
-      updatedState.results = results(state.results, action);
-  }
+  updatedState.selectedSession = selectedSession(state.selectedSession, action, updatedState.sessions);
 
   return updatedState;
 };
