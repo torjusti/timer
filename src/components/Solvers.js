@@ -22,12 +22,11 @@ class Solvers extends React.Component {
   constructor() {
     super();
 
-    // The solver is fast enough that we only need custom messages
+    // The solver is fast enough for us to only need custom messages
     // while initializing, not between scrambles.
     this.state = {
       EOLine: 'Initializing...',
       Cross: 'Initializing...',
-      XCross: 'Initializing...',
       FirstBlock: 'Initializing...',
       scramble: '',
       sentScramble: '',
@@ -44,7 +43,6 @@ class Solvers extends React.Component {
         this.setState({
           EOLine: result.EOLine,
           Cross: result.Cross,
-          XCross: result.XCross,
           FirstBlock: result.FirstBlock,
           scramble: result.scramble,
         });
@@ -80,7 +78,6 @@ class Solvers extends React.Component {
       <SolverList>
         <li><SolverTitle>EOLine:</SolverTitle> <Solution>{this.state.EOLine}</Solution></li>
         <li><SolverTitle>Cross:</SolverTitle> <Solution>{this.state.Cross}</Solution></li>
-        <li><SolverTitle>XCross:</SolverTitle> <Solution>{this.state.XCross}</Solution></li>
         <li><SolverTitle>FB:</SolverTitle> <Solution>{this.state.FirstBlock}</Solution></li>
       </SolverList>
     );
