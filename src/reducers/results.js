@@ -4,7 +4,6 @@ const result = (state = {}, action, scrambler, scramble) => {
       return {
         id: action.id,
         time: action.time,
-        session: action.session,
         plusTwo: false,
         dnf: false,
         scrambler,
@@ -12,7 +11,7 @@ const result = (state = {}, action, scrambler, scramble) => {
       };
 
     case "TOGGLE_PLUS_TWO":
-      if (state.id !== action.id || state.session !== action.session) {
+      if (state.id !== action.id) {
         return state;
       }
 
@@ -22,7 +21,7 @@ const result = (state = {}, action, scrambler, scramble) => {
       }
 
     case "TOGGLE_DNF":
-      if (state.id !== action.id || state.session !== action.session) {
+      if (state.id !== action.id) {
         return state;
       }
 
@@ -45,7 +44,7 @@ const results = (state = [], action, scrambler, scramble) => {
       ];
 
     case 'CLEAR_SESSION':
-      return state.filter((r) => r.session !== action.id);
+      return [];
 
     case "DELETE_RESULT":
       return state.filter((r) => r.id !== action.id);

@@ -8,16 +8,16 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onDelete: (session, id) => {
-    dispatch(deleteResult(session, id));
+  onDelete: (id) => {
+    dispatch(deleteResult(id));
   },
 
-  onTogglePlusTwo: (session, id) => {
-    dispatch(togglePlusTwo(session, id));
+  onTogglePlusTwo: (id) => {
+    dispatch(togglePlusTwo(id));
   },
 
-  onToggleDNF: (session, id) => {
-    dispatch(toggleDNF(session, id));
+  onToggleDNF: (id) => {
+    dispatch(toggleDNF(id));
   }
 });
 

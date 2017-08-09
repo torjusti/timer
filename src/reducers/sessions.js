@@ -1,11 +1,13 @@
 import { createSession } from '../actions/sessions';
+import results from './results';
 
-const session = (state = {}, action) => {
+const session = (state = {}, action, scrambler, scramble) => {
   switch (action.type) {
     case 'CREATE_SESSION':
       return {
         name: action.name,
         id: action.id,
+        results: [],
       };
 
     case 'RENAME_SESSION':
@@ -16,6 +18,17 @@ const session = (state = {}, action) => {
       return {
         ...state,
         name: action.name,
+      }
+
+    case 'ADD_RESULT':
+    case 'CLEAR_SESSION':
+    case 'DELETE_RESULT':
+    case 'DELETE_RESULTS':
+    case 'TOGGLE_PLUS_TWO':
+    case 'TOGGLE_DNF':
+      return {
+        ...state,
+        results: results(state.results, action, scrambler, scramble),
       }
 
     default:
@@ -29,7 +42,7 @@ const defaultSession = session(undefined, createSession('Default session'));
 
 const defaultSessions = [defaultSession];
 
-export const sessions = (state = defaultSessions, action) => {
+export const sessions = (state = defaultSessions, action, selectedSession, scrambler, scramble) => {
   switch (action.type) {
     case 'CREATE_SESSION':
       return [
@@ -42,6 +55,18 @@ export const sessions = (state = defaultSessions, action) => {
 
     case 'RENAME_SESSION':
       return state.map((s) => session(s, action));
+
+    case 'ADD_RESULT':
+    case 'CLEAR_SESSION':
+    case 'DELETE_RESULT':
+    case 'DELETE_RESULTS':
+    case 'TOGGLE_PLUS_TWO':
+    case 'TOGGLE_DNF':
+      // Only update the result list if the result is connected
+      // to this session.
+      return state.filter((s) => s.id === selectedSession).map((s) =>
+        session(s, action, scrambler, scramble),
+      );
 
     default:
       return state;

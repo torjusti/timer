@@ -1537,7 +1537,7 @@ function toFaceCube(cc){
     for (n = 0; n < 3; ++n)
       f[cornerFacelet[c][(n + ori) % 3]] = ts[cornerColor[j][n]];
   }
-  for (e = 0; e < 12; ++e) {  console.log('start...')
+  for (e = 0; e < 12; ++e) {
 
     j = cc.ep[e];
     ori = cc.eo[e];
