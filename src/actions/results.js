@@ -1,36 +1,31 @@
 import { generateScramble } from '../utils/scrambles';
 
-export const addResult = (session, time, selectedScrambler) => ({
+export const addResult = (time, selectedScrambler) => ({
   type: 'ADD_RESULT',
   id: Date.now(),
-  session,
   time,
   updatedScramble: generateScramble(selectedScrambler),
 });
 
-export const togglePlusTwo =  (session, id) => ({
+export const togglePlusTwo =  (id) => ({
   type: 'TOGGLE_PLUS_TWO',
-  session,
   id,
 });
 
-export const deleteResult = (session, id)  => ({
+export const deleteResult = (id)  => ({
   type: 'DELETE_RESULT',
-  session,
   id,
 });
 
 /**
  * Accepts an array with IDs which will be deleted.
  */
-export const deleteResults = (session, ids) => ({
+export const deleteResults = (ids) => ({
   type: 'DELETE_RESULTS',
-  session,
   ids,
 });
 
-export const toggleDNF = (session, id) => ({
+export const toggleDNF = (id) => ({
   type: 'TOGGLE_DNF',
-  session,
   id,
 });
