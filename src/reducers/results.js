@@ -10,8 +10,8 @@ const result = (state = {}, action, scrambler, scramble) => {
         scramble,
       };
 
-    case "TOGGLE_PLUS_TWO":
-      if (state.id !== action.id) {
+    case 'TOGGLE_PLUS_TWO':
+      if (action.ids.indexOf(state.id) < 0) {
         return state;
       }
 
@@ -20,8 +20,8 @@ const result = (state = {}, action, scrambler, scramble) => {
         plusTwo: !state.plusTwo,
       }
 
-    case "TOGGLE_DNF":
-      if (state.id !== action.id) {
+    case 'TOGGLE_DNF':
+      if (action.ids.indexOf(state.id) < 0) {
         return state;
       }
 
@@ -46,16 +46,13 @@ const results = (state = [], action, scrambler, scramble) => {
     case 'CLEAR_SESSION':
       return [];
 
-    case "DELETE_RESULT":
-      return state.filter((r) => r.id !== action.id);
-
-    case "DELETE_RESULTS":
+    case 'DELETE_RESULT':
       return state.filter((r) => action.ids.indexOf(r.id) < 0);
 
-    case "TOGGLE_PLUS_TWO":
+    case 'TOGGLE_PLUS_TWO':
       return state.map((r) => result(r, action));
 
-    case "TOGGLE_DNF":
+    case 'TOGGLE_DNF':
       return state.map((r) => result(r, action));
 
     default:

@@ -9,15 +9,15 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onDelete: (id) => {
-    dispatch(deleteResult(id));
+    dispatch(deleteResult([id]));
   },
 
   onTogglePlusTwo: (id) => {
-    dispatch(togglePlusTwo(id));
+    dispatch(togglePlusTwo([id]));
   },
 
   onToggleDNF: (id) => {
-    dispatch(toggleDNF(id));
+    dispatch(toggleDNF([id]));
   }
 });
 
