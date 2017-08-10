@@ -16,18 +16,9 @@ const ResultColumnContainer = styled.div`
   }
 `;
 
-const ScrollingTableContainer = styled.div`
-  display: flex;
-  height: 100%;
-  overflow-y: scroll;
-  position: relative;
-`;
-
 const ResultColumn = () => (
   <ResultColumnContainer>
-    <ScrollingTableContainer>
-      <ActiveResultList />
-    </ScrollingTableContainer>
+    <ActiveResultList />
   </ResultColumnContainer>
 );
 
