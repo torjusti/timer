@@ -14,6 +14,10 @@ const Table = styled.table`
   text-align: left;
 `;
 
+const TableBody = styled.tbody`
+  font-family: monospace;
+`;
+
 const StyledResultList = styled.div`
   width: 100%;
   flex: 1;
@@ -27,6 +31,10 @@ const StyledResultList = styled.div`
 
 const Buttons = styled.div`
   margin: 1em;
+
+  button:not(:first-child) {
+    margin-left: .3em;
+  }
 `;
 
 class ResultList extends React.Component {
@@ -87,7 +95,7 @@ class ResultList extends React.Component {
                 <th>ao12</th>
               </tr>
             </thead>
-            <tbody>
+            <TableBody>
               {results.map((result, index) =>
                 <Result key={result.id}
                   selected={this.state.selected}
@@ -97,7 +105,7 @@ class ResultList extends React.Component {
                   {...result}
                 />
               ).reverse()}
-            </tbody>
+            </TableBody>
           </Table>
         </StyledResultList>
 
