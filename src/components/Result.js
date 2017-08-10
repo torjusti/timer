@@ -7,45 +7,23 @@ const Time = styled.span`
   text-decoration: ${props => props.dnf && 'line-through'};
 `;
 
-class Result extends React.Component {
-  constructor() {
-    super();
+const Result = (props) => {
+  const time = (<Time dnf={props.dnf}>{formatResult(props)}</Time>);
 
-    this.state = {
-      modalIsOpen: false,
-    };
-
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-  }
-
-  openModal() {
-    this.setState({
-      modalIsOpen: true,
-    });
-  }
-
-  closeModal() {
-    this.setState({
-      modalIsOpen: false,
-    });
-  }
-
-  render() {
-    const time = (<Time dnf={this.props.dnf}>{formatResult(this.props)}</Time>);
-
-    return (
-      <tr key={this.props.id}>
-        <td><Link to={`/result/${this.props.id}`}>{time}</Link></td>
-        <td>{(this.props.currentAo5 && formatElapsedTime(this.props.currentAo5, 2)) || 'N/A'}</td>
-        <td>{(this.props.currentAo12 && formatElapsedTime(this.props.currentAo12, 2)) || 'N/A'}</td>
-        <td><button onClick={this.props.onDelete}>del</button></td>
-        <td><button onClick={this.props.onTogglePlusTwo}>+2</button></td>
-        <td><button onClick={this.props.onToggleDNF}>dnf</button></td>
-        <td><Link to={`/result/${this.props.id}`} /></td>
-      </tr>
-    );
-  }
-}
+  return (
+    <tr key={props.id}>
+      <td>
+        <input
+          type="checkbox"
+          checked={!!props.selected[props.id]}
+          onChange={() => props.handleSelect(props.id)}
+        />
+      </td>
+      <td><Link to={`/result/${props.id}`}>{time}</Link></td>
+      <td>{(props.currentAo5 && formatElapsedTime(props.currentAo5, 2)) || 'N/A'}</td>
+      <td>{(props.currentAo12 && formatElapsedTime(props.currentAo12, 2)) || 'N/A'}</td>
+    </tr>
+  );
+};
 
 export default Result;
