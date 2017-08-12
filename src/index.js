@@ -8,6 +8,7 @@ import timerApp from './reducers';
 import App from './components/App';
 import SettingsContainer from './containers/SettingsContainer';
 import BigResultContainer from './containers/BigResultContainer';
+import AlgorithmsContainer from './containers/AlgorithmsContainer';
 import './globalStyles.js';
 
 const initialState = localStorage.state ? JSON.parse(localStorage.state) : undefined;
@@ -26,6 +27,7 @@ const Root = () => (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App} />
+      <Route path="/algorithms" component={AlgorithmsContainer} />
       <Route path="/settings" component={SettingsContainer} />
       <Route path="/result/:id" component={BigResultContainer} />
     </Router>

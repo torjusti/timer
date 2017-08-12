@@ -1,6 +1,6 @@
-/* eslint-disable */
-
 import { injectGlobal } from 'styled-components';
+
+import './static/icons';
 
 injectGlobal`
   * {

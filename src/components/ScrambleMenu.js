@@ -39,15 +39,20 @@ const ScrambleMenuContainer = styled.div`
   padding: 1em;
 `;
 
-const SettingsButton = styled(Link)`
+const HeaderButton = styled(Link)`
   display: flex;
   justify-content: center;
   flex-direction: column;
   cursor: pointer;
+  border-radius: 2px;
   color: #FFF;
   background: ${theme.header.darken(0.1)};
   padding: 0 .8em;
   text-decoration: none;
+
+  &:not(:last-child) {
+    margin-right: 1em;
+  }
 `;
 
 const ScrambleMenu = ({ currentScramble, selectedScrambler, onScramblerChange }) => (
@@ -64,9 +69,13 @@ const ScrambleMenu = ({ currentScramble, selectedScrambler, onScramblerChange })
       </ScrambleDisplayAlgLink>
     </ScrambleDisplay>
 
-    <SettingsButton to="/settings">
+    <HeaderButton to="/algorithms">
+      <span className="cubing-icon event-333"></span>
+    </HeaderButton>
+
+    <HeaderButton to="/settings">
       <i className="fa fa-cog" aria-hidden="true"></i>
-  </SettingsButton>
+    </HeaderButton>
   </ScrambleMenuContainer>
 );
 
