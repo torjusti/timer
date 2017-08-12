@@ -5,6 +5,7 @@ import {
   createSet,
   selectSet,
   addAlgorithm,
+  deleteSet,
 } from '../actions/sets';
 
 const mapStateToProps = (state) => ({
@@ -23,6 +24,10 @@ const mapDispatchToProps = (dispatch) => ({
 
   selectSet: (id) => {
     dispatch(selectSet(id));
+  },
+
+  deleteSet: (id) => {
+    dispatch(deleteSet(id));
   },
 });
 

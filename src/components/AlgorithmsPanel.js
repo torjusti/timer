@@ -67,18 +67,28 @@ class AlgorithmsPanel extends React.Component {
 
       this.setState({
         value: '',
-      })
+      });
+    }
+
+    this.textInput.focus();
+  }
+
+  deleteSet() {
+    if (this.props.selectedSet) {
+      this.props.deleteSet(this.props.selectedSet);
     }
   }
 
-  addAlgorithm() {
+  addAlgorithm(event) {
     if (this.state.value && this.props.selectedSet) {
       this.props.addAlgorithm(this.state.value, this.props.selectedSet);
 
       this.setState({
         value: '',
-      })
+      });
     }
+
+    this.textInput.focus();
   }
 
   render() {
@@ -95,10 +105,12 @@ class AlgorithmsPanel extends React.Component {
              type="text"
              onChange={(e) => this.handleChange(e)}
              placeholder="set name / algorithm"
+             ref={(input) => { this.textInput = input; }}
              value={this.state.value}
            />
 
            <Button onClick={() => this.createSet()}>Create set</Button>
+           <Button onClick={() => this.deleteSet()}>Delete set</Button>
            <Button onClick={() => this.addAlgorithm()}>Add algorithm</Button>
          </Buttons>
 
@@ -109,6 +121,8 @@ class AlgorithmsPanel extends React.Component {
                onClick={() => selectSet(key)}
              >{sets[key].name}</Button>
            )}
+
+           <h2>{sets[selectedSet] && sets[selectedSet].name}</h2>
          </Sets>
 
          <Grid>

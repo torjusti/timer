@@ -19,5 +19,5 @@ export const getResult = createSelector(
   (_, id) => id,
   (sessions, selectedSession, id) =>
     sessions.find((session) => session.id === selectedSession).results
-    .find(r => id && /^\d+$/.test(id) && r.id === parseInt(id, 10)),
+    .find(r => r.id === id),
 );

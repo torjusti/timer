@@ -37,7 +37,7 @@ class SessionMenu extends React.Component {
   }
 
   handleChange(event) {
-    this.props.onSessionChange(parseInt(event.target.value, 10));
+    this.props.onSessionChange(event.target.value);
   }
 
   handleSessionNameChange(event) {

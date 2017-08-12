@@ -31,7 +31,8 @@ Object.keys(wideMoves).forEach((move) => {
  * Also translates wide moves.
  */
 const stripRotations = (algorithm) => {
-  let moves = Array.isArray(algorithm) ? algorithm : alg.cube.fromString(algorithm);
+  let moves = Array.isArray(algorithm) ? algorithm :
+    alg.cube.fromString(alg.cube.expand(algorithm));
 
   // Translate all wide moves to moves and a rotation.
   moves = moves.reduce((acc, move) => {

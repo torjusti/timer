@@ -42,6 +42,14 @@ export const sets = (state = {}, action) => {
         [action.set]: set(state[action.set], action),
       }
 
+    case 'DELETE_SET':
+      return Object.keys(state)
+        .filter((key) => key !== action.id)
+        .reduce((obj, key) => {
+          obj[key] = JSON.parse(JSON.stringify(state[key]));
+          return obj;
+        }, {});
+
     default:
       return state;
   }
@@ -54,6 +62,9 @@ export const selectedSet = (state = null, action) => {
 
     case 'SELECT_SET':
       return action.id;
+
+    case 'DELETE_SET':
+      return null;
 
     default:
       return state;

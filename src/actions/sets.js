@@ -17,3 +17,8 @@ export const addAlgorithm = (algorithm, set) => ({
   set,
   id: uuid(),
 });
+
+export const deleteSet = (id) => ({
+  type: 'DELETE_SET',
+  id,
+});
