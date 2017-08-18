@@ -1,3 +1,5 @@
+import { defaultCard } from '../utils/spacedRepetition';
+
 const set = (state = {}, action) => {
   switch(action.type) {
     case 'CREATE_SET':
@@ -18,15 +20,37 @@ const set = (state = {}, action) => {
           ...state.algorithms,
 
           {
+            ...defaultCard,
             algorithm: action.algorithm,
             id: action.id,
           },
         ],
       };
+
+    case 'GRADE_ALGORITHM':
+      return {
+        ...state,
+
+        algorithms: state.algorithms.map((alg) => {
+          if (alg.id !== action.id) {
+            return alg;
+          }
+
+          return {
+            ...alg,
+            ...action.data,
+          };
+        }),
+      };
+
     default:
       return state;
   }
 };
+
+const getSet = (sets, id) => Object.keys(sets).map((key) => sets[key])
+  .find((set) => set.algorithms.map((alg) =>
+  alg.id).indexOf(id) >= 0);
 
 export const sets = (state = {}, action) => {
   switch(action.type) {
@@ -46,7 +70,14 @@ export const sets = (state = {}, action) => {
       return Object.keys(state)
         .filter((key) => key !== action.id)
         .reduce((obj, key) => {
-          obj[key] = JSON.parse(JSON.stringify(state[key]));
+          obj[key] = set(state[key], action);
+          return obj;
+        }, {});
+
+    case 'GRADE_ALGORITHM':
+      return Object.keys(state)
+        .reduce((obj, key) => {
+          obj[key] = set(state[key], action);
           return obj;
         }, {});
 
@@ -65,6 +96,16 @@ export const selectedSet = (state = null, action) => {
 
     case 'DELETE_SET':
       return null;
+
+    default:
+      return state;
+  }
+};
+
+export const currentAlgorithm = (state = null, action) => {
+  switch (action.type) {
+    case 'SET_CURRENT_ALGORITHM':
+      return action.id;
 
     default:
       return state;

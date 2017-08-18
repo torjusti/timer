@@ -1,11 +1,12 @@
 import { selectedSession, sessions } from './sessions';
 import { selectedScrambler, currentScramble } from './scrambles';
-import { sets, selectedSet } from './sets';
+import { sets, selectedSet, currentAlgorithm } from './sets';
 
 const timerApp = (state = {}, action) => {
   const updatedState = {
     selectedScrambler: selectedScrambler(state.selectedScrambler, action),
     sets: sets(state.sets, action),
+    currentAlgorithm: currentAlgorithm(state.currentAlgorithm, action),
     selectedSet: selectedSet(state.selectedSet, action),
   };
 

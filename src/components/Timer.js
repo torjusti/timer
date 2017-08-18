@@ -2,7 +2,7 @@ import React from 'react';
 import { formatElapsedTime } from '../utils/time';
 import styled from 'styled-components';
 
-const TimerDisplay =  styled.div`
+const TimerDisplay = styled.div`
   width: 100%;
   font-family: monospace;
   font-size: 15rem;
@@ -17,6 +17,12 @@ const TimerDisplay =  styled.div`
   }
 `;
 
+const GradeButton = styled.button`
+  &:not(:first-child) {
+    margin-left: 0.3em;
+  }
+`;
+
 class Timer extends React.Component {
   constructor(props) {
     super();
@@ -27,6 +33,7 @@ class Timer extends React.Component {
       solveStart: null, // When the attempt started.
       elapsedTime: 0, // The displayed  elapsed time.
       interval: null, // The interval ID used for clearing timer display interval.
+      graded: true,
     };
 
     this.handleKeyUp = this.handleKeyUp.bind(this);
@@ -46,12 +53,26 @@ class Timer extends React.Component {
   }
 
   checkReady() {
-    if (this.state.spaceHoldStarted && Date.now() - this.state.spaceHoldStarted >= 1000) {
+    if (this.state.spaceHoldStarted && Date.now() - this.state.spaceHoldStarted >= 1000
+        && this.state.graded && this.props.currentScramble) {
       this.setState({
         timerState: 'READY',
         elapsedTime: 0, // Remove previous time when timer is ready to start a new solve.
       });
     }
+  }
+
+  gradeAttempt(level) {
+    if (this.state.graded) {
+      return;
+    }
+
+    this.setState({
+      graded: true,
+    });
+
+    this.props.grade(this.props.currentAlgorithm, level);
+    this.props.onAttemptFinished(this.state.elapsedTime, this.props.selectedScrambler);
   }
 
   finishAttempt() {
@@ -64,7 +85,13 @@ class Timer extends React.Component {
     // Force a tick to ensure elapsed time is up to date.
     this.tick();
 
-    this.props.onAttemptFinished(this.state.elapsedTime, this.props.selectedScrambler);
+    if (this.props.selectedScrambler === 'algs') {
+      this.setState({
+        graded: false,
+      });
+    } else {
+      this.props.onAttemptFinished(this.state.elapsedTime, this.props.selectedScrambler);
+    }
   }
 
   setRunning() {
@@ -139,6 +166,15 @@ class Timer extends React.Component {
     return (
       <TimerDisplay className={this.state.timerState}>
         {elapsedTime}
+
+        {this.props.selectedScrambler === 'algs' && <div>
+          <GradeButton onClick={() => this.gradeAttempt(0)}>0</GradeButton>
+          <GradeButton onClick={() => this.gradeAttempt(1)}>1</GradeButton>
+          <GradeButton onClick={() => this.gradeAttempt(2)}>2</GradeButton>
+          <GradeButton onClick={() => this.gradeAttempt(3)}>3</GradeButton>
+          <GradeButton onClick={() => this.gradeAttempt(4)}>4</GradeButton>
+          <GradeButton onClick={() => this.gradeAttempt(5)}>5</GradeButton>
+        </div>}
       </TimerDisplay>
     );
   }
