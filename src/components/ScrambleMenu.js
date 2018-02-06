@@ -6,7 +6,7 @@ import theme from './theme';
 // All available scramblers.
 const scrambleTypes = ['333', 'lse', 'edges', 'corners', 'cmll', 'lsll', 'zbll',
   '2gll', 'pll', 'zzls', '222', 'clock', 'minx', '444', '555', '666', '777',
-  '444bf', '555bf', 'pyram', 'skewb', 'sq1'];
+  '444bf', '555bf', 'pyram', 'skewb', 'sq1', 'algs'];
 
 const ScrambleSelector = styled.select`
   background: rgba(255, 255, 255, 0.8);
@@ -65,7 +65,7 @@ const ScrambleMenu = ({ currentScramble, selectedScrambler, onScramblerChange })
 
     <ScrambleDisplay>
       <ScrambleDisplayAlgLink href={`https://alg.cubing.net/?setup=${currentScramble}`} target="_blank">
-        {currentScramble}
+        {currentScramble || 'No scramble available'}
       </ScrambleDisplayAlgLink>
     </ScrambleDisplay>
 

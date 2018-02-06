@@ -75,3 +75,5 @@ const stripRotations = (algorithm) => {
   // caused by the wide move translation.
   return alg.cube.simplify(stripRotations(moves.concat(translated)));
 };
+
+export default stripRotations;
