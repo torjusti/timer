@@ -168,12 +168,12 @@ class Timer extends React.Component {
         {elapsedTime}
 
         {this.props.selectedScrambler === 'algs' && <div>
-          <GradeButton onClick={() => this.gradeAttempt(0)}>0</GradeButton>
-          <GradeButton onClick={() => this.gradeAttempt(1)}>1</GradeButton>
-          <GradeButton onClick={() => this.gradeAttempt(2)}>2</GradeButton>
-          <GradeButton onClick={() => this.gradeAttempt(3)}>3</GradeButton>
-          <GradeButton onClick={() => this.gradeAttempt(4)}>4</GradeButton>
-          <GradeButton onClick={() => this.gradeAttempt(5)}>5</GradeButton>
+          <GradeButton onClick={() => this.gradeAttempt(0)} disabled={this.state.graded}>0</GradeButton>        
+          <GradeButton onClick={() => this.gradeAttempt(1)} disabled={this.state.graded}>1</GradeButton>
+          <GradeButton onClick={() => this.gradeAttempt(2)} disabled={this.state.graded}>2</GradeButton>
+          <GradeButton onClick={() => this.gradeAttempt(3)} disabled={this.state.graded}>3</GradeButton>
+          <GradeButton onClick={() => this.gradeAttempt(4)} disabled={this.state.graded}>4</GradeButton>
+          <GradeButton onClick={() => this.gradeAttempt(5)} disabled={this.state.graded}>5</GradeButton>
         </div>}
       </TimerDisplay>
     );
