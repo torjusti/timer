@@ -9,7 +9,7 @@ const calculateStatistics = (results) => {
 
   return {
     // Best single in the entire session.
-    bestSingle: Math.min(...times),
+    bestSingle: times.length > 0 ? Math.min(...times) : null,
     // Mean ignoring DNF results.
     globalMean: times.length ? mean(times) : null,
     // Average ignoring DNF results.
