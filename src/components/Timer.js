@@ -23,6 +23,10 @@ const GradeButton = styled.button`
   }
 `;
 
+const Solution = styled.div`
+  font-size: 1rem;
+`;
+
 class Timer extends React.Component {
   constructor(props) {
     super();
@@ -33,26 +37,17 @@ class Timer extends React.Component {
       solveStart: null, // When the attempt started.
       elapsedTime: 0, // The displayed  elapsed time.
       interval: null, // The interval ID used for clearing timer display interval.
-      graded: true,
+      graded: true, // Whether or not the attempt has been graded or not.
     };
-
-    this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.tick = this.tick.bind(this);
-    this.checkReady = this.checkReady.bind(this);
-    this.finishAttempt = this.finishAttempt.bind(this);
-    this.setRunning = this.setRunning.bind(this);
-    this.setNormal = this.setNormal.bind(this);
-    this.setHolding = this.setHolding.bind(this);
   }
 
-  tick() {
+  tick = () => {
     this.setState({
       elapsedTime: Date.now() - this.state.solveStart,
     });
   }
 
-  checkReady() {
+  checkReady = () => {
     if (this.state.spaceHoldStarted && Date.now() - this.state.spaceHoldStarted >= 1000
         && this.state.graded && this.props.currentScramble) {
       this.setState({
@@ -75,7 +70,7 @@ class Timer extends React.Component {
     this.props.onAttemptFinished(this.state.elapsedTime, this.props.selectedScrambler);
   }
 
-  finishAttempt() {
+  finishAttempt = () => {
     this.setState({
       timerState: 'NORMAL',
     });
@@ -94,7 +89,7 @@ class Timer extends React.Component {
     }
   }
 
-  setRunning() {
+  setRunning = () => {
     this.setState({
       spaceHoldStarted: false,
       timerState: 'RUNNING',
@@ -106,14 +101,14 @@ class Timer extends React.Component {
     });
   }
 
-  setNormal() {
+  setNormal = () => {
     this.setState({
       spaceHoldStarted: false,
       timerState: 'NORMAL',
     });
   }
 
-  setHolding() {
+  setHolding = () => {
     this.setState({
       spaceHoldStarted: Date.now(),
       timerState: 'HOLDING',
@@ -122,7 +117,7 @@ class Timer extends React.Component {
     setTimeout(this.checkReady, 1000);
   }
 
-  handleKeyUp(event) {
+  handleKeyUp = (event) => {
     if (event.keyCode === 32) {
       if (this.state.timerState === 'READY') {
         this.setRunning();
@@ -132,7 +127,7 @@ class Timer extends React.Component {
     }
   }
 
-  handleKeyDown(event) {
+  handleKeyDown = (event) => {
     if (event.keyCode === 32 && event.target === document.body) {
       event.preventDefault();
     }
@@ -163,11 +158,18 @@ class Timer extends React.Component {
       elapsedTime = formatElapsedTime(this.state.elapsedTime, 2);
     }
 
+    // Show the solution after the attempt has finished, but before grading happens.
+    // This is so the user can verify that the actually correct solution was used.
+    const solution = this.state.graded ? null :
+      <Solution>{this.props.currentAlgorithmSolution}</Solution>;
+
     return (
       <TimerDisplay className={this.state.timerState}>
         {elapsedTime}
 
         {this.props.selectedScrambler === 'algs' && <div>
+          {solution}
+
           <GradeButton onClick={() => this.gradeAttempt(0)} disabled={this.state.graded}>0</GradeButton>        
           <GradeButton onClick={() => this.gradeAttempt(1)} disabled={this.state.graded}>1</GradeButton>
           <GradeButton onClick={() => this.gradeAttempt(2)} disabled={this.state.graded}>2</GradeButton>
