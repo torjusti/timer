@@ -53,7 +53,7 @@ export const interval = (card, grade) => {
 
 export const getScramble = () => {
   const algorithms = getAlgorithms(store.getState())
-    .filter((alg) => moment(alg.date).isSame(moment(), 'day'));
+    .filter((alg) => moment(alg.date).isSameOrBefore(moment(), 'day'));
 
   if (algorithms.length) {
     const random = algorithms[Math.floor(Math.random() * algorithms.length)];
