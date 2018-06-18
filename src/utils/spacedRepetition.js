@@ -51,9 +51,11 @@ export const interval = (card, grade) => {
   return updated;
 };
 
+export const getRemaindingAlgorithms = () => getAlgorithms(store.getState())
+  .filter(alg => moment(alg.date).isSameOrBefore(moment(), 'day'));
+
 export const getScramble = () => {
-  const algorithms = getAlgorithms(store.getState())
-    .filter((alg) => moment(alg.date).isSameOrBefore(moment(), 'day'));
+  const algorithms = getRemaindingAlgorithms();
 
   if (algorithms.length) {
     const random = algorithms[Math.floor(Math.random() * algorithms.length)];

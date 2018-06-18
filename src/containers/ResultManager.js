@@ -3,6 +3,7 @@ import Timer from '../components/Timer';
 import { addResult } from '../actions/results';
 import { gradeAlgorithm } from '../actions/sets';
 import { getAlgorithm } from '../selectors/sets';
+import { getRemaindingAlgorithms } from '../utils/spacedRepetition';
 
 const mapStateToProps = (state) => ({
   // The currently selected session, which the results will be stored in.
@@ -19,6 +20,8 @@ const mapStateToProps = (state) => ({
   // This is used to display the solution string so that the user can check for correctness.
   currentAlgorithmSolution: getAlgorithm(state, state.currentAlgorithm).algorithm,
 
+  remaindingAlgorithmCount: getRemaindingAlgorithms().length,
+  
   // The scranble currently being shown to the user.
   currentScramble: state.currentScramble,
 });

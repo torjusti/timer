@@ -170,6 +170,7 @@ class Timer extends React.Component {
         {this.props.selectedScrambler === 'algs' && <div>
           {solution}
 
+          {this.props.remaindingAlgorithmCount}
           <GradeButton onClick={() => this.gradeAttempt(0)} disabled={this.state.graded}>0</GradeButton>        
           <GradeButton onClick={() => this.gradeAttempt(1)} disabled={this.state.graded}>1</GradeButton>
           <GradeButton onClick={() => this.gradeAttempt(2)} disabled={this.state.graded}>2</GradeButton>
