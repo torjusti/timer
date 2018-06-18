@@ -5,6 +5,7 @@ import { selectScrambler } from '../actions/scrambles';
 const mapStateToProps = (state) => ({
   selectedScrambler: state.selectedScrambler,
   currentScramble: state.currentScramble,
+  currentAlgorithm: state.currentAlgorithm,
 });
 
 const mapDispatchToProps = (dispatch) => ({

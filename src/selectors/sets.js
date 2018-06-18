@@ -14,7 +14,7 @@ export const getAlgorithms = createSelector(
 export const getAlgorithm = createSelector(
   (state) => state.sets,
   (_, id) => id,
-  (sets, id) => Object.keys(sets).map((key) => sets[key])
-    .find((set) => set.algorithms.map((alg) =>
-    alg.id).indexOf(id) >= 0).algorithms.find((alg) => alg.id === id),
+  (sets, id) => Object.values(sets)
+    .reduce((acc, set) => [...acc, ...set.algorithms], [])
+    .find(alg => alg.id === id),
 );
