@@ -18,8 +18,9 @@ const mapStateToProps = (state) => ({
 
   // The solution string to thte algorithm currently being learned using spaced repetition.
   // This is used to display the solution string so that the user can check for correctness.
-  currentAlgorithmSolution: getAlgorithm(state, state.currentAlgorithm).algorithm,
+  currentAlgorithmSolution: state.currentAlgorithm && getAlgorithm(state, state.currentAlgorithm).algorithm,
 
+  // The remainding number of algortihms to learn.
   remaindingAlgorithmCount: getRemaindingAlgorithms().length,
   
   // The scranble currently being shown to the user.

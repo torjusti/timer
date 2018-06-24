@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, Switch } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import store from './store';
 import App from './components/App';
 import SettingsContainer from './containers/SettingsContainer';
@@ -17,18 +16,16 @@ export const routes = {
   result: '/result/:id',
 };
 
-const history = createBrowserHistory();
-
 const Root = () => (
   <Provider store={store}>
-    <Router history={history}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route exact path={routes.home} component={App} />
         <Route exact path={routes.algorithms} component={AlgorithmsContainer} />
         <Route exact path={routes.settings} component={SettingsContainer} />
         <Route exact path={routes.results} component={BigResultContainer} />
       </Switch>
-    </Router>
+    </BrowserRouter>
   </Provider>
 );
 
