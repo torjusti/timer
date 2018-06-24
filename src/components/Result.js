@@ -1,7 +1,7 @@
 import React from 'react';
 import { formatResult, formatElapsedTime } from '../utils/time';
 import styled from 'styled-components';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Time = styled.span`
   text-decoration: ${props => props.dnf && 'line-through'};

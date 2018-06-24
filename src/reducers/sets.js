@@ -48,10 +48,6 @@ const set = (state = {}, action) => {
   }
 };
 
-const getSet = (sets, id) => Object.keys(sets).map((key) => sets[key])
-  .find((set) => set.algorithms.map((alg) =>
-  alg.id).indexOf(id) >= 0);
-
 export const sets = (state = {}, action) => {
   switch(action.type) {
     case 'CREATE_SET':

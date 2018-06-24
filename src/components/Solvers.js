@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
-const SolverWorker = require('worker!../utils/solvers.worker.js'); // eslint-disable-line
+import SolverWorker from 'worker-loader!../utils/solvers.worker'; // eslint-disable-line
 
 const SolverTitle = styled.span`
 
