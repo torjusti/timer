@@ -1,26 +1,67 @@
 import { createSession } from '../actions/sessions';
+import { generateScramble } from '../utils/scrambles';
 import results from './results';
 
-const session = (state = {}, action, scrambler, scramble) => {
+/**
+ * The scrambler which is currently selected in the session.
+ */
+const selectedScrambler = (state = '333', action) => {
+  switch (action.type) {
+    case 'SELECT_SCRAMBLER':
+      return action.scrambler;
+
+    default:
+      return state;
+  }
+};
+
+/**
+ * The latest scramble given by the selected scrambler in a session.
+ */
+const currentScramble = (state = generateScramble(333), action) => {
+  switch (action.type) {
+    case 'SELECT_SCRAMBLER':
+      return action.updatedScramble;
+
+    case 'ADD_RESULT':
+      return action.updatedScramble;
+
+    default:
+      return state;
+  }
+};
+
+const session = (state = {}, action) => {
   switch (action.type) {
     case 'CREATE_SESSION':
       return {
         name: action.name,
         id: action.id,
         results: [],
+        selectedScrambler: selectedScrambler(undefined, action),
+        currentScramble: currentScramble(undefined, action),
       };
 
     case 'RENAME_SESSION':
-      if (state.id !== action.id) {
-        return state;
-      }
-
       return {
         ...state,
         name: action.name,
-      }
+      };
+
+    case 'SELECT_SCRAMBLER':
+      return {
+        ...state,
+        selectedScrambler: selectedScrambler(state.selectedScrambler, action),
+        currentScramble: currentScramble(state.currentScramble, action),
+      };
 
     case 'ADD_RESULT':
+      return {
+        ...state,
+        results: results(state.results, action, state.selectedScrambler, state.currentScramble),
+        currentScramble: currentScramble(state.currentScramble, action),
+      }
+
     case 'CLEAR_SESSION':
     case 'DELETE_RESULT':
     case 'DELETE_RESULTS':
@@ -28,7 +69,7 @@ const session = (state = {}, action, scrambler, scramble) => {
     case 'TOGGLE_DNF':
       return {
         ...state,
-        results: results(state.results, action, scrambler, scramble),
+        results: results(state.results, action, state.selectedScrambler, state.currentScramble),
       }
 
     default:
@@ -42,7 +83,7 @@ const defaultSession = session(undefined, createSession('Default session'));
 
 const defaultSessions = [defaultSession];
 
-export const sessions = (state = defaultSessions, action, selectedSession, scrambler, scramble) => {
+export const sessions = (state = defaultSessions, action, selectedSession) => {
   switch (action.type) {
     case 'CREATE_SESSION':
       return [
@@ -54,19 +95,28 @@ export const sessions = (state = defaultSessions, action, selectedSession, scram
       return state.filter((session) => session.id !== action.id);
 
     case 'RENAME_SESSION':
-      return state.map((s) => session(s, action));
+      return state.map(s => {
+        if (s.id !== action.id) {
+          return s;
+        }
 
+        return session(s, action);
+      });
+
+    case 'SELECT_SCRAMBLER':
     case 'ADD_RESULT':
     case 'CLEAR_SESSION':
     case 'DELETE_RESULT':
     case 'DELETE_RESULTS':
     case 'TOGGLE_PLUS_TWO':
     case 'TOGGLE_DNF':
-      // Only update the result list if the result is connected
-      // to this session.
-      return state.filter((s) => s.id === selectedSession).map((s) =>
-        session(s, action, scrambler, scramble),
-      );
+      return state.map(s => {
+        if (s.id !== selectedSession) {
+
+        }
+
+        return session(s, action);
+      });
 
     default:
       return state;

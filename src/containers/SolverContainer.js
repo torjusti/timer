@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import Solvers from '../components/Solvers';
+import { currentScrambleSelector } from '../selectors/sessions';
 
 const mapStateToProps = (state) => ({
-  currentScramble: state.currentScramble,
+  currentScramble: currentScrambleSelector(state),
   scrambler: state.selectedScrambler,
 });
 

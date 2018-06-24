@@ -4,6 +4,7 @@ import { addResult } from '../actions/results';
 import { gradeAlgorithm } from '../actions/sets';
 import { getAlgorithm } from '../selectors/sets';
 import { getRemaindingAlgorithms } from '../utils/spacedRepetition';
+import { selectedScramblerSelector, currentScrambleSelector } from '../selectors/sessions';
 
 const mapStateToProps = (state) => ({
   // The currently selected session, which the results will be stored in.
@@ -11,7 +12,7 @@ const mapStateToProps = (state) => ({
 
   // We need the selected scrambler as we wish to generate the new scramble
   // outside the reducer when a new scramble is required.
-  selectedScrambler: state.selectedScrambler,
+  selectedScrambler: selectedScramblerSelector(state),
 
   // The ID of the algorithm currently being learned using spaced repetition.
   currentAlgorithm: state.currentAlgorithm,
@@ -24,7 +25,7 @@ const mapStateToProps = (state) => ({
   remaindingAlgorithmCount: getRemaindingAlgorithms().length,
   
   // The scranble currently being shown to the user.
-  currentScramble: state.currentScramble,
+  currentScramble: currentScrambleSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

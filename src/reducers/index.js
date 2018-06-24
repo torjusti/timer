@@ -1,16 +1,12 @@
 import { selectedSession, sessions } from './sessions';
-import { selectedScrambler, currentScramble } from './scrambles';
 import { sets, selectedSet, currentAlgorithm } from './sets';
 
 const timerApp = (state = {}, action) => {
   const updatedState = {
-    selectedScrambler: selectedScrambler(state.selectedScrambler, action),
+    selectedSet: selectedSet(state.selectedSet, action),
     sets: sets(state.sets, action),
     currentAlgorithm: currentAlgorithm(state.currentAlgorithm, action),
-    selectedSet: selectedSet(state.selectedSet, action),
   };
-
-  updatedState.currentScramble = currentScramble(state.currentScramble, action, updatedState.selectedScrambler);
 
   updatedState.sessions = sessions(
     state.sessions,
@@ -19,8 +15,6 @@ const timerApp = (state = {}, action) => {
     // the actions which change this do not require this knowledge
     // in the sessions reducer.
     state.selectedSession,
-    updatedState.selectedScrambler,
-    updatedState.currentScramble,
   );
 
   updatedState.selectedSession = selectedSession(state.selectedSession, action, updatedState.sessions);

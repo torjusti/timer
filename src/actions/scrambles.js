@@ -1,9 +1,8 @@
 import { generateScramble } from '../utils/scrambles';
 
 /**
- * Update the selected scrambler. This setting is global
- * across all sessions, and is usually updated by manually
- * changing the scramble type in the header dropdown menu.
+ * Updates the scrambler which is selected in the
+ * currently selected session.
  */
 export const selectScrambler = (scrambler) => ({
   type: 'SELECT_SCRAMBLER',
