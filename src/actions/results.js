@@ -1,5 +1,4 @@
 import uuid from 'uuid/v4';
-import { generateScramble } from 'utils/scrambles';
 
 export const ADD_RESULT = 'ADD_RESULT';
 export const TOGGLE_PLUS_TWO = 'TOGGLE_PLUS_TWO';
@@ -13,7 +12,6 @@ export const addResult = (time, selectedScrambler) => ({
   type: ADD_RESULT,
   id: uuid(),
   time,
-  updatedScramble: generateScramble(selectedScrambler),
 });
 
 /**

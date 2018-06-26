@@ -20,11 +20,8 @@ const selectedScrambler = (state = '333', action) => {
  */
 const currentScramble = (state = generateScramble(333), action) => {
   switch (action.type) {
-    case 'SELECT_SCRAMBLER':
-      return action.updatedScramble;
-
-    case 'ADD_RESULT':
-      return action.updatedScramble;
+    case 'SET_SCRAMBLE':
+      return action.scramble;
 
     default:
       return state;
@@ -52,16 +49,15 @@ const session = (state = {}, action) => {
       return {
         ...state,
         selectedScrambler: selectedScrambler(state.selectedScrambler, action),
+      };
+
+    case 'SET_SCRAMBLE':
+      return {
+        ...state,
         currentScramble: currentScramble(state.currentScramble, action),
       };
 
     case 'ADD_RESULT':
-      return {
-        ...state,
-        results: results(state.results, action, state.selectedScrambler, state.currentScramble),
-        currentScramble: currentScramble(state.currentScramble, action),
-      }
-
     case 'CLEAR_SESSION':
     case 'DELETE_RESULT':
     case 'DELETE_RESULTS':
@@ -104,6 +100,7 @@ export const sessions = (state = defaultSessions, action, selectedSession) => {
       });
 
     case 'SELECT_SCRAMBLER':
+    case 'SET_SCRAMBLE':
     case 'ADD_RESULT':
     case 'CLEAR_SESSION':
     case 'DELETE_RESULT':
