@@ -1,5 +1,4 @@
 import uuid from 'uuid/v4';
-
 import { generateScramble } from '../utils/scrambles';
 
 /**

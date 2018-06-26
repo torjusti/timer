@@ -1,72 +1,43 @@
 import React from 'react';
 import styled from 'styled-components';
-import { average, mean } from '../utils/statistics';
 import { formatElapsedTime } from '../utils/time';
-import { isDNF, fastestCubingAverage, cubingAverage, timesFromResults } from '../utils/cubingStatistics';
-
-const calculateStatistics = (results) => {
-  const times = timesFromResults(results);
-
-  return {
-    // Best single in the entire session.
-    bestSingle: times.length > 0 ? Math.min(...times) : null,
-    // Mean ignoring DNF results.
-    globalMean: times.length ? mean(times) : null,
-    // Average ignoring DNF results.
-    globalAverage: times.length >= 5 ? average(times) : null,
-    // 2 DNF results means both mean and average are also DNF.
-    globalDNF: isDNF(results),
-    // Fastest average of 5.
-    bestAo5: fastestCubingAverage(results, 5),
-    // Fastest average of 12.
-    bestAo12: fastestCubingAverage(results, 12),
-    // Current average of 5.
-    curAo5: results.length >= 5 ? cubingAverage(results.slice(-5)) : null,
-    // Current average of 12.
-    curAo12: results.length >= 12 ? cubingAverage(results.slice(-12)) : null,
-    // Current average of 100.
-    curAo100: results.length >= 100 ? cubingAverage(results.slice(-100)) : null,
-    // Best average of 100.
-    bestAo100: fastestCubingAverage(results, 100),
-  };
-};
 
 const StatList = styled.ul`
   margin: 0;
 `;
 
-const Statistics = ({ results }) => {
-  const stats = calculateStatistics(results);
+const Statistics = ({ statistics, resultCount }) => {
+  const descriptions = {
+    bestSingle: 'Best single',
+    bestAo5: 'Best average of 5',
+    bestAo12: 'Best average of 12',
+    bestAo100: 'Best average of 100',
+    curAo5: 'Current average of 5',
+    curAo12: 'Current average of 12',
+    curAo100: 'Current average of 100',
+  };
 
-  const globalMean = stats.globalMean ?
-    stats.globalDNF ? `DNF (${formatElapsedTime(stats.globalMean, 2)})` : formatElapsedTime(stats.globalMean, 2) :
-    'N/A';
+  const globalMean = statistics.globalMean ?
+    statistics.globalDNF ? `DNF (${formatElapsedTime(statistics.globalMean, 2)})`
+      : formatElapsedTime(statistics.globalMean, 2) : 'N/A';
 
-  const globalAverage = stats.globalAverage ?
-    stats.globalDNF ? `DNF (${formatElapsedTime(stats.globalAverage, 2)})` : formatElapsedTime(stats.globalAverage, 2) :
-    'N/A';
-
-  const bestSingle = stats.bestSingle ? formatElapsedTime(stats.bestSingle, 2) : 'N/A';
-  const bestAo5 = stats.bestAo5 ? formatElapsedTime(stats.bestAo5, 2) : 'N/A';
-  const bestAo12 = stats.bestAo12 ? formatElapsedTime(stats.bestAo12, 2) : 'N/A';
-  const curAo5 = stats.curAo5 ? formatElapsedTime(stats.curAo5, 2) : 'N/A';
-  const curAo12 = stats.curAo12 ? formatElapsedTime(stats.curAo12, 2) : 'N/A';
-  const curAo100 = stats.curAo100 ? formatElapsedTime(stats.curAo100, 2) : 'N/A';
-  const bestAo100 = stats.bestAo100 ? formatElapsedTime(stats.curAo100, 2) : 'N/A';
+  const globalAverage = statistics.globalAverage ?
+    statistics.globalDNF ? `DNF (${formatElapsedTime(statistics.globalAverage, 2)})`
+      : formatElapsedTime(statistics.globalAverage, 2) : 'N/A';
 
   return (
-    <div className="Statistics">
+    <div>
       <StatList>
-        <li>Number of times: {results.length}</li>
-        <li>Best single: {bestSingle}</li>
+        <li>Number of times: {resultCount}</li>
         <li>Global mean: {globalMean}</li>
         <li>Global average: {globalAverage}</li>
-        <li>Best ao5: {bestAo5}</li>
-        <li>Best ao12: {bestAo12}</li>
-        <li>Current ao5: {curAo5}</li>
-        <li>Current ao12: {curAo12}</li>
-        <li>Current ao100: {curAo100}</li>
-        <li>Best ao100: {bestAo100}</li>
+
+        {Object.keys(descriptions).map(key =>
+          <li key={key}>
+            {descriptions[key]}: {statistics[key] ?
+              formatElapsedTime(statistics[key], 2) : 'N/A'}
+          </li>
+        )}
       </StatList>
     </div>
   );
