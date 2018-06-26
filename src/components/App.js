@@ -5,6 +5,7 @@ import ResultManager from '../containers/ResultManager';
 import ScrambleManager from '../containers/ScrambleManager';
 import Sidebar from './Sidebar';
 import ResultColumn from './ResultColumn'
+import PersonalBestContainer from '../containers/PersonalBestContainer';
 
 const App = styled.div`
   display: flex;
@@ -31,6 +32,7 @@ const Main = styled.main`
 export default () => (
   <ThemeProvider theme={colors}>
     <App>
+      <PersonalBestContainer />
       <ScrambleManager />
       <Container>
         <ResultColumn />

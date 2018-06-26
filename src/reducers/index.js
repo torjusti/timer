@@ -1,11 +1,13 @@
 import { selectedSession, sessions } from './sessions';
 import { sets, selectedSet, currentAlgorithm } from './sets';
+import recordMessageIsVisible from './statistics';
 
 const timerApp = (state = {}, action) => {
   const updatedState = {
     selectedSet: selectedSet(state.selectedSet, action),
     sets: sets(state.sets, action),
     currentAlgorithm: currentAlgorithm(state.currentAlgorithm, action),
+    recordMessageIsVisible: recordMessageIsVisible(state.recordMessageIsVisible, action),
   };
 
   updatedState.sessions = sessions(
