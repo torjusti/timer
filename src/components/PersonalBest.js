@@ -41,6 +41,12 @@ class PersonalBest extends Component {
   }
 
   componentDidUpdate(oldProps) {
+    // Return instantly if the feature is disabled. Currently, the feature
+    // is disabled only when the algorithm scrambler is selected.
+    if (this.props.disabled) {
+      return;
+    }
+
     const descriptions = {
       bestSingle: 'single',
       bestAo5: 'average of 5',
@@ -62,6 +68,7 @@ class PersonalBest extends Component {
   }
 
   render() {
+    console.log(this.props)
     const Toast = styled.div`
       visibility: ${this.props.visible ? 'visible' : 'hidden'};
       position: fixed;      
