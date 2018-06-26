@@ -1,4 +1,4 @@
-import { defaultCard } from '../utils/spacedRepetition';
+import { defaultCard } from 'utils/spacedRepetition';
 
 const set = (state = {}, action) => {
   switch(action.type) {

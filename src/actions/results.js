@@ -1,5 +1,5 @@
 import uuid from 'uuid/v4';
-import { generateScramble } from '../utils/scrambles';
+import { generateScramble } from 'utils/scrambles';
 
 /**
  * Add a new result to the current session.

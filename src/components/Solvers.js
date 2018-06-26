@@ -1,10 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import SolverWorker from 'worker-loader!../utils/solvers.worker'; // eslint-disable-line
-
-const SolverTitle = styled.span`
-
-`;
+import SolverWorker from 'worker-loader!utils/solvers.worker'; // eslint-disable-line
 
 const SolverList = styled.ul`
   padding: 0;
@@ -77,9 +73,9 @@ class Solvers extends React.Component {
 
     return (
       <SolverList>
-        <li><SolverTitle>EOLine:</SolverTitle> <Solution>{this.state.EOLine}</Solution></li>
-        <li><SolverTitle>Cross:</SolverTitle> <Solution>{this.state.Cross}</Solution></li>
-        <li><SolverTitle>FB:</SolverTitle> <Solution>{this.state.FirstBlock}</Solution></li>
+        <li>EOLine: <Solution>{this.state.EOLine}</Solution></li>
+        <li>Cross: <Solution>{this.state.Cross}</Solution></li>
+        <li>FB: <Solution>{this.state.FirstBlock}</Solution></li>
       </SolverList>
     );
   }

@@ -1,5 +1,5 @@
-import { createSession } from '../actions/sessions';
-import { generateScramble } from '../utils/scrambles';
+import { createSession } from 'actions/sessions';
+import { generateScramble } from 'utils/scrambles';
 import results from './results';
 
 /**

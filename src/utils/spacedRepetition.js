@@ -1,8 +1,8 @@
 import moment from 'moment';
 import { solve } from 'cube-solver';
-import store from '../store';
-import { getAlgorithms } from '../selectors/sets';
-import { setCurrentAlgorithm } from '../actions/sets';
+import store from 'store';
+import { getAlgorithms } from 'selectors/sets';
+import { setCurrentAlgorithm } from 'actions/sets';
 import stripRotations from './stripRotations';
 
 const today = new Date();

@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import Timer from '../components/Timer';
-import { addResult } from '../actions/results';
-import { gradeAlgorithm } from '../actions/sets';
-import { getAlgorithm } from '../selectors/sets';
-import { getRemaindingAlgorithms } from '../utils/spacedRepetition';
-import { selectedScramblerSelector, currentScrambleSelector } from '../selectors/sessions';
+import Timer from 'components/Timer';
+import { addResult } from 'actions/results';
+import { gradeAlgorithm } from 'actions/sets';
+import { getAlgorithm } from 'selectors/sets';
+import { getRemaindingAlgorithms } from 'utils/spacedRepetition';
+import { selectedScramblerSelector, currentScrambleSelector } from 'selectors/sessions';
 
 const mapStateToProps = (state) => ({
   // The currently selected session, which the results will be stored in.

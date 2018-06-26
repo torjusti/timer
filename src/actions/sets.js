@@ -1,7 +1,7 @@
 import uuid from 'uuid/v4';
-import store from '../store';
-import { interval } from '../utils/spacedRepetition';
-import { getAlgorithm } from '../selectors/sets';
+import store from 'store';
+import { interval } from 'utils/spacedRepetition';
+import { getAlgorithm } from 'selectors/sets';
 
 export const createSet = (name) => ({
   type: 'CREATE_SET',

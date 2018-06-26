@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import ScrambleMenu from '../components/ScrambleMenu';
-import { selectScrambler } from '../actions/scrambles';
-import { selectedScramblerSelector, currentScrambleSelector } from '../selectors/sessions';
+import ScrambleMenu from 'components/ScrambleMenu';
+import { selectScrambler } from 'actions/scrambles';
+import { selectedScramblerSelector, currentScrambleSelector } from 'selectors/sessions';
 
 const mapStateToProps = (state) => ({
   selectedScrambler: selectedScramblerSelector(state),

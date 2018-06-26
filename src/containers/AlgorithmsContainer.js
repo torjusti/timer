@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import AlgorithmsPanel from '../components/AlgorithmsPanel';
+import AlgorithmsPanel from 'components/AlgorithmsPanel';
 
 import {
   createSet,
@@ -37,10 +37,3 @@ const AlgorithmsContainer = connect(
 )(AlgorithmsPanel);
 
 export default AlgorithmsContainer;
-
-/*
-sets,
-selectedSet,
-algorithms,
-createSet,
-addAlgorithm,*/

@@ -1,7 +1,7 @@
 import React from 'react';
 import Result from './Result';
 import styled from 'styled-components';
-import { cubingAverage } from '../utils/cubingStatistics';
+import { cubingAverage } from 'utils/cubingStatistics';
 
 const Container = styled.div`
   height: 100%;

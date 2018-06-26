@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import SessionManager from '../containers/SessionManager';
-import StatisticsContainer from '../containers/StatisticsContainer';
-import SolverContainer from '../containers/SolverContainer';
+import SessionManager from 'containers/SessionManager';
+import StatisticsContainer from 'containers/StatisticsContainer';
+import SolverContainer from 'containers/SolverContainer';
 import theme from './theme';
 
 const SidebarContainer = styled.div`

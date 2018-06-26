@@ -1,11 +1,11 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import colors from './colors';
-import ResultManager from '../containers/ResultManager';
-import ScrambleManager from '../containers/ScrambleManager';
+import ResultManager from 'containers/ResultManager';
+import ScrambleManager from 'containers/ScrambleManager';
+import PersonalBestContainer from 'containers/PersonalBestContainer';
 import Sidebar from './Sidebar';
 import ResultColumn from './ResultColumn'
-import PersonalBestContainer from '../containers/PersonalBestContainer';
 
 const App = styled.div`
   display: flex;

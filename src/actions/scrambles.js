@@ -1,4 +1,4 @@
-import { generateScramble } from '../utils/scrambles';
+import { generateScramble } from 'utils/scrambles';
 
 /**
  * Updates the scrambler which is selected in the
