@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { formatElapsedTime } from '../utils/time';
+import { formatElapsedTime } from 'utils/time';
 
 const StatList = styled.ul`
   margin: 0;

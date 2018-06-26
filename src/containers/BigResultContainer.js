@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { getResult } from '../selectors/results';
-import BigResult from '../components/BigResult';
+import { getResult } from 'selectors/results';
+import BigResult from 'components/BigResult';
 
 const mapStateToProps = (state, ownProps) => ({
   result: getResult(state, ownProps.params && ownProps.params.id),

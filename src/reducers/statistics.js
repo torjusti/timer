@@ -1,4 +1,4 @@
-import { SHOW_RECORD_MESSAGE, HIDE_RECORD_MESSAGE } from '../actions/statistics';
+import { SHOW_RECORD_MESSAGE, HIDE_RECORD_MESSAGE } from 'actions/statistics';
 
 const recordMessageIsVisible = (state = false, action) => {
   switch (action.type) {

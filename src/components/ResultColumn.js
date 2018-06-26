@@ -1,5 +1,5 @@
 import React from 'react';
-import ActiveResultList from '../containers/ActiveResultList';
+import ActiveResultList from 'containers/ActiveResultList';
 import styled from 'styled-components';
 import theme from './theme';
 

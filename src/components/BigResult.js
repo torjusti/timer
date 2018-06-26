@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatResult } from '../utils/time';
+import { formatResult } from 'utils/time';
 
 const BigResult = ({ result }) => result ? (
   <ul>

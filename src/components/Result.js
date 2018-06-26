@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatResult, formatElapsedTime } from '../utils/time';
+import { formatResult, formatElapsedTime } from 'utils/time';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 

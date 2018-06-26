@@ -68,7 +68,6 @@ class PersonalBest extends Component {
   }
 
   render() {
-    console.log(this.props)
     const Toast = styled.div`
       visibility: ${this.props.visible ? 'visible' : 'hidden'};
       position: fixed;      

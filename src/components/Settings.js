@@ -1,5 +1,5 @@
 import React from 'react';
-import ExportDataButton from '../containers/ExportDataButton';
+import ExportDataButton from 'containers/ExportDataButton';
 
 const Settings = () => (
   <div>
