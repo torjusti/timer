@@ -1,6 +1,6 @@
 import { injectGlobal } from 'styled-components';
 
-import './static/icons';
+import './assets/icons';
 
 injectGlobal`
   * {
