@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import SessionManager from 'sessions/SessionManager';
 import Statistics from 'statistics/Statistics';
 import SolversContainer from 'solvers/SolversContainer';
 import theme from 'theme';
@@ -21,9 +20,6 @@ const Sidebar = () => (
   <SidebarContainer>
     <SidebarHeader>Statistics</SidebarHeader>
     <Statistics />
-
-    <SidebarHeader>Manage sessions</SidebarHeader>
-    <SessionManager />
 
     <SolversContainer />
   </SidebarContainer>
