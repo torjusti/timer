@@ -61,6 +61,12 @@ class SessionOptionsMenu extends Component {
     this.props.deleteSession(this.props.session);
   };
 
+  handleKeyPress = event => {
+    if (event.key === 'Enter') {
+      this.handleRename();
+    }
+  };
+
   render() {
     return (
       <div>
@@ -96,6 +102,7 @@ class SessionOptionsMenu extends Component {
               fullWidth
               value={this.state.updatedName}
               onChange={event => this.setState({ updatedName: event.target.value })}
+              onKeyPress={this.handleKeyPress}
             />
           </DialogContent>
 
