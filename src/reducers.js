@@ -1,6 +1,7 @@
-import { selectedSession, sessions } from 'sessions/reducers';
+import { selectedSession, sessions, sessionsDialogVisibility } from 'sessions/reducers';
 import { sets, selectedSet, currentAlgorithm } from 'algorithms/reducers';
 import recordMessageIsVisible from 'records/reducers';
+import drawerVisible from 'app/reducers';
 
 const timerApp = (state = {}, action) => {
   const updatedState = {
@@ -8,6 +9,8 @@ const timerApp = (state = {}, action) => {
     sets: sets(state.sets, action),
     currentAlgorithm: currentAlgorithm(state.currentAlgorithm, action),
     recordMessageIsVisible: recordMessageIsVisible(state.recordMessageIsVisible, action),
+    drawerVisible: drawerVisible(state.drawerVisible, action),
+    sessionsDialogVisibility: sessionsDialogVisibility(state.sessionsDialogVisibility, action),
   };
 
   updatedState.sessions = sessions(

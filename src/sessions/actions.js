@@ -5,6 +5,7 @@ export const SET_SESSION = 'SET_SESSION';
 export const DELETE_SESSION = 'DELETE_SESSION';
 export const CLEAR_SESSION = 'CLEAR_SESSION';
 export const RENAME_SESSION = 'RENAME_SESSION';
+export const TOGGLE_SESSIONS_DIALOG = 'TOGGLE_SESSIONS_DIALOG';
 
 /**
  * Create a new session with the given name.
@@ -46,4 +47,12 @@ export const renameSession =  (id, name) => ({
   type: RENAME_SESSION,
   id,
   name,
+});
+
+/**
+ * Set the visibility of the settings selection dialog.
+ */
+export const toggleSessionsDialog = visible => ({
+  type: TOGGLE_SESSIONS_DIALOG,
+  visible,
 });

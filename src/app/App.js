@@ -1,5 +1,9 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import Header from './Header';
+import Navigation from './Navigation';
+import SessionsOverlay from 'sessions/SessionsOverlay';
+
 import TimerManager from 'timer/TimerManager';
 import ScrambleMenuContainer from 'scrambles/ScrambleMenuContainer';
 import RecordNotification from 'records/RecordNotification';
@@ -15,6 +19,7 @@ const App = styled.div`
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   flex: 1;
 `;
 
@@ -32,6 +37,10 @@ const Main = styled.main`
 export default () => (
   <ThemeProvider theme={colors}>
     <App>
+      <Header />
+      <Navigation />
+      <SessionsOverlay />
+
       <RecordNotification />
       <ScrambleMenuContainer />
       <Container>

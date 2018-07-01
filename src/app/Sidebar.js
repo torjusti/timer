@@ -6,17 +6,7 @@ import SolversContainer from 'solvers/SolversContainer';
 import theme from 'theme';
 
 const SidebarContainer = styled.div`
-  background: ${theme.sidebar};
-  text-shadow: 0 1 0 #000;
-  flex-grow: 1;
-  min-height: 100%;
-  padding: 1em;
-  border-left: 1px solid ${theme.sidebarBorder};
-
-  @media (min-width: 1200px) {
-    width: 23%;
-  }
-
+width: 100%;
   > h2:first-child {
     margin-top: 0;
   }

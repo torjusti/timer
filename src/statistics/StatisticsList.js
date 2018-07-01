@@ -3,7 +3,26 @@ import styled from 'styled-components';
 import { formatElapsedTime } from 'timer/utils';
 
 const StatList = styled.ul`
+  list-style: none;
+  padding: 0;
   margin: 0;
+
+  & li {
+    border: 1px solid #CCC;
+  }
+
+  display: grid;
+  grid-template-columns: max-content 1fr;
+`;
+
+const Value = styled.span`
+  background: #F5F5F5;
+  border-bottom: 1px solid #DDD;
+  padding: 0.3rem;
+
+  &:nth-child(2n) {
+    background: #FFF;
+  }
 `;
 
 const Statistics = ({ statistics, resultCount }) => {
@@ -28,19 +47,26 @@ const Statistics = ({ statistics, resultCount }) => {
   return (
     <div>
       <StatList>
-        <li>Number of times: {resultCount}</li>
-        <li>Global mean: {globalMean}</li>
-        <li>Global average: {globalAverage}</li>
+          <Value>Number of times</Value>
+          <Value>{resultCount}</Value>
 
-        {Object.keys(descriptions).map(key =>
-          <li key={key}>
-            {descriptions[key]}: {statistics[key] ?
-              formatElapsedTime(statistics[key], 2) : 'N/A'}
-          </li>
-        )}
+          <Value>Global mean</Value>
+          <Value>{globalMean}</Value>
+
+          <Value>Global average</Value>
+          <Value>{globalAverage}</Value>
+
+          {Object.keys(descriptions).map(key => [
+              <Value>{descriptions[key]}</Value>,
+              <Value>{statistics[key] ? formatElapsedTime(statistics[key], 2) : 'N/A'}</Value>,
+          ])}
       </StatList>
     </div>
   );
 };
 
 export default Statistics;
+
+/*
+
+        */
