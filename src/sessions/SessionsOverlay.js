@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import styled from 'styled-components';
@@ -12,16 +12,17 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import AddIcon from '@material-ui/icons/Add';
-import MoreVert from '@material-ui/icons/MoreVert';
 import Typography from '@material-ui/core/Typography';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { toggleSessionsDialog } from './actions';
+import SessionOptionsMenu from './SessionOptionsMenu';
 
 const SessionItem = styled(ListItem)`
-  background: ${props => props.selected ? '#FFF' : '#EEE'};
+  background: ${props => props.selected ? '#FFF' : '#F5F5F5'};
 `;
 
-const SessionsDialog = ({ handleClose, selectedSession, sessions, open }) => (
-  <Dialog onClose={handleClose} open={open}>
+const SessionsDialog = ({ handleClose, selectedSession, sessions, open, fullScreen }) => (
+  <Dialog onClose={handleClose} open={open} fullScreen={fullScreen}>
     <DialogTitle>Select a session</DialogTitle>
 
     <div>
@@ -36,9 +37,7 @@ const SessionsDialog = ({ handleClose, selectedSession, sessions, open }) => (
             <ListItemText primary={session.name} />
 
             <ListItemSecondaryAction>
-              <IconButton>
-                <MoreVert />
-              </IconButton>
+              <SessionOptionsMenu session={session.id} />
             </ListItemSecondaryAction>
           </SessionItem>
         )}
@@ -70,4 +69,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SessionsDialog);
+)(withMobileDialog()(SessionsDialog));
