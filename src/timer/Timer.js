@@ -5,8 +5,9 @@ import { formatElapsedTime } from './utils';
 const TimerDisplay = styled.div`
   width: 100%;
   font-family: monospace;
-  font-size: 15rem;
+  font-size: 10rem;
   text-align: center;
+  margin: 2rem 0;
 
   &.HOLDING {
     color: red;

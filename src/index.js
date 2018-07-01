@@ -6,7 +6,9 @@ import { create } from 'jss';
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
 import store from './store';
 import AppRouter from './router';
-import './globalStyles.js';
+
+import './icons.js';
+import 'sanitize.css';
 
 // We use Material UI for certain UI components. However, Material UI
 // uses JSS, and we use styled-components. This forces JSS styles to insert
