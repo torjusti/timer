@@ -11,14 +11,16 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { toggleSessionsDialog } from './actions';
 import SessionOptionsMenu from './SessionOptionsMenu';
+import CreateSessionDialog from './CreateSessionDialog';
 
 const SessionItem = styled(ListItem)`
-  background: ${props => props.selected ? '#FFF' : '#F5F5F5'};
+  &.selected {
+    background: #F5F5F5;
+  }
 `;
 
 const SessionsDialog = ({ handleClose, selectedSession, sessions, open, fullScreen }) => (
@@ -32,7 +34,7 @@ const SessionsDialog = ({ handleClose, selectedSession, sessions, open, fullScre
             button
             onClick={() => handleClose(session.id)}
             key={session.id}
-            className={classNames('selected', session.id === selectedSession)}
+            className={classNames({ 'selected': session.id === selectedSession })}
           >
             <ListItemText primary={session.name} />
 
@@ -42,13 +44,7 @@ const SessionsDialog = ({ handleClose, selectedSession, sessions, open, fullScre
           </SessionItem>
         )}
 
-        <ListItem button>
-          <ListItemIcon>
-            <AddIcon />
-          </ListItemIcon>
-
-          <ListItemText primary="Create session" />
-        </ListItem>
+        <CreateSessionDialog />
       </List>
     </div>
   </Dialog>
