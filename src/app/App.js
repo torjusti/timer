@@ -2,39 +2,29 @@ import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import Header from './Header';
 import Navigation from './Navigation';
-import Scramble from 'scrambles/Scramble';
 import SessionsOverlay from 'sessions/SessionsOverlay';
+import ViewTabs from './ViewTabs';
 
-import TimerManager from 'timer/TimerManager';
 import RecordNotification from 'records/RecordNotification';
 import Sidebar from './Sidebar';
 import Results from 'results/Results'
 import { colors } from 'theme';
 
-const Container = styled.div`
+const App = styled.div`
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 6rem;
-  text-align: center;
 `;
 
 export default () => (
   <ThemeProvider theme={colors}>
-    <div>
+    <App>
       <Header />
       <Navigation />
-
-      <Container>
-        <Scramble />
-
-        <TimerManager />
-
-        <Sidebar />
-      </Container>
+      <ViewTabs />
 
       <SessionsOverlay />
       <RecordNotification />
-    </div>
+    </App>
   </ThemeProvider>
 );

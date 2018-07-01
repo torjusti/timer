@@ -22,7 +22,7 @@ const Title = styled(Typography)`
 `;
 
 const Header = ({ showDrawer, showSessionsDialog }) => (
-  <AppBar>
+  <AppBar position="static">
     <Toolbar>
       <MenuButton color="inherit" aria-label="Menu" onClick={showDrawer}>
         <MenuIcon />

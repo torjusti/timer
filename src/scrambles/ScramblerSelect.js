@@ -18,6 +18,10 @@ const WhiteSelect = styled(Select)`
     color: #FFF;
   }
 
+  div:focus {
+    background: none;
+  }
+
   &&&&&:after, &&&&&:before {
     border-bottom-color: #FFF;
   }

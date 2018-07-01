@@ -58,6 +58,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleClose: selectedSession => {
+    console.log(selectedSession)
     dispatch(toggleSessionsDialog(false));
     dispatch(setSession(selectedSession));
   },
