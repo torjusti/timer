@@ -13,7 +13,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import { toggleSessionsDialog } from './actions';
+import { toggleSessionsDialog, setSession } from './actions';
 import SessionOptionsMenu from './SessionOptionsMenu';
 import CreateSessionDialog from './CreateSessionDialog';
 
@@ -59,6 +59,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleClose: selectedSession => {
     dispatch(toggleSessionsDialog(false));
+    dispatch(setSession(selectedSession));
   },
 });
 
