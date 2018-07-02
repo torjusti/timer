@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onDelete: (identificators) => {
+  handleDelete: (identificators) => {
     dispatch(deleteResult(identificators));
   },
 

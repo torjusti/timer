@@ -8,6 +8,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { formatElapsedTime } from 'timer/utils';
 
+const StatisticsPaper = styled(Paper)`
+  margin: 2rem;
+`;
+
 const Statistics = ({ statistics, resultCount }) => {
   const descriptions = {
     bestSingle: 'Best single',
@@ -28,7 +32,7 @@ const Statistics = ({ statistics, resultCount }) => {
       : formatElapsedTime(statistics.globalAverage, 2) : 'N/A';
 
   return (
-    <Paper>
+    <StatisticsPaper>
       <Table>
         <TableBody>
           <TableRow>
@@ -44,14 +48,14 @@ const Statistics = ({ statistics, resultCount }) => {
             <TableCell>{globalAverage}</TableCell>
           </TableRow>
           {Object.keys(descriptions).map(key => (
-            <TableRow>
+            <TableRow key={key}>
               <TableCell>{descriptions[key]}</TableCell>
               <TableCell>{statistics[key] ? formatElapsedTime(statistics[key], 2) : 'N/A'}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </Paper>
+    </StatisticsPaper>
   );
 };
 

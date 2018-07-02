@@ -1,36 +1,115 @@
 import React from 'react';
 import styled from 'styled-components';
+import Zoom from '@material-ui/core/Zoom';
+import Portal from '@material-ui/core/Portal';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SettingsIcon from '@material-ui/icons/Settings';
+import { formatResult } from 'timer/utils';
+
+const ResultListPaper =  styled(Paper)`
+  margin: 2rem;
+`;
+
+const DeleteButton = styled(Button)`
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+`;
+
+class ResultList extends React.Component {
+  state = {
+    checked: [],
+  };
+
+  handleToggle = id => () => {
+    const index = this.state.checked.indexOf(id);
+    const updated = [...this.state.checked];
+
+    if (index >= 0) {
+      updated.splice(index, 1);
+    } else {
+      updated.push(id);
+    }
+
+    this.setState({
+      checked: updated,
+    });
+  };
+
+  handleDelete = () => {
+    this.props.handleDelete(this.state.checked);
+
+    this.setState({
+      checked: [],
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <ResultListPaper>
+          <List>
+            {this.props.results.map(result => (
+              <ListItem
+                key={result.id}
+                dense
+                button
+                onClick={this.handleToggle(result.id)}
+              >
+                <Checkbox
+                  checked={this.state.checked.includes(result.id)}
+                  disableRipple
+                />
+
+                <ListItemText primary={formatResult(result)} />
+
+                <ListItemSecondaryAction>
+                  <IconButton>
+                    <SettingsIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
+          </List>
+        </ResultListPaper>
+
+        <Portal>
+          <Zoom in={this.props.visible}>
+            <DeleteButton
+              disabled={this.state.checked.length === 0}
+              variant="fab"
+              color="secondary"
+              aria-label="add"
+              onClick={this.handleDelete}
+            >
+              <DeleteIcon />
+            </DeleteButton>
+          </Zoom>
+        </Portal>
+      </div>
+    );
+  }
+}
+
+export default ResultList;
+
+
+
+/*
+import React from 'react';
+import styled from 'styled-components';
 import Result from './Result';
 import { cubingAverage } from 'statistics/cubingStatistics';
 import theme from 'theme';
 
-const Column = styled.div`
-  flex-grow: 1;
-  min-height: 100%;
-  width: 100%;
-  background: ${theme.sidebar};
-  padding: 1em;
-  border-right: 1px solid ${theme.sidebarBorder};
-
-  @media (min-width: 1200px) {
-    width: 23%;
-  }
-`;
-
-const Container = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Table = styled.table`
-  width: 100%;
-  text-align: left;
-`;
-
-const TableBody = styled.tbody`
-  font-family: monospace;
-`;
 
 const StyledResultList = styled.div`
   flex: 1;
@@ -69,9 +148,6 @@ class ResultList extends React.Component {
     })
   }
 
-  /**
-   * Returns an array containing all the selected results.
-   */
   getSelected() {
     return Object.keys(this.state.selected).filter((key) =>
       this.state.selected[key],
@@ -96,7 +172,7 @@ class ResultList extends React.Component {
 
   render() {
     const results = this.props.results;
-
+    console.log(results)
     return (
       <Column>
         <Container>
@@ -137,3 +213,5 @@ class ResultList extends React.Component {
 }
 
 export default ResultList;
+
+*/

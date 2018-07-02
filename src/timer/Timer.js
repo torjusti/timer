@@ -35,7 +35,7 @@ class Timer extends React.Component {
 
     this.state = {
       timerState: 'NORMAL', // Available timerStates are NORMAL, HOLDING, READY and RUNNING.
-      spaceHoldStarted: false, // When the space holding started.
+      holdStarted: false, // When the space or touch holding started.
       solveStart: null, // When the attempt started.
       elapsedTime: 0, // The displayed  elapsed time.
       interval: null, // The interval ID used for clearing timer display interval.
@@ -50,7 +50,7 @@ class Timer extends React.Component {
   }
 
   checkReady = () => {
-    if (this.state.spaceHoldStarted && Date.now() - this.state.spaceHoldStarted >= 1000
+    if (this.state.holdStarted && Date.now() - this.state.holdStarted >= 1000
         && this.state.graded && this.props.currentScramble) {
       this.setState({
         timerState: 'READY',
@@ -93,7 +93,7 @@ class Timer extends React.Component {
 
   setRunning = () => {
     this.setState({
-      spaceHoldStarted: false,
+      holdStarted: false,
       timerState: 'RUNNING',
       solveStart: Date.now(),
     });
@@ -105,14 +105,14 @@ class Timer extends React.Component {
 
   setNormal = () => {
     this.setState({
-      spaceHoldStarted: false,
+      holdStarted: false,
       timerState: 'NORMAL',
     });
   }
 
   setHolding = () => {
     this.setState({
-      spaceHoldStarted: Date.now(),
+      holdStarted: Date.now(),
       timerState: 'HOLDING',
     });
 
@@ -136,19 +136,44 @@ class Timer extends React.Component {
 
     if (this.state.timerState === 'RUNNING') {
       this.finishAttempt();
-    } else if (this.state.timerState === 'NORMAL' && event.keyCode === 32 && !this.state.spaceHoldStarted) {
+    } else if (this.state.timerState === 'NORMAL' && event.keyCode === 32 && !this.state.holdStarted) {
       this.setHolding();
     }
   }
 
+  handleTouchStart = event => {
+    if (this.state.timerState === 'RUNNING') {
+      this.finishAttempt();
+    } else if (this.state.timerState === 'NORMAL' && !this.state.holdStarted) {
+      this.setHolding();
+    }
+  };
+
+  handleTouchEnd = event => {
+    if (this.state.timerState === 'READY') {
+      this.setRunning();
+    } else if (this.state.timerState === 'HOLDING') {
+      this.setNormal();
+    }
+  };
+
   componentDidMount() {
+    // Keyboard event listeners.
     document.body.addEventListener('keyup', this.handleKeyUp);
     document.body.addEventListener('keydown', this.handleKeyDown);
+
+    // Touch screen event listeners.
+    // TODO: Refactor this, perhaps use a saga.
+    document.querySelector('#timer-view').addEventListener('touchstart', this.handleTouchStart);
+    document.body.addEventListener('touchend', this.handleTouchEnd);
   }
 
   componentWillUnmount() {
     document.body.removeEventListener('keyup', this.handleKeyUp);
     document.body.removeEventListener('keydown', this.handleKeyDown);
+
+    document.querySelector('#timer-view').removeEventListener('touchstart', this.handleTouchStart);
+    document.body.removeEventListener('touchend', this.handleTouchEnd);
   }
 
   render() {

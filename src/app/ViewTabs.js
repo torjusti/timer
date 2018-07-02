@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Scramble from 'scrambles/Scramble';
 import TimerManager from 'timer/TimerManager';
 import Statistics from 'statistics/Statistics';
+import Results from 'results/Results';
 
 const grow = css`
   display: flex;
@@ -26,10 +27,6 @@ const Views = styled(SwipeableViews)`
   &, & > div, & > div > div, & > div > div > div {
     ${grow};
   }
-`;
-
-const View = styled.div`
-  padding: 2rem;
 `;
 
 class ViewTabs extends Component {
@@ -66,16 +63,18 @@ class ViewTabs extends Component {
           index={this.state.value}
           onChangeIndex={this.handleChangeIndex}
         >
-          <View>
+          <div>
             <Statistics />
-          </View>
+          </div>
 
-          <View>
+          <div id="timer-view">
             <Scramble />
             <TimerManager />  
-          </View>
+          </div>
 
-          <View>Item Three</View>
+          <div>
+            <Results visible={this.state.value === 2} />
+          </div>
         </Views>
       </Root>
     );
