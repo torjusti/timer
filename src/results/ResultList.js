@@ -47,6 +47,10 @@ const PenaltyItem = styled(MenuItem)`
   }
 `;
 
+const NoDataMessage = styled(Typography)`
+  padding: 1rem;
+`;
+
 class ResultList extends React.Component {
   state = {
     currentResult: null,
@@ -99,6 +103,12 @@ class ResultList extends React.Component {
     return (
       <div>
         <ResultListPaper>
+          {this.props.results.length === 0 && (
+            <NoDataMessage component="p">
+              There are no results in this session. Go do some solves!
+            </NoDataMessage>
+          )}
+
           <List>
             {this.props.results.map(result => (
               <ListItem
