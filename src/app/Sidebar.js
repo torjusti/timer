@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Statistics from 'statistics/Statistics';
 import SolversContainer from 'solvers/SolversContainer';
 import theme from 'theme';
 
@@ -19,7 +18,6 @@ export const SidebarHeader = styled.h2`
 const Sidebar = () => (
   <SidebarContainer>
     <SidebarHeader>Statistics</SidebarHeader>
-    <Statistics />
 
     <SolversContainer />
   </SidebarContainer>

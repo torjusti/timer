@@ -1,29 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import { formatElapsedTime } from 'timer/utils';
-
-const StatList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  & li {
-    border: 1px solid #CCC;
-  }
-
-  display: grid;
-  grid-template-columns: max-content 1fr;
-`;
-
-const Value = styled.span`
-  background: #F5F5F5;
-  border-bottom: 1px solid #DDD;
-  padding: 0.3rem;
-
-  &:nth-child(2n) {
-    background: #FFF;
-  }
-`;
 
 const Statistics = ({ statistics, resultCount }) => {
   const descriptions = {
@@ -45,28 +28,31 @@ const Statistics = ({ statistics, resultCount }) => {
       : formatElapsedTime(statistics.globalAverage, 2) : 'N/A';
 
   return (
-    <div>
-      <StatList>
-          <Value>Number of times</Value>
-          <Value>{resultCount}</Value>
-
-          <Value>Global mean</Value>
-          <Value>{globalMean}</Value>
-
-          <Value>Global average</Value>
-          <Value>{globalAverage}</Value>
-
-          {Object.keys(descriptions).map(key => [
-              <Value>{descriptions[key]}</Value>,
-              <Value>{statistics[key] ? formatElapsedTime(statistics[key], 2) : 'N/A'}</Value>,
-          ])}
-      </StatList>
-    </div>
+    <Paper>
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell>Number of times</TableCell>
+            <TableCell>{resultCount}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Global mean</TableCell>
+            <TableCell>{globalMean}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Global average</TableCell>
+            <TableCell>{globalAverage}</TableCell>
+          </TableRow>
+          {Object.keys(descriptions).map(key => (
+            <TableRow>
+              <TableCell>{descriptions[key]}</TableCell>
+              <TableCell>{statistics[key] ? formatElapsedTime(statistics[key], 2) : 'N/A'}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Paper>
   );
 };
 
 export default Statistics;
-
-/*
-
-        */

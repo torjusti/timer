@@ -8,7 +8,6 @@ const ScrambleLink = styled.a`
   text-decoration: none;
   color: #000;
   font-family: 'Roboto Mono', monospace;
-  margin: 2rem;
   text-align: center;
 `;
 
