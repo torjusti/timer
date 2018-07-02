@@ -61,9 +61,7 @@ const session = (state = {}, action) => {
     case 'ADD_RESULT':
     case 'CLEAR_SESSION':
     case 'DELETE_RESULT':
-    case 'DELETE_RESULTS':
-    case 'TOGGLE_PLUS_TWO':
-    case 'TOGGLE_DNF':
+    case 'SET_PENALTY':
       return {
         ...state,
         results: results(state.results, action, state.selectedScrambler, state.currentScramble),
@@ -105,9 +103,7 @@ export const sessions = (state = defaultSessions, action, selectedSession) => {
     case 'ADD_RESULT':
     case 'CLEAR_SESSION':
     case 'DELETE_RESULT':
-    case 'DELETE_RESULTS':
-    case 'TOGGLE_PLUS_TWO':
-    case 'TOGGLE_DNF':
+    case 'SET_PENALTY':
       return state.map(s => {
         if (s.id !== selectedSession) {
 

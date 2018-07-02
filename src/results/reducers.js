@@ -1,34 +1,26 @@
+import { Penalties, ADD_RESULT, SET_PENALTY, DELETE_RESULT } from './actions';
+import { CLEAR_SESSION } from 'sessions/actions';
+
 const result = (state = {}, action, scrambler, scramble) => {
   switch (action.type) {
-    case 'ADD_RESULT':
+    case ADD_RESULT:
       return {
         id: action.id,
         time: action.time,
-        plusTwo: false,
-        dnf: false,
+        penalty: Penalties.NONE,
         scrambler,
         scramble,
       };
 
-    case 'TOGGLE_PLUS_TWO':
-      if (action.ids.indexOf(state.id) < 0) {
+    case SET_PENALTY:
+      if (action.id !== state.id) {
         return state;
       }
 
       return {
         ...state,
-        plusTwo: !state.plusTwo,
-      }
-
-    case 'TOGGLE_DNF':
-      if (action.ids.indexOf(state.id) < 0) {
-        return state;
-      }
-
-      return {
-        ...state,
-        dnf: !state.dnf,
-      }
+        penalty: action.penalty,
+      };
 
     default:
       return state;
@@ -36,24 +28,22 @@ const result = (state = {}, action, scrambler, scramble) => {
 };
 
 const results = (state = [], action, scrambler, scramble) => {
+  console.log('hmm')
   switch (action.type) {
-    case 'ADD_RESULT':
+    case ADD_RESULT:
       return [
         ...state,
         result(undefined, action, scrambler, scramble),
       ];
 
-    case 'CLEAR_SESSION':
+    case CLEAR_SESSION:
       return [];
 
-    case 'DELETE_RESULT':
+    case DELETE_RESULT:
       return state.filter((r) => action.ids.indexOf(r.id) < 0);
 
-    case 'TOGGLE_PLUS_TWO':
-      return state.map((r) => result(r, action));
-
-    case 'TOGGLE_DNF':
-      return state.map((r) => result(r, action));
+    case SET_PENALTY:
+      return state.map(r => result(r, action));
 
     default:
       return state;

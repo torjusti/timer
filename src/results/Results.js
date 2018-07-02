@@ -1,24 +1,28 @@
 import { connect } from 'react-redux';
 import ResultList from './ResultList';
 import { getResults } from './selectors';
-import { deleteResult, togglePlusTwo, toggleDNF }  from './actions';
+import { deleteResult, setPenalty, Penalties }  from './actions';
 
 const mapStateToProps = (state, ownProps) => ({
   results: getResults(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  handleDelete: (identificators) => {
+const mapDispatchToProps = dispatch => ({
+  handleDelete: identificators => {
     dispatch(deleteResult(identificators));
   },
 
-  onTogglePlusTwo: (identificators) => {
-    dispatch(togglePlusTwo(identificators));
+  handleSetDNF: id => {
+    dispatch(setPenalty(id, Penalties.DNF));
   },
 
-  onToggleDNF: (identificators) => {
-    dispatch(toggleDNF(identificators));
-  }
+  handleSetPlusTwo: id => {
+    dispatch(setPenalty(id, Penalties.PLUS_TWO));
+  },
+
+  handleClearPenalty: id => {
+    dispatch(setPenalty(id, Penalties.NONE));
+  },
 });
 
 const Results = connect(

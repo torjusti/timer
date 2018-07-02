@@ -1,9 +1,14 @@
 import uuid from 'uuid/v4';
 
 export const ADD_RESULT = 'ADD_RESULT';
-export const TOGGLE_PLUS_TWO = 'TOGGLE_PLUS_TWO';
-export const TOGGLE_DNF = 'TOGGLE_DNF';
+export const SET_PENALTY = 'SET_PENALTY';
 export const DELETE_RESULT = 'DELETE_RESULT';
+
+export const Penalties = {
+  NONE: 0,
+  PLUS_TWO: 1,
+  DNF: 2,
+};
 
 /**
  * Add a new result to the current session.
@@ -14,26 +19,14 @@ export const addResult = (time, selectedScrambler) => ({
   time,
 });
 
-/**
- * Toggle plus two on the result with the given ID. The
- * result has to be in the current session.
- */
-export const togglePlusTwo = (ids) => ({
-  type: TOGGLE_PLUS_TWO,
-  ids,
+export const setPenalty = (id, penalty) => ({
+  type: SET_PENALTY,
+  id,
+  penalty,
 });
 
 /**
- * Toggle DNF on the result with the given ID. The
- * result has to be in the current session.
- */
-export const toggleDNF = (ids) => ({
-  type: TOGGLE_DNF,
-  ids,
-});
-
-/**
- * Delete the result with the given ID. The result has
+ * Delete the results with the given identificators. The result has
  * to be in the current session.
  */
 export const deleteResult = (ids)  => ({
