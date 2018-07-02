@@ -9,7 +9,6 @@ import registerServiceWorker from './registerServiceWorker';
 import store from './store';
 import AppRouter from './router';
 
-import './icons.js';
 import 'sanitize.css';
 
 // We use Material UI for certain UI components. However, Material UI

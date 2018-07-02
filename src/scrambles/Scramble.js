@@ -9,7 +9,7 @@ const ScrambleLink = styled.a`
   color: #000;
   font-family: 'Roboto Mono', monospace;
   text-align: center;
-  margin-top: 2rem;
+  padding: 2rem 2rem 0 2rem;
 `;
 
 const Scramble = ({ currentScramble }) => (

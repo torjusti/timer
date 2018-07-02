@@ -24,9 +24,14 @@ const Root = styled.div`
 // The element wrapping our elements is a container
 // element introduced by the swipable views module.
 const Views = styled(SwipeableViews)`
-  &, & > div, & > div > div, & > div > div > div {
+  &, & > div, & > div > div {
     ${grow};
   }
+`;
+
+const View = styled.div`
+  overflow-y: scroll;
+  ${grow};
 `;
 
 class ViewTabs extends Component {
@@ -63,18 +68,18 @@ class ViewTabs extends Component {
           index={this.state.value}
           onChangeIndex={this.handleChangeIndex}
         >
-          <div>
+          <View>
             <Statistics />
-          </div>
+          </View>
 
-          <div id="timer-view">
+          <View id="timer-view">
             <Scramble />
             <TimerManager />  
-          </div>
+          </View>
 
-          <div>
+          <View>
             <Results visible={this.state.value === 2} />
-          </div>
+          </View>
         </Views>
       </Root>
     );
