@@ -28,7 +28,6 @@ const result = (state = {}, action, scrambler, scramble) => {
 };
 
 const results = (state = [], action, scrambler, scramble) => {
-  console.log('hmm')
   switch (action.type) {
     case ADD_RESULT:
       return [

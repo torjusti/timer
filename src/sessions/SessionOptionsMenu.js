@@ -11,7 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { renameSession, deleteSession } from './actions';
+import { renameSession, deleteSession, clearSession } from './actions';
 
 class SessionOptionsMenu extends Component {
   state = {
@@ -19,6 +19,7 @@ class SessionOptionsMenu extends Component {
     renameOpen: false,
     updatedName: '',
     deleteOpen: false,
+    clearOpen: false,
   };
 
   handleOpenRename = () => {
@@ -54,11 +55,26 @@ class SessionOptionsMenu extends Component {
   };
 
   handleDelete = () => {
-    this.setState({
-      deleteOpen: false,
-    });
-
+    this.handleCloseDelete(),
     this.props.deleteSession(this.props.session);
+  };
+
+  handleOpenClear = () => {
+    this.setState({
+      anchor: null,
+      clearOpen: true,
+    });
+  };
+
+  handleCloseClear =  () => {
+    this.setState({
+      clearOpen: false,
+    });
+  };
+
+  handleClear = () => {
+    this.handleCloseClear();
+    this.props.clearSession(this.props.session);
   };
 
   handleKeyPress = event => {
@@ -80,6 +96,8 @@ class SessionOptionsMenu extends Component {
           onClose={() => this.setState({ anchor: null })}
         >
           <MenuItem onClick={this.handleOpenRename}>Rename</MenuItem>
+
+          <MenuItem onClick={this.handleOpenClear}>Clear</MenuItem>
 
           {this.props.deletingEnabled &&
             <MenuItem onClick={this.handleOpenDelete}>Delete</MenuItem>}
@@ -140,6 +158,30 @@ class SessionOptionsMenu extends Component {
             </Button>
           </DialogActions>
         </Dialog>
+
+        <Dialog
+          open={this.state.clearOpen}
+          onClose={this.handleCloseClear}
+        >
+          <DialogTitle>Clear session</DialogTitle>
+
+          <DialogContent>
+            <DialogContentText>
+              Are you absolutely certain you want to clear the contents of this session,
+              deleting all the results within it? This action is not reversible.
+            </DialogContentText>
+          </DialogContent>
+
+          <DialogActions>
+            <Button onClick={this.handleCloseClear} color="primary">
+              Cancel
+            </Button>
+
+            <Button onClick={this.handleClear} color="secondary">
+              Clear
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
@@ -157,6 +199,10 @@ const mapDispatchToProps = dispatch => ({
 
   deleteSession: id => {
     dispatch(deleteSession(id));
+  },
+
+  clearSession: id => {
+    dispatch(clearSession(id));
   },
 });
 

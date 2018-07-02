@@ -23,7 +23,7 @@ const SessionItem = styled(ListItem)`
   }
 `;
 
-const SessionsDialog = ({ handleClose, selectedSession, sessions, open, fullScreen }) => (
+const SessionsDialog = ({ handleClose, handleSetSession, selectedSession, sessions, open, fullScreen }) => (
   <Dialog onClose={handleClose} open={open} fullScreen={fullScreen}>
     <DialogTitle>Select a session</DialogTitle>
 
@@ -32,7 +32,7 @@ const SessionsDialog = ({ handleClose, selectedSession, sessions, open, fullScre
         {sessions.map(session =>
           <SessionItem
             button
-            onClick={() => handleClose(session.id)}
+            onClick={() => handleSetSession(session.id)}
             key={session.id}
             className={classNames({ 'selected': session.id === selectedSession })}
           >
@@ -57,8 +57,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleClose: selectedSession => {
-    console.log(selectedSession)
+  handleClose: () => {
+    dispatch(toggleSessionsDialog(false));
+  },
+
+  handleSetSession: selectedSession => {
     dispatch(toggleSessionsDialog(false));
     dispatch(setSession(selectedSession));
   },
