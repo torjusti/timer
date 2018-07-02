@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
+import registerServiceWorker from './registerServiceWorker';
+
 import store from './store';
 import AppRouter from './router';
 
@@ -29,3 +31,5 @@ ReactDOM.render(
   <Root />,
   document.querySelector('#root'),
 );
+
+registerServiceWorker();
