@@ -8,7 +8,8 @@ const TimerDisplay = styled.div`
   font-size: 10rem;
   text-align: center;
   margin: 2rem 0;
-
+  user-select: none;
+  
   &.HOLDING {
     color: red;
   }
