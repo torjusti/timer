@@ -55,7 +55,7 @@ class SessionOptionsMenu extends Component {
   };
 
   handleDelete = () => {
-    this.handleCloseDelete(),
+    this.handleCloseDelete();
     this.props.deleteSession(this.props.session);
   };
 

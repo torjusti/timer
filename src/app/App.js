@@ -5,7 +5,6 @@ import Navigation from './Navigation';
 import SessionsOverlay from 'sessions/SessionsOverlay';
 import ViewTabs from './ViewTabs';
 import RecordNotification from 'records/RecordNotification';
-import Results from 'results/Results'
 
 const App = styled.div`
   height: 100vh;

@@ -8,7 +8,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import SolverWorker from 'worker-loader!./worker'; // eslint-disable-line
@@ -93,20 +92,22 @@ class Solvers extends React.Component {
         <ExpansionPanelDetails>
           <SolverPaper>
             <Table>
-              <TableRow>
-                <TableCell>EOLine</TableCell>
-                <Solution>{this.state.EOLine}</Solution>
-              </TableRow>
+              <TableBody>
+                <TableRow>
+                  <TableCell>EOLine</TableCell>
+                  <Solution>{this.state.EOLine}</Solution>
+                </TableRow>
 
-              <TableRow>
-                <TableCell>Cross</TableCell>
-                <Solution>{this.state.Cross}</Solution>
-              </TableRow>
+                <TableRow>
+                  <TableCell>Cross</TableCell>
+                  <Solution>{this.state.Cross}</Solution>
+                </TableRow>
 
-              <TableRow>
-                <TableCell>First block</TableCell>
-                <Solution>{this.state.FirstBlock}</Solution>
-              </TableRow>
+                <TableRow>
+                  <TableCell>First block</TableCell>
+                  <Solution>{this.state.FirstBlock}</Solution>
+                </TableRow>
+              </TableBody>
             </Table>
           </SolverPaper>
         </ExpansionPanelDetails>
