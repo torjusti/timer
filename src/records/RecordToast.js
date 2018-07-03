@@ -16,7 +16,7 @@ const arrayToString = array => {
 };
 
 const RecordSnackbar = styled(Snackbar)`
-  margin-bottom: 1rem;
+  margin: 0 1rem 1rem 1rem;
 `;
 
 class PersonalBest extends Component {
