@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
+import Snackbar from '@material-ui/core/Snackbar';
 
 /**
  * Formats an array as a human-readable comma-separated string.
@@ -14,24 +15,8 @@ const arrayToString = array => {
   return `${array.slice(0, array.length - 1).join(', ')} and ${last}`;
 };
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-`;
-
-const slideUp = keyframes`
-  from {
-    bottom: 0;
-  }
-
-  to {
-    bottom: 2rem;
-  }
+const RecordSnackbar = styled(Snackbar)`
+  margin: 0 1rem 1rem 1rem;
 `;
 
 class PersonalBest extends Component {
@@ -71,22 +56,25 @@ class PersonalBest extends Component {
   }
 
   render() {
-    const Toast = styled.div`
-      visibility: ${this.props.visible ? 'visible' : 'hidden'};
-      position: fixed;      
-      left: 50%;
-      transform: translateX(-50%);
-      background: #333;
-      color: #FFF;
-      padding: 1rem;
-      bottom: 2rem;
-      animation: ${fadeIn} 0.5s, ${slideUp} 0.5s ;
-    `;
-
     return (
-      <Toast>
-        New personal best {this.state.records && arrayToString(this.state.records)}.
-      </Toast>
+       <RecordSnackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+
+          open={this.props.visible}
+
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+
+          message={(
+            <span id="new-record">
+              New personal best {this.state.records && arrayToString(this.state.records)}.
+            </span>
+          )}
+        />
     );
   }
 }

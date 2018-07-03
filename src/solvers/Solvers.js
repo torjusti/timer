@@ -1,16 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import SolverWorker from 'worker-loader!./worker'; // eslint-disable-line
 
-const SolverList = styled.ul`
-  padding: 0;
-  list-style-position: inside;
-  list-style: none;
-  font-family: monospace;
+const SolverPanel = styled(ExpansionPanel)`
+  margin: 0 2rem 2rem 2rem;
 `;
 
-const Solution = styled.span`
-  font-family: monospace;
+const SolverPaper = styled(Paper)`
+  width: 100%;
+`;
+
+const Solution = styled(TableCell)`
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.8rem;
 `;
 
 class Solvers extends React.Component {
@@ -72,11 +84,34 @@ class Solvers extends React.Component {
     }
 
     return (
-      <SolverList>
-        <li>EOLine: <Solution>{this.state.EOLine}</Solution></li>
-        <li>Cross: <Solution>{this.state.Cross}</Solution></li>
-        <li>FB: <Solution>{this.state.FirstBlock}</Solution></li>
-      </SolverList>
+      <SolverPanel>
+        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>Show solutions</Typography>
+        </ExpansionPanelSummary>
+
+        <ExpansionPanelDetails>
+          <SolverPaper>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>EOLine</TableCell>
+                  <Solution>{this.state.EOLine}</Solution>
+                </TableRow>
+
+                <TableRow>
+                  <TableCell>Cross</TableCell>
+                  <Solution>{this.state.Cross}</Solution>
+                </TableRow>
+
+                <TableRow>
+                  <TableCell>First block</TableCell>
+                  <Solution>{this.state.FirstBlock}</Solution>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </SolverPaper>
+        </ExpansionPanelDetails>
+      </SolverPanel>
     );
   }
 }

@@ -1,9 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import { formatElapsedTime } from 'timer/utils';
 
-const StatList = styled.ul`
-  margin: 0;
+const StatisticsPaper = styled(Paper)`
+  margin: 2rem;
 `;
 
 const Statistics = ({ statistics, resultCount }) => {
@@ -26,20 +31,30 @@ const Statistics = ({ statistics, resultCount }) => {
       : formatElapsedTime(statistics.globalAverage, 2) : 'N/A';
 
   return (
-    <div>
-      <StatList>
-        <li>Number of times: {resultCount}</li>
-        <li>Global mean: {globalMean}</li>
-        <li>Global average: {globalAverage}</li>
-
-        {Object.keys(descriptions).map(key =>
-          <li key={key}>
-            {descriptions[key]}: {statistics[key] ?
-              formatElapsedTime(statistics[key], 2) : 'N/A'}
-          </li>
-        )}
-      </StatList>
-    </div>
+    <StatisticsPaper>
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell>Number of times</TableCell>
+            <TableCell>{resultCount}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Global mean</TableCell>
+            <TableCell>{globalMean}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Global average</TableCell>
+            <TableCell>{globalAverage}</TableCell>
+          </TableRow>
+          {Object.keys(descriptions).map(key => (
+            <TableRow key={key}>
+              <TableCell>{descriptions[key]}</TableCell>
+              <TableCell>{statistics[key] ? formatElapsedTime(statistics[key], 2) : 'N/A'}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </StatisticsPaper>
   );
 };
 

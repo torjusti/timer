@@ -1,8 +1,9 @@
 import { createSession } from 'sessions/actions';
 import generateScramble from 'scrambles/generateScramble';
 import results from 'results/reducers';
+import { TOGGLE_SESSIONS_DIALOG } from './actions';
 
-/**
+/** 
  * The scrambler which is currently selected in the session.
  */
 const selectedScrambler = (state = '333', action) => {
@@ -60,9 +61,7 @@ const session = (state = {}, action) => {
     case 'ADD_RESULT':
     case 'CLEAR_SESSION':
     case 'DELETE_RESULT':
-    case 'DELETE_RESULTS':
-    case 'TOGGLE_PLUS_TWO':
-    case 'TOGGLE_DNF':
+    case 'SET_PENALTY':
       return {
         ...state,
         results: results(state.results, action, state.selectedScrambler, state.currentScramble),
@@ -104,9 +103,7 @@ export const sessions = (state = defaultSessions, action, selectedSession) => {
     case 'ADD_RESULT':
     case 'CLEAR_SESSION':
     case 'DELETE_RESULT':
-    case 'DELETE_RESULTS':
-    case 'TOGGLE_PLUS_TWO':
-    case 'TOGGLE_DNF':
+    case 'SET_PENALTY':
       return state.map(s => {
         if (s.id !== selectedSession) {
 
@@ -130,6 +127,16 @@ export const selectedSession = (state = defaultSession.id, action, sessions) => 
 
     case 'DELETE_SESSION':
       return sessions[sessions.length - 1].id;
+
+    default:
+      return state;
+  }
+};
+
+export const sessionsDialogVisibility = (state = false, action) => {
+  switch (action.type) {
+    case TOGGLE_SESSIONS_DIALOG:
+      return action.visible;
 
     default:
       return state;
