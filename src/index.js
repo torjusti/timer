@@ -16,7 +16,7 @@ import 'sanitize.css';
 // before styled-components, so that we do not need to keep overriding styles.
 const generateClassName = createGenerateClassName();
 const jss = create(jssPreset());
-jss.options.insertionPoint = 'jss-insertion-point';
+jss.options.insertionPoint = document.getElementById('jss-insertion-point');
 
 const Root = () => (
   <Provider store={store}>
