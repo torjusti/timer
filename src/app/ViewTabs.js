@@ -9,6 +9,7 @@ import Scramble from 'scrambles/Scramble';
 import TimerManager from 'timer/TimerManager';
 import Statistics from 'statistics/Statistics';
 import Results from 'results/Results';
+import SolversContainer from 'solvers/SolversContainer';
 
 const grow = css`
   display: flex;
@@ -30,7 +31,6 @@ const Views = styled(SwipeableViews)`
 `;
 
 const View = styled.div`
-  overflow-y: scroll;
   ${grow};
 `;
 
@@ -74,7 +74,8 @@ class ViewTabs extends Component {
 
           <View id="timer-view">
             <Scramble />
-            <TimerManager />  
+            <TimerManager />
+            <SolversContainer />
           </View>
 
           <View>

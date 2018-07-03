@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import { formatElapsedTime } from './utils';
 
 const TimerDisplay = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  flex-grow: 1;
   width: 100%;
   font-family: monospace;
   font-size: 10rem;
   text-align: center;
-  margin: 2rem 0;
   user-select: none;
   
   &.HOLDING {
