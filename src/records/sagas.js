@@ -1,11 +1,10 @@
 import { takeLatest, put } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 import {
   NEW_RECORD, showRecordMessage,
   hideRecordMessage,  
 } from './actions';
-
-const delay = (ms) => new Promise(res => setTimeout(res, ms));
 
 function* newRecord(action) {
   yield put(showRecordMessage(action.records));
