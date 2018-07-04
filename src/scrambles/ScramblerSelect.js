@@ -34,21 +34,13 @@ const SCRAMBLE_TYPES = [
 ];
 
 const WhiteSelect = styled(Select)`
-  &&&&& {
-    color: #fff;
-  }
+  color: #fff;
+  background: none;
 
-  div:focus {
-    background: none;
-  }
-
-  &&&&&:after,
-  &&&&&:before {
-    border-bottom-color: #fff;
-  }
-
-  &&&&&:hover::after,
-  &&&&&:hover::before {
+  &:after,
+  &:before,
+  &&&&:hover::after,
+  &&&&:hover::before {
     border-bottom-color: #fff;
   }
 
