@@ -42,9 +42,12 @@ class PersonalBest extends Component {
       bestAo100: 'average of 100',
     };
 
-    const records = Object.keys(descriptions)
-      .filter(key => this.props.statistics[key] && (!oldProps.statistics[key] ||
-        this.props.statistics[key] < oldProps.statistics[key]));
+    const records = Object.keys(descriptions).filter(
+      key =>
+        this.props.statistics[key] &&
+        (!oldProps.statistics[key] ||
+          this.props.statistics[key] < oldProps.statistics[key]),
+    );
 
     if (records.length > 0) {
       this.setState({
@@ -57,24 +60,22 @@ class PersonalBest extends Component {
 
   render() {
     return (
-       <RecordSnackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-
-          open={this.props.visible}
-
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-
-          message={(
-            <span id="new-record">
-              New personal best {this.state.records && arrayToString(this.state.records)}.
-            </span>
-          )}
-        />
+      <RecordSnackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={this.props.visible}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={
+          <span id="new-record">
+            New personal best{' '}
+            {this.state.records && arrayToString(this.state.records)}.
+          </span>
+        }
+      />
     );
   }
 }

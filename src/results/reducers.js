@@ -1,5 +1,5 @@
 import { Penalties, ADD_RESULT, SET_PENALTY, DELETE_RESULT } from './actions';
-import { CLEAR_SESSION } from 'sessions/actions';
+import { CLEAR_SESSION } from 'sessions/actions';
 
 const result = (state = {}, action, scrambler, scramble) => {
   switch (action.type) {
@@ -30,16 +30,13 @@ const result = (state = {}, action, scrambler, scramble) => {
 const results = (state = [], action, scrambler, scramble) => {
   switch (action.type) {
     case ADD_RESULT:
-      return [
-        ...state,
-        result(undefined, action, scrambler, scramble),
-      ];
+      return [...state, result(undefined, action, scrambler, scramble)];
 
     case CLEAR_SESSION:
       return [];
 
     case DELETE_RESULT:
-      return state.filter((r) => action.ids.indexOf(r.id) < 0);
+      return state.filter(r => action.ids.indexOf(r.id) < 0);
 
     case SET_PENALTY:
       return state.map(r => result(r, action));

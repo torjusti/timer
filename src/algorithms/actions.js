@@ -14,7 +14,7 @@ export const SET_CURRENT_ALGORITHM = 'SET_CURRENT_ALGORITHM';
  * Creates a new set with the given name.
  * An unique ID is also generated and passed on.
  */
-export const createSet = (name) => ({
+export const createSet = name => ({
   type: CREATE_SET,
   name,
   id: uuid(),
@@ -23,7 +23,7 @@ export const createSet = (name) => ({
 /**
  * Selects the set with the given ID.
  */
-export const selectSet = (id) => ({
+export const selectSet = id => ({
   type: SELECT_SET,
   id,
 });
@@ -41,7 +41,7 @@ export const addAlgorithm = (algorithm, set) => ({
 /**
  * Deletes the set with the given ID.
  */
-export const deleteSet = (id) => ({
+export const deleteSet = id => ({
   type: DELETE_SET,
   id,
 });
@@ -58,7 +58,7 @@ export const gradeAlgorithm = (id, grade) => ({
 /**
  * Sets the algorithm with is currently being learned.
  */
-export const setCurrentAlgorithm = (id) => ({
+export const setCurrentAlgorithm = id => ({
   type: SET_CURRENT_ALGORITHM,
   id,
 });

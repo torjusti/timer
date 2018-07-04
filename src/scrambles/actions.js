@@ -5,7 +5,7 @@ export const SET_SCRAMBLE = 'SET_SCRAMBLE';
  * Updates the scrambler which is selected in the
  * currently selected session.
  */
-export const selectScrambler = (scrambler) => ({
+export const selectScrambler = scrambler => ({
   type: SELECT_SCRAMBLER,
   scrambler,
 });

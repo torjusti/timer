@@ -24,7 +24,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { formatResult } from 'timer/utils';
 import { Penalties } from './actions';
 
-const ResultListPaper =  styled(Paper)`
+const ResultListPaper = styled(Paper)`
   margin: 2rem;
 `;
 
@@ -41,7 +41,7 @@ const DialogScramble = styled(DialogContent)`
 
 const PenaltyItem = styled(MenuItem)`
   &.selected {
-    background: #F5F5F5;
+    background: #f5f5f5;
   }
 `;
 
@@ -93,10 +93,9 @@ class ResultList extends React.Component {
   };
 
   render() {
-    const currentResult = this.state.currentResult &&
-      this.props.results.find(result =>
-        result.id === this.state.currentResult,
-      );
+    const currentResult =
+      this.state.currentResult &&
+      this.props.results.find(result => result.id === this.state.currentResult);
 
     return (
       <div>
@@ -153,13 +152,13 @@ class ResultList extends React.Component {
         >
           {currentResult && (
             <div>
-              <DialogTitle>
-                {formatResult(currentResult)}
-              </DialogTitle>
+              <DialogTitle>{formatResult(currentResult)}</DialogTitle>
 
               <DialogScramble>
                 <a
-                  href={`https://alg.cubing.net/?setup=${currentResult.scramble}`}
+                  href={`https://alg.cubing.net/?setup=${
+                    currentResult.scramble
+                  }`}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -170,9 +169,7 @@ class ResultList extends React.Component {
           )}
 
           <DialogActions>
-            <Button onClick={this.handleClose}>
-              Close
-            </Button>
+            <Button onClick={this.handleClose}>Close</Button>
 
             <Button
               onClick={event => this.setState({ anchor: event.currentTarget })}
@@ -190,21 +187,27 @@ class ResultList extends React.Component {
           >
             <PenaltyItem
               onClick={() => this.props.handleClearPenalty(currentResult.id)}
-              className={classNames({ selected: currentResult.penalty === Penalties.NONE})}
+              className={classNames({
+                selected: currentResult.penalty === Penalties.NONE,
+              })}
             >
               None
             </PenaltyItem>
 
             <PenaltyItem
               onClick={() => this.props.handleSetPlusTwo(currentResult.id)}
-              className={classNames({ selected: currentResult.penalty === Penalties.PLUS_TWO})}
+              className={classNames({
+                selected: currentResult.penalty === Penalties.PLUS_TWO,
+              })}
             >
               + 2
             </PenaltyItem>
-            
+
             <PenaltyItem
               onClick={() => this.props.handleSetDNF(currentResult.id)}
-              className={classNames({ selected: currentResult.penalty === Penalties.DNF})}
+              className={classNames({
+                selected: currentResult.penalty === Penalties.DNF,
+              })}
             >
               DNF
             </PenaltyItem>

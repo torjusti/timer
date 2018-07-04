@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVert from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
@@ -11,7 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { renameSession, deleteSession, clearSession } from './actions';
+import { renameSession, deleteSession, clearSession } from './actions';
 
 class SessionOptionsMenu extends Component {
   state = {
@@ -33,7 +33,7 @@ class SessionOptionsMenu extends Component {
   handleCloseRename = () => {
     this.setState({
       renameOpen: false,
-    })
+    });
   };
 
   handleRename = () => {
@@ -66,7 +66,7 @@ class SessionOptionsMenu extends Component {
     });
   };
 
-  handleCloseClear =  () => {
+  handleCloseClear = () => {
     this.setState({
       clearOpen: false,
     });
@@ -86,7 +86,9 @@ class SessionOptionsMenu extends Component {
   render() {
     return (
       <div>
-        <IconButton onClick={event => this.setState({ anchor: event.currentTarget })}>
+        <IconButton
+          onClick={event => this.setState({ anchor: event.currentTarget })}
+        >
           <MoreVert />
         </IconButton>
 
@@ -99,14 +101,12 @@ class SessionOptionsMenu extends Component {
 
           <MenuItem onClick={this.handleOpenClear}>Clear</MenuItem>
 
-          {this.props.deletingEnabled &&
-            <MenuItem onClick={this.handleOpenDelete}>Delete</MenuItem>}
+          {this.props.deletingEnabled && (
+            <MenuItem onClick={this.handleOpenDelete}>Delete</MenuItem>
+          )}
         </Menu>
 
-        <Dialog
-          open={this.state.renameOpen}
-          onClose={this.handleCloseRename}
-        >
+        <Dialog open={this.state.renameOpen} onClose={this.handleCloseRename}>
           <DialogTitle>Rename session</DialogTitle>
 
           <DialogContent>
@@ -119,7 +119,9 @@ class SessionOptionsMenu extends Component {
               label="Session name"
               fullWidth
               value={this.state.updatedName}
-              onChange={event => this.setState({ updatedName: event.target.value })}
+              onChange={event =>
+                this.setState({ updatedName: event.target.value })
+              }
               onKeyPress={this.handleKeyPress}
             />
           </DialogContent>
@@ -135,16 +137,13 @@ class SessionOptionsMenu extends Component {
           </DialogActions>
         </Dialog>
 
-        <Dialog
-          open={this.state.deleteOpen}
-          onClose={this.handleCloseDelete}
-        >
+        <Dialog open={this.state.deleteOpen} onClose={this.handleCloseDelete}>
           <DialogTitle>Delete session</DialogTitle>
 
           <DialogContent>
             <DialogContentText>
-              Are you absolutely certain you want to delete this session, and all the results
-              within it? This action is not reversible.
+              Are you absolutely certain you want to delete this session, and
+              all the results within it? This action is not reversible.
             </DialogContentText>
           </DialogContent>
 
@@ -159,16 +158,14 @@ class SessionOptionsMenu extends Component {
           </DialogActions>
         </Dialog>
 
-        <Dialog
-          open={this.state.clearOpen}
-          onClose={this.handleCloseClear}
-        >
+        <Dialog open={this.state.clearOpen} onClose={this.handleCloseClear}>
           <DialogTitle>Clear session</DialogTitle>
 
           <DialogContent>
             <DialogContentText>
-              Are you absolutely certain you want to clear the contents of this session,
-              deleting all the results within it? This action is not reversible.
+              Are you absolutely certain you want to clear the contents of this
+              session, deleting all the results within it? This action is not
+              reversible.
             </DialogContentText>
           </DialogContent>
 

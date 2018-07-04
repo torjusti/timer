@@ -1,9 +1,9 @@
-import { createSession } from 'sessions/actions';
+import { createSession } from 'sessions/actions';
 import generateScramble from 'scrambles/generateScramble';
 import results from 'results/reducers';
-import { TOGGLE_SESSIONS_DIALOG } from './actions';
+import { TOGGLE_SESSIONS_DIALOG } from './actions';
 
-/** 
+/**
  * The scrambler which is currently selected in the session.
  */
 const selectedScrambler = (state = '333', action) => {
@@ -64,8 +64,13 @@ const session = (state = {}, action) => {
     case 'SET_PENALTY':
       return {
         ...state,
-        results: results(state.results, action, state.selectedScrambler, state.currentScramble),
-      }
+        results: results(
+          state.results,
+          action,
+          state.selectedScrambler,
+          state.currentScramble,
+        ),
+      };
 
     default:
       return state;
@@ -81,13 +86,10 @@ const defaultSessions = [defaultSession];
 export const sessions = (state = defaultSessions, action, selectedSession) => {
   switch (action.type) {
     case 'CREATE_SESSION':
-      return [
-        ...state,
-        session(undefined, action),
-      ];
+      return [...state, session(undefined, action)];
 
     case 'DELETE_SESSION':
-      return state.filter((session) => session.id !== action.id);
+      return state.filter(session => session.id !== action.id);
 
     case 'RENAME_SESSION':
       return state.map(s => {
@@ -106,7 +108,6 @@ export const sessions = (state = defaultSessions, action, selectedSession) => {
     case 'SET_PENALTY':
       return state.map(s => {
         if (s.id !== selectedSession) {
-
         }
 
         return session(s, action);
@@ -117,7 +118,11 @@ export const sessions = (state = defaultSessions, action, selectedSession) => {
   }
 };
 
-export const selectedSession = (state = defaultSession.id, action, sessions) => {
+export const selectedSession = (
+  state = defaultSession.id,
+  action,
+  sessions,
+) => {
   switch (action.type) {
     case 'SET_SESSION':
       return action.id;

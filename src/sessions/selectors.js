@@ -7,8 +7,8 @@ import { createSelector } from 'reselect';
 export const selectedSessionSelector = createSelector(
   state => state.selectedSession,
   state => state.sessions,
-  (selectedSession, sessions) => sessions
-    .find(session => session.id === selectedSession),
+  (selectedSession, sessions) =>
+    sessions.find(session => session.id === selectedSession),
 );
 
 /**

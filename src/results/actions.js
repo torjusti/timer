@@ -29,7 +29,7 @@ export const setPenalty = (id, penalty) => ({
  * Delete the results with the given identificators. The result has
  * to be in the current session.
  */
-export const deleteResult = (ids)  => ({
+export const deleteResult = ids => ({
   type: DELETE_RESULT,
   ids,
 });

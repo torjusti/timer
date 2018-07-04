@@ -1,6 +1,6 @@
 import { Penalties } from 'results/actions';
 
-export const parseTime = (time) => {
+export const parseTime = time => {
   let seconds = time / 1000;
   const minutes = Math.floor(seconds / 60);
   seconds -= minutes * 60;
@@ -13,7 +13,7 @@ export const formatElapsedTime = (time, precision) => {
   return parsedTime.minutes ? `${parsedTime.minutes}:${seconds}` : seconds;
 };
 
-export const formatResult = (result) => {
+export const formatResult = result => {
   const time = formatElapsedTime(result.time, 2);
 
   if (result.penalty === Penalties.DNF) {

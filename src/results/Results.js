@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import ResultList from './ResultList';
 import { getResults } from './selectors';
-import { deleteResult, setPenalty, Penalties }  from './actions';
+import { deleteResult, setPenalty, Penalties } from './actions';
 
 const mapStateToProps = (state, ownProps) => ({
   results: getResults(state),

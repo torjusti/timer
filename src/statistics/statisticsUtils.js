@@ -1,14 +1,14 @@
 /**
  * Returns the sum of all provided entries.
  */
-export const sum = (entries) => {
+export const sum = entries => {
   return entries.reduce((entry, accumulator) => accumulator + entry, 0);
 };
 
 /**
  * Returns the average of all provided entries.
  */
-export const mean = (entries) => {
+export const mean = entries => {
   return sum(entries) / entries.length;
 };
 
@@ -18,7 +18,7 @@ export const mean = (entries) => {
  */
 export const getPercentiles = (entries, percentile, sorted) => {
   if (!sorted) {
-    entries.sort((a, b) => (a - b));
+    entries.sort((a, b) => a - b);
   }
 
   return {
@@ -31,9 +31,9 @@ export const getPercentiles = (entries, percentile, sorted) => {
  * Average using the cubing definition. The top and bottom five
  * percent of entries are ignored when the mean is calculated.
  */
-export const average = (entries, sorted, percentileToRemove = 5 /  100) => {
+export const average = (entries, sorted, percentileToRemove = 5 / 100) => {
   if (!sorted) {
-    entries.sort((a, b) => (a - b));
+    entries.sort((a, b) => a - b);
   }
 
   const percentiles = getPercentiles(entries, percentileToRemove, true);

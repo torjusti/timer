@@ -5,23 +5,23 @@ const moveMap = 'FRUBLD';
 
 // Translate algorithms by a rotation.
 const rotations = {
-    x: 'DRFULB',
-    y: 'RBULFD',
-    z: 'FULBDR',
+  x: 'DRFULB',
+  y: 'RBULFD',
+  z: 'FULBDR',
 };
 
 // Wide moves written as a move and a rotation.
 let wideMoves = {
-  'f': 'z B',
-  'r': 'x L',
-  'u': 'y D',
-  'b': "z' F",
-  'l': "x' R",
-  'd': "y' U",
+  f: 'z B',
+  r: 'x L',
+  u: 'y D',
+  b: "z' F",
+  l: "x' R",
+  d: "y' U",
 };
 
 // Translate wide moves into objects as used internally by alg.js.
-Object.keys(wideMoves).forEach((move) => {
+Object.keys(wideMoves).forEach(move => {
   wideMoves[move] = alg.cube.fromString(wideMoves[move]);
 });
 
@@ -30,9 +30,10 @@ Object.keys(wideMoves).forEach((move) => {
  * while preserving the overall effect of the algorithm.
  * Also translates wide moves.
  */
-const stripRotations = (algorithm) => {
-  let moves = Array.isArray(algorithm) ? algorithm :
-    alg.cube.fromString(alg.cube.expand(algorithm));
+const stripRotations = algorithm => {
+  let moves = Array.isArray(algorithm)
+    ? algorithm
+    : alg.cube.fromString(alg.cube.expand(algorithm));
 
   // Translate all wide moves to moves and a rotation.
   moves = moves.reduce((acc, move) => {
@@ -65,7 +66,7 @@ const stripRotations = (algorithm) => {
   }
 
   for (let i = 0; i < move.amount; i += 1) {
-    translated = translated.map((obj) => ({
+    translated = translated.map(obj => ({
       ...obj,
       base: rotations[move.base][moveMap.indexOf(obj.base)],
     }));

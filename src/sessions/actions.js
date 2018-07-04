@@ -10,7 +10,7 @@ export const TOGGLE_SESSIONS_DIALOG = 'TOGGLE_SESSIONS_DIALOG';
 /**
  * Create a new session with the given name.
  */
-export const createSession = (name) => ({
+export const createSession = name => ({
   type: CREATE_SESSION,
   id: uuid(),
   name,
@@ -19,7 +19,7 @@ export const createSession = (name) => ({
 /**
  * Update the selected session to be the session with the given ID.
  */
-export const setSession = (id) => ({
+export const setSession = id => ({
   type: SET_SESSION,
   id,
 });
@@ -27,7 +27,7 @@ export const setSession = (id) => ({
 /**
  * Delete the session with the given ID.
  */
-export const deleteSession = (id) => ({
+export const deleteSession = id => ({
   type: DELETE_SESSION,
   id,
 });
@@ -35,7 +35,7 @@ export const deleteSession = (id) => ({
 /**
  * Remove all results from the session with the given ID.
  */
-export const clearSession = (id) => ({
+export const clearSession = id => ({
   type: CLEAR_SESSION,
   id,
 });
@@ -43,7 +43,7 @@ export const clearSession = (id) => ({
 /**
  * Rename the session with the given ID.
  */
-export const renameSession =  (id, name) => ({
+export const renameSession = (id, name) => ({
   type: RENAME_SESSION,
   id,
   name,

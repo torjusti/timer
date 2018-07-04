@@ -6,7 +6,8 @@ import { createSelector } from 'reselect';
 export const getResults = createSelector(
   state => state.sessions,
   state => state.selectedSession,
-  (sessions, selectedSession) => sessions.find((session) => session.id === selectedSession).results,
+  (sessions, selectedSession) =>
+    sessions.find(session => session.id === selectedSession).results,
 );
 
 /**
@@ -18,6 +19,7 @@ export const getResult = createSelector(
   state => state.selectedSession,
   (_, id) => id,
   (sessions, selectedSession, id) =>
-    sessions.find((session) => session.id === selectedSession).results
-    .find(r => r.id === id),
+    sessions
+      .find(session => session.id === selectedSession)
+      .results.find(r => r.id === id),
 );

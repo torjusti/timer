@@ -1,6 +1,10 @@
-import { selectedSession, sessions, sessionsDialogVisibility } from 'sessions/reducers';
-import { sets, selectedSet, currentAlgorithm } from 'algorithms/reducers';
-import recordMessageIsVisible from 'records/reducers';
+import {
+  selectedSession,
+  sessions,
+  sessionsDialogVisibility,
+} from 'sessions/reducers';
+import { sets, selectedSet, currentAlgorithm } from 'algorithms/reducers';
+import recordMessageIsVisible from 'records/reducers';
 import drawerVisible from 'app/reducers';
 
 const timerApp = (state = {}, action) => {
@@ -8,9 +12,15 @@ const timerApp = (state = {}, action) => {
     selectedSet: selectedSet(state.selectedSet, action),
     sets: sets(state.sets, action),
     currentAlgorithm: currentAlgorithm(state.currentAlgorithm, action),
-    recordMessageIsVisible: recordMessageIsVisible(state.recordMessageIsVisible, action),
+    recordMessageIsVisible: recordMessageIsVisible(
+      state.recordMessageIsVisible,
+      action,
+    ),
     drawerVisible: drawerVisible(state.drawerVisible, action),
-    sessionsDialogVisibility: sessionsDialogVisibility(state.sessionsDialogVisibility, action),
+    sessionsDialogVisibility: sessionsDialogVisibility(
+      state.sessionsDialogVisibility,
+      action,
+    ),
   };
 
   updatedState.sessions = sessions(
@@ -22,7 +32,11 @@ const timerApp = (state = {}, action) => {
     state.selectedSession,
   );
 
-  updatedState.selectedSession = selectedSession(state.selectedSession, action, updatedState.sessions);
+  updatedState.selectedSession = selectedSession(
+    state.selectedSession,
+    action,
+    updatedState.sessions,
+  );
 
   return updatedState;
 };

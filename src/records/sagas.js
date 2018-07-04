@@ -1,10 +1,7 @@
 import { takeLatest, put } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import { delay } from 'redux-saga';
 
-import {
-  NEW_RECORD, showRecordMessage,
-  hideRecordMessage,  
-} from './actions';
+import { NEW_RECORD, showRecordMessage, hideRecordMessage } from './actions';
 
 function* newRecord(action) {
   yield put(showRecordMessage(action.records));

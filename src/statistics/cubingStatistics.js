@@ -1,20 +1,21 @@
-import { average, mean } from './statisticsUtils';
+import { average, mean } from './statisticsUtils';
 
 // Returns whether a given list of results is a DNF average or not.
-export const isDNF = (results) => results.filter((r) => r.dnf).length >= 2;
+export const isDNF = results => results.filter(r => r.dnf).length >= 2;
 
 // Converts results to a list of numbers and accounts for +2 penalties.
-export const timesFromResults = (results) => results.map((r) => (r.plusTwo ? r.time + 2000 : r.time));
+export const timesFromResults = results =>
+  results.map(r => (r.plusTwo ? r.time + 2000 : r.time));
 
 // Returns the average of a given set of results.
 // Does not support a number of results less than 5.
-export const cubingAverage = (results) => {
+export const cubingAverage = results => {
   if (results.length >= 5) {
     return isDNF(results) ? 'DNF' : average(timesFromResults(results));
   }
 
   return null;
-}
+};
 
 // Returns a list where each index is the current average of num at that index.
 export const cubingAverages = (results, num) => {
@@ -39,12 +40,12 @@ export const fastestCubingAverage = (results, num) => {
     return null;
   }
 
-  const fastest = Math.min.apply(Math, averages.filter((r) => isFinite(r)));
+  const fastest = Math.min.apply(Math, averages.filter(r => isFinite(r)));
 
   return isFinite(fastest) ? fastest : 'DNF';
 };
 
-export const calculateStatistics = (results) => {
+export const calculateStatistics = results => {
   const times = timesFromResults(results);
 
   return {

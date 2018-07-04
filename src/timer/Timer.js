@@ -12,7 +12,7 @@ const TimerDisplay = styled.div`
   font-size: 10rem;
   text-align: center;
   user-select: none;
-  
+
   &.HOLDING {
     color: red;
   }
@@ -50,17 +50,21 @@ class Timer extends React.Component {
     this.setState({
       elapsedTime: Date.now() - this.state.solveStart,
     });
-  }
+  };
 
   checkReady = () => {
-    if (this.state.holdStarted && Date.now() - this.state.holdStarted >= 1000
-        && this.state.graded && this.props.currentScramble) {
+    if (
+      this.state.holdStarted &&
+      Date.now() - this.state.holdStarted >= 1000 &&
+      this.state.graded &&
+      this.props.currentScramble
+    ) {
       this.setState({
         timerState: 'READY',
         elapsedTime: 0, // Remove previous time when timer is ready to start a new solve.
       });
     }
-  }
+  };
 
   gradeAttempt(level) {
     if (this.state.graded) {
@@ -72,7 +76,10 @@ class Timer extends React.Component {
     });
 
     this.props.grade(this.props.currentAlgorithm, level);
-    this.props.onAttemptFinished(this.state.elapsedTime, this.props.selectedScrambler);
+    this.props.onAttemptFinished(
+      this.state.elapsedTime,
+      this.props.selectedScrambler,
+    );
   }
 
   finishAttempt = () => {
@@ -90,9 +97,12 @@ class Timer extends React.Component {
         graded: false,
       });
     } else {
-      this.props.onAttemptFinished(this.state.elapsedTime, this.props.selectedScrambler);
+      this.props.onAttemptFinished(
+        this.state.elapsedTime,
+        this.props.selectedScrambler,
+      );
     }
-  }
+  };
 
   setRunning = () => {
     this.setState({
@@ -104,14 +114,14 @@ class Timer extends React.Component {
     this.setState({
       interval: setInterval(this.tick, 100),
     });
-  }
+  };
 
   setNormal = () => {
     this.setState({
       holdStarted: false,
       timerState: 'NORMAL',
     });
-  }
+  };
 
   setHolding = () => {
     this.setState({
@@ -120,9 +130,9 @@ class Timer extends React.Component {
     });
 
     setTimeout(this.checkReady, 1000);
-  }
+  };
 
-  handleKeyUp = (event) => {
+  handleKeyUp = event => {
     if (event.keyCode === 32) {
       if (this.state.timerState === 'READY') {
         this.setRunning();
@@ -130,19 +140,23 @@ class Timer extends React.Component {
         this.setNormal();
       }
     }
-  }
+  };
 
-  handleKeyDown = (event) => {
+  handleKeyDown = event => {
     if (event.keyCode === 32 && event.target === document.body) {
       event.preventDefault();
     }
 
     if (this.state.timerState === 'RUNNING') {
       this.finishAttempt();
-    } else if (this.state.timerState === 'NORMAL' && event.keyCode === 32 && !this.state.holdStarted) {
+    } else if (
+      this.state.timerState === 'NORMAL' &&
+      event.keyCode === 32 &&
+      !this.state.holdStarted
+    ) {
       this.setHolding();
     }
-  }
+  };
 
   handleTouchStart = event => {
     if (this.state.timerState === 'RUNNING') {
@@ -167,7 +181,9 @@ class Timer extends React.Component {
 
     // Touch screen event listeners.
     // TODO: Refactor this, perhaps use a saga.
-    document.querySelector('#timer-view').addEventListener('touchstart', this.handleTouchStart);
+    document
+      .querySelector('#timer-view')
+      .addEventListener('touchstart', this.handleTouchStart);
     document.body.addEventListener('touchend', this.handleTouchEnd);
   }
 
@@ -175,42 +191,80 @@ class Timer extends React.Component {
     document.body.removeEventListener('keyup', this.handleKeyUp);
     document.body.removeEventListener('keydown', this.handleKeyDown);
 
-    document.querySelector('#timer-view').removeEventListener('touchstart', this.handleTouchStart);
+    document
+      .querySelector('#timer-view')
+      .removeEventListener('touchstart', this.handleTouchStart);
     document.body.removeEventListener('touchend', this.handleTouchEnd);
   }
 
   render() {
     let elapsedTime;
 
-    if (this.state.timerState === 'RUNNING' || this.state.timerState === 'READY') {
+    if (
+      this.state.timerState === 'RUNNING' ||
+      this.state.timerState === 'READY'
+    ) {
       elapsedTime = formatElapsedTime(this.state.elapsedTime, 1);
-    } else  {
+    } else {
       elapsedTime = formatElapsedTime(this.state.elapsedTime, 2);
     }
 
     // Show the solution after the attempt has finished, but before grading happens.
     // This is so the user can verify that the actually correct solution was used.
-    const solution = this.state.graded ? null :
-      <Solution>{this.props.currentAlgorithmSolution}</Solution>;
+    const solution = this.state.graded ? null : (
+      <Solution>{this.props.currentAlgorithmSolution}</Solution>
+    );
 
     return (
       <TimerDisplay className={this.state.timerState}>
         {elapsedTime}
 
-        {this.props.selectedScrambler === 'algs' && <div>
-          {solution}
+        {this.props.selectedScrambler === 'algs' && (
+          <div>
+            {solution}
 
-          {this.props.remaindingAlgorithmCount}
-          <GradeButton onClick={() => this.gradeAttempt(0)} disabled={this.state.graded}>0</GradeButton>        
-          <GradeButton onClick={() => this.gradeAttempt(1)} disabled={this.state.graded}>1</GradeButton>
-          <GradeButton onClick={() => this.gradeAttempt(2)} disabled={this.state.graded}>2</GradeButton>
-          <GradeButton onClick={() => this.gradeAttempt(3)} disabled={this.state.graded}>3</GradeButton>
-          <GradeButton onClick={() => this.gradeAttempt(4)} disabled={this.state.graded}>4</GradeButton>
-          <GradeButton onClick={() => this.gradeAttempt(5)} disabled={this.state.graded}>5</GradeButton>
-        </div>}
+            {this.props.remaindingAlgorithmCount}
+            <GradeButton
+              onClick={() => this.gradeAttempt(0)}
+              disabled={this.state.graded}
+            >
+              0
+            </GradeButton>
+            <GradeButton
+              onClick={() => this.gradeAttempt(1)}
+              disabled={this.state.graded}
+            >
+              1
+            </GradeButton>
+            <GradeButton
+              onClick={() => this.gradeAttempt(2)}
+              disabled={this.state.graded}
+            >
+              2
+            </GradeButton>
+            <GradeButton
+              onClick={() => this.gradeAttempt(3)}
+              disabled={this.state.graded}
+            >
+              3
+            </GradeButton>
+            <GradeButton
+              onClick={() => this.gradeAttempt(4)}
+              disabled={this.state.graded}
+            >
+              4
+            </GradeButton>
+            <GradeButton
+              onClick={() => this.gradeAttempt(5)}
+              disabled={this.state.graded}
+            >
+              5
+            </GradeButton>
+          </div>
+        )}
       </TimerDisplay>
     );
   }
-};
+}
 
 export default Timer;

@@ -11,7 +11,7 @@ const StatisticsPaper = styled(Paper)`
   margin: 2rem;
 `;
 
-const Statistics = ({ statistics, resultCount }) => {
+const Statistics = ({ statistics, resultCount }) => {
   const descriptions = {
     bestSingle: 'Best single',
     bestAo5: 'Best average of 5',
@@ -22,13 +22,17 @@ const Statistics = ({ statistics, resultCount }) => {
     curAo100: 'Current average of 100',
   };
 
-  const globalMean = statistics.globalMean ?
-    statistics.globalDNF ? `DNF (${formatElapsedTime(statistics.globalMean, 2)})`
-      : formatElapsedTime(statistics.globalMean, 2) : 'N/A';
+  const globalMean = statistics.globalMean
+    ? statistics.globalDNF
+      ? `DNF (${formatElapsedTime(statistics.globalMean, 2)})`
+      : formatElapsedTime(statistics.globalMean, 2)
+    : 'N/A';
 
-  const globalAverage = statistics.globalAverage ?
-    statistics.globalDNF ? `DNF (${formatElapsedTime(statistics.globalAverage, 2)})`
-      : formatElapsedTime(statistics.globalAverage, 2) : 'N/A';
+  const globalAverage = statistics.globalAverage
+    ? statistics.globalDNF
+      ? `DNF (${formatElapsedTime(statistics.globalAverage, 2)})`
+      : formatElapsedTime(statistics.globalAverage, 2)
+    : 'N/A';
 
   return (
     <StatisticsPaper>
@@ -49,7 +53,11 @@ const Statistics = ({ statistics, resultCount }) => {
           {Object.keys(descriptions).map(key => (
             <TableRow key={key}>
               <TableCell>{descriptions[key]}</TableCell>
-              <TableCell>{statistics[key] ? formatElapsedTime(statistics[key], 2) : 'N/A'}</TableCell>
+              <TableCell>
+                {statistics[key]
+                  ? formatElapsedTime(statistics[key], 2)
+                  : 'N/A'}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

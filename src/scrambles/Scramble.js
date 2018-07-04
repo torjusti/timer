@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { currentScrambleSelector } from 'sessions/selectors';
 
@@ -26,6 +26,4 @@ const mapStateToProps = state => ({
   currentScramble: currentScrambleSelector(state),
 });
 
-export default connect(
-  mapStateToProps,
-)(Scramble);
+export default connect(mapStateToProps)(Scramble);

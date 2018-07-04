@@ -1,6 +1,6 @@
-import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { newRecord } from './actions';
-import { statisticsSelector } from 'statistics/selectors';
+import { statisticsSelector } from 'statistics/selectors';
 import { selectedScramblerSelector } from 'sessions/selectors';
 import RecordToast from './RecordToast';
 

@@ -26,9 +26,6 @@ const Root = () => (
   </Provider>
 );
 
-ReactDOM.render(
-  <Root />,
-  document.querySelector('#root'),
-);
+ReactDOM.render(<Root />, document.querySelector('#root'));
 
 registerServiceWorker();

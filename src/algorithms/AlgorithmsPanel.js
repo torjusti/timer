@@ -30,19 +30,17 @@ const Cell = styled.div`
 `;
 
 const Box = styled.div`
-  background: #FdFdFd;
-  border: 1px solid #EEE;
+  background: #fdfdfd;
+  border: 1px solid #eee;
   border-radius: 2px 2px 0 0;
-  border-bottom: 5px solid #EEE;
+  border-bottom: 5px solid #eee;
   box-shadow: 0 0 5 rgba(0, 0, 0, 0.5);
   padding: 1em;
 `;
 
-const AlgorithmBox = ({ algorithm }) => (
+const AlgorithmBox = ({ algorithm }) => (
   <Cell>
-    <Box>
-      This an algo: {algorithm}
-    </Box>
+    <Box>This an algo: {algorithm}</Box>
   </Cell>
 );
 
@@ -92,49 +90,44 @@ class AlgorithmsPanel extends React.Component {
   }
 
   render() {
-     const {
-       sets,
-       selectedSet,
-       selectSet,
-     } = this.props;
+    const { sets, selectedSet, selectSet } = this.props;
 
-     return (
-       <div>
-         <Buttons>
-           <input
-             type="text"
-             onChange={(e) => this.handleChange(e)}
-             placeholder="set name / algorithm"
-             ref={(input) => { this.textInput = input; }}
-             value={this.state.value}
-           />
+    return (
+      <div>
+        <Buttons>
+          <input
+            type="text"
+            onChange={e => this.handleChange(e)}
+            placeholder="set name / algorithm"
+            ref={input => {
+              this.textInput = input;
+            }}
+            value={this.state.value}
+          />
 
-           <Button onClick={() => this.createSet()}>Create set</Button>
-           <Button onClick={() => this.deleteSet()}>Delete set</Button>
-           <Button onClick={() => this.addAlgorithm()}>Add algorithm</Button>
-         </Buttons>
+          <Button onClick={() => this.createSet()}>Create set</Button>
+          <Button onClick={() => this.deleteSet()}>Delete set</Button>
+          <Button onClick={() => this.addAlgorithm()}>Add algorithm</Button>
+        </Buttons>
 
-         <Sets>
-           {Object.keys(sets).map((key) =>
-             <Button
-               key={key}
-               onClick={() => selectSet(key)}
-             >{sets[key].name}</Button>
-           )}
+        <Sets>
+          {Object.keys(sets).map(key => (
+            <Button key={key} onClick={() => selectSet(key)}>
+              {sets[key].name}
+            </Button>
+          ))}
 
-           <h2>{sets[selectedSet] && sets[selectedSet].name}</h2>
-         </Sets>
+          <h2>{sets[selectedSet] && sets[selectedSet].name}</h2>
+        </Sets>
 
-         <Grid>
-           {selectedSet && sets[selectedSet].algorithms.map((data) =>
-             <AlgorithmBox
-               algorithm={data.algorithm}
-               key={data.id}
-             />
-           )}
-         </Grid>
-       </div>
-     );
+        <Grid>
+          {selectedSet &&
+            sets[selectedSet].algorithms.map(data => (
+              <AlgorithmBox algorithm={data.algorithm} key={data.id} />
+            ))}
+        </Grid>
+      </div>
+    );
   }
 }
 

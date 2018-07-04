@@ -2,7 +2,7 @@
 
 import { getScramble } from 'algorithms/spacedRepetition';
 
-const generateScramble = (scrambler) => {
+const generateScramble = scrambler => {
   // The algorithm memory mode is not provided by JSSS.
   if (scrambler === 'algs') {
     return getScramble();

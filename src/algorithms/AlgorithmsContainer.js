@@ -1,20 +1,15 @@
 import { connect } from 'react-redux';
 import AlgorithmsPanel from './AlgorithmsPanel';
 
-import {
-  createSet,
-  selectSet,
-  addAlgorithm,
-  deleteSet,
-} from './actions';
+import { createSet, selectSet, addAlgorithm, deleteSet } from './actions';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   sets: state.sets,
   selectedSet: state.selectedSet,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  createSet: (name) => {
+const mapDispatchToProps = dispatch => ({
+  createSet: name => {
     dispatch(createSet(name));
   },
 
@@ -22,11 +17,11 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(addAlgorithm(algorithm, set));
   },
 
-  selectSet: (id) => {
+  selectSet: id => {
     dispatch(selectSet(id));
   },
 
-  deleteSet: (id) => {
+  deleteSet: id => {
     dispatch(deleteSet(id));
   },
 });

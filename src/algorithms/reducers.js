@@ -1,7 +1,7 @@
 import { defaultCard } from './spacedRepetition';
 
 const set = (state = {}, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'CREATE_SET':
       return {
         id: action.id,
@@ -31,7 +31,7 @@ const set = (state = {}, action) => {
       return {
         ...state,
 
-        algorithms: state.algorithms.map((alg) => {
+        algorithms: state.algorithms.map(alg => {
           if (alg.id !== action.id) {
             return alg;
           }
@@ -49,7 +49,7 @@ const set = (state = {}, action) => {
 };
 
 export const sets = (state = {}, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'CREATE_SET':
       return {
         ...state,
@@ -60,22 +60,21 @@ export const sets = (state = {}, action) => {
       return {
         ...state,
         [action.set]: set(state[action.set], action),
-      }
+      };
 
     case 'DELETE_SET':
       return Object.keys(state)
-        .filter((key) => key !== action.id)
+        .filter(key => key !== action.id)
         .reduce((obj, key) => {
           obj[key] = set(state[key], action);
           return obj;
         }, {});
 
     case 'GRADE_ALGORITHM':
-      return Object.keys(state)
-        .reduce((obj, key) => {
-          obj[key] = set(state[key], action);
-          return obj;
-        }, {});
+      return Object.keys(state).reduce((obj, key) => {
+        obj[key] = set(state[key], action);
+        return obj;
+      }, {});
 
     default:
       return state;
@@ -83,7 +82,7 @@ export const sets = (state = {}, action) => {
 };
 
 export const selectedSet = (state = null, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'CREATE_SET':
       return action.id;
 

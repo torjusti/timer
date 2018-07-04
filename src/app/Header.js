@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -33,7 +33,9 @@ const Header = ({ showDrawer, showSessionsDialog }) => (
 
       <ScramblerSelect />
 
-      <Button color="inherit" onClick={showSessionsDialog}>Sessions</Button>
+      <Button color="inherit" onClick={showSessionsDialog}>
+        Sessions
+      </Button>
     </Toolbar>
   </AppBar>
 );

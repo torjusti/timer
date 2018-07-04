@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -24,7 +24,9 @@ const Root = styled.div`
 // The element wrapping our elements is a container
 // element introduced by the swipable views module.
 const Views = styled(SwipeableViews)`
-  &, & > div, & > div > div {
+  &,
+  & > div,
+  & > div > div {
     ${grow};
   }
 `;
@@ -63,10 +65,7 @@ class ViewTabs extends Component {
           </Tabs>
         </AppBar>
 
-        <Views
-          index={this.state.value}
-          onChangeIndex={this.handleChangeIndex}
-        >
+        <Views index={this.state.value} onChangeIndex={this.handleChangeIndex}>
           <View>
             <Statistics />
           </View>

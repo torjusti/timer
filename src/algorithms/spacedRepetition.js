@@ -23,7 +23,10 @@ export const interval = (card, grade) => {
     updated.repetitions = 0;
     updated.interval = 0;
   } else {
-    updated.ease = Math.max(card.ease + (0.1 - (5 - grade) * (0.08 + (5 - grade) * 0.02)), 1.3);
+    updated.ease = Math.max(
+      card.ease + (0.1 - (5 - grade) * (0.08 + (5 - grade) * 0.02)),
+      1.3,
+    );
     updated.repetitions = card.repetitions + 1;
 
     switch (updated.repetitions) {
@@ -51,8 +54,10 @@ export const interval = (card, grade) => {
   return updated;
 };
 
-export const getRemaindingAlgorithms = () => getAlgorithms(store.getState())
-  .filter(alg => moment(alg.date).isSameOrBefore(moment(), 'day'));
+export const getRemaindingAlgorithms = () =>
+  getAlgorithms(store.getState()).filter(alg =>
+    moment(alg.date).isSameOrBefore(moment(), 'day'),
+  );
 
 export const getScramble = () => {
   const algorithms = getRemaindingAlgorithms();

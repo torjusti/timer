@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,7 +11,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import AddIcon from '@material-ui/icons/Add';
-import { createSession } from './actions';
+import { createSession } from './actions';
 
 class SessionOptionsMenu extends Component {
   state = {
@@ -29,7 +29,7 @@ class SessionOptionsMenu extends Component {
   handleClose = () => {
     this.setState({
       open: false,
-    })
+    });
   };
 
   handleCreateSession = () => {
@@ -54,10 +54,7 @@ class SessionOptionsMenu extends Component {
           <ListItemText primary="Create session" />
         </ListItem>
 
-        <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
-        >
+        <Dialog open={this.state.open} onClose={this.handleClose}>
           <DialogTitle>Create session</DialogTitle>
 
           <DialogContent>

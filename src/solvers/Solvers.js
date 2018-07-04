@@ -59,17 +59,21 @@ class Solvers extends React.Component {
 
   componentDidMount() {
     if (this.props.scrambler === '333') {
-      this.solverWorker.postMessage(JSON.stringify({
-        scramble: this.props.currentScramble,
-      }));
+      this.solverWorker.postMessage(
+        JSON.stringify({
+          scramble: this.props.currentScramble,
+        }),
+      );
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.state.sentScramble !== nextProps.scramble) {
-      this.solverWorker.postMessage(JSON.stringify({
-        scramble: nextProps.currentScramble,
-      }));
+      this.solverWorker.postMessage(
+        JSON.stringify({
+          scramble: nextProps.currentScramble,
+        }),
+      );
 
       this.setState({
         sentScramble: nextProps.currentScramble,

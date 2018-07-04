@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import styled from 'styled-components';
 import List from '@material-ui/core/List';
@@ -9,28 +9,35 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import { toggleSessionsDialog, setSession } from './actions';
+import { toggleSessionsDialog, setSession } from './actions';
 import SessionOptionsMenu from './SessionOptionsMenu';
 import CreateSessionDialog from './CreateSessionDialog';
 
 const SessionItem = styled(ListItem)`
   &.selected {
-    background: #F5F5F5;
+    background: #f5f5f5;
   }
 `;
 
-const SessionsDialog = ({ handleClose, handleSetSession, selectedSession, sessions, open, fullScreen }) => (
+const SessionsDialog = ({
+  handleClose,
+  handleSetSession,
+  selectedSession,
+  sessions,
+  open,
+  fullScreen,
+}) => (
   <Dialog onClose={handleClose} open={open} fullScreen={fullScreen}>
     <DialogTitle>Select a session</DialogTitle>
 
     <div>
       <List>
-        {sessions.map(session =>
+        {sessions.map(session => (
           <SessionItem
             button
             onClick={() => handleSetSession(session.id)}
             key={session.id}
-            className={classNames({ 'selected': session.id === selectedSession })}
+            className={classNames({ selected: session.id === selectedSession })}
           >
             <ListItemText primary={session.name} />
 
@@ -38,7 +45,7 @@ const SessionsDialog = ({ handleClose, handleSetSession, selectedSession, sessio
               <SessionOptionsMenu session={session.id} />
             </ListItemSecondaryAction>
           </SessionItem>
-        )}
+        ))}
 
         <CreateSessionDialog />
       </List>
