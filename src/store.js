@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import throttle from 'lodash/throttle';
 import logger from 'redux-logger';
 import timerApp from './reducers';
 import rootSaga from './sagas';
@@ -32,14 +33,19 @@ const saveState = data => {
   }
 };
 
-store.subscribe(() => {
-  const state = store.getState();
+// Save the store when it updates, but at
+// most every 500 milliseconds.
+store.subscribe(
+  throttle(() => {
+    const state = store.getState();
 
-  saveState({
-    selectedSession: state.selectedSession,
-    sessions: state.sessions,
-    sets: state.sets,
-  });
-});
+    saveState({
+      selectedSession: state.selectedSession,
+      sessions: state.sessions,
+      sets: state.sets,
+    });
+  }),
+  500,
+);
 
 export default store;
