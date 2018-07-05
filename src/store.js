@@ -4,9 +4,15 @@ import logger from 'redux-logger';
 import timerApp from './reducers';
 import rootSaga from './sagas';
 
-const initialState = localStorage.state
-  ? JSON.parse(localStorage.state)
-  : undefined;
+const loadState = () => {
+  try {
+    return localStorage.state && JSON.parse(localStorage.state);
+  } catch (error) {
+    return undefined;
+  }
+};
+
+const initialState = loadState();
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -18,8 +24,22 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga);
 
+const saveState = data => {
+  try {
+    localStorage.setItem('state', JSON.stringify(data));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 store.subscribe(() => {
-  localStorage.setItem('state', JSON.stringify(store.getState()));
+  const state = store.getState();
+
+  saveState({
+    selectedSession: state.selectedSession,
+    sessions: state.sessions,
+    sets: state.sets,
+  });
 });
 
 export default store;
