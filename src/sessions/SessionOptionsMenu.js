@@ -189,19 +189,11 @@ const mapStateToProps = state => ({
   deletingEnabled: state.sessions.length > 1,
 });
 
-const mapDispatchToProps = dispatch => ({
-  renameSession: (id, name) => {
-    dispatch(renameSession(id, name));
-  },
-
-  deleteSession: id => {
-    dispatch(deleteSession(id));
-  },
-
-  clearSession: id => {
-    dispatch(clearSession(id));
-  },
-});
+const mapDispatchToProps = {
+  renameSession,
+  deleteSession,
+  clearSession,
+};
 
 export default connect(
   mapStateToProps,
