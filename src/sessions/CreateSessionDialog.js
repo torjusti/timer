@@ -13,7 +13,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import AddIcon from '@material-ui/icons/Add';
 import { createSession } from './actions';
 
-class SessionOptionsMenu extends Component {
+class CreateSessionsDialog extends Component {
   state = {
     open: false,
     name: '',
@@ -77,7 +77,7 @@ class SessionOptionsMenu extends Component {
               Cancel
             </Button>
 
-            <Button onClick={this.handleRename} color="primary">
+            <Button onClick={this.handleCreateSession} color="primary">
               Create
             </Button>
           </DialogActions>
@@ -87,13 +87,11 @@ class SessionOptionsMenu extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  createSession: name => {
-    dispatch(createSession(name));
-  },
-});
+const mapDispatchToProps = {
+  createSession,
+};
 
 export default connect(
   undefined,
   mapDispatchToProps,
-)(SessionOptionsMenu);
+)(CreateSessionsDialog);
