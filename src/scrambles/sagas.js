@@ -1,4 +1,4 @@
-import { takeLatest, call, put, all, select } from 'redux-saga/effects';
+import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { selectedScramblerSelector } from 'sessions/selectors';
 import { SELECT_SCRAMBLER, setScramble } from './actions';
 import { ADD_RESULT } from 'results/actions';
@@ -11,10 +11,7 @@ function* updateScramble() {
 }
 
 function* scrambleSaga() {
-  yield all([
-    takeLatest(SELECT_SCRAMBLER, updateScramble),
-    takeLatest(ADD_RESULT, updateScramble),
-  ]);
+  yield takeLatest([SELECT_SCRAMBLER, ADD_RESULT], updateScramble);
 }
 
 export default scrambleSaga;
