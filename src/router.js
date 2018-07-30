@@ -4,12 +4,7 @@ import App from './app/App';
 import SettingsContainer from './settings/SettingsContainer';
 import AlgorithmsContainer from 'algorithms/AlgorithmsContainer';
 import NotFound from 'app/NotFound';
-
-export const routes = {
-  home: '/',
-  algorithms: '/algorithms',
-  settings: '/settings',
-};
+import routes from './routes';
 
 const AppRouter = () => (
   <BrowserRouter basename={process.env.PUBLIC_URL}>
