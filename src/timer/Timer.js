@@ -9,9 +9,13 @@ const TimerDisplay = styled.div`
   flex-grow: 1;
   width: 100%;
   font-family: monospace;
-  font-size: 10rem;
+  font-size: 7rem;
   text-align: center;
   user-select: none;
+
+  @media (min-width: 768px) {
+    font-size: 10rem;
+  }
 
   &.HOLDING {
     color: red;

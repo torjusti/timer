@@ -1,6 +1,5 @@
 import React from 'react';
 import ExportDataButton from './ExportDataButton';
-import AddProgressiveApp from './AddProgressiveApp';
 
 const Settings = () => (
   <div>
@@ -9,10 +8,6 @@ const Settings = () => (
     <h2>Export data</h2>
 
     <ExportDataButton />
-
-    <h2>Progressive web app</h2>
-
-    <AddProgressiveApp />
   </div>
 );
 
