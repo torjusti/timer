@@ -45,7 +45,6 @@ class Timer extends React.Component {
       holdStarted: false, // When the space or touch holding started.
       solveStart: null, // When the attempt started.
       elapsedTime: 0, // The displayed  elapsed time.
-      interval: null, // The interval ID used for clearing timer display interval.
       graded: true, // Whether or not the attempt has been graded or not.
     };
   }
@@ -54,6 +53,10 @@ class Timer extends React.Component {
     this.setState({
       elapsedTime: Date.now() - this.state.solveStart,
     });
+
+    if (this.state.timerState === 'RUNNING') {
+      window.requestAnimationFrame(this.tick);
+    }
   };
 
   checkReady = () => {
@@ -91,8 +94,6 @@ class Timer extends React.Component {
       timerState: 'NORMAL',
     });
 
-    clearInterval(this.state.interval);
-
     // Force a tick to ensure elapsed time is up to date.
     this.tick();
 
@@ -115,9 +116,7 @@ class Timer extends React.Component {
       solveStart: Date.now(),
     });
 
-    this.setState({
-      interval: setInterval(this.tick, 100),
-    });
+    window.requestAnimationFrame(this.tick);
   };
 
   setNormal = () => {
