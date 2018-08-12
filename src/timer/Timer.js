@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
+import { createPortal } from 'react-dom';
 import styled from 'styled-components';
+import classNames from 'classnames';
 import { formatElapsedTime } from './utils';
 
 const TimerDisplay = styled.div`
@@ -24,6 +26,28 @@ const TimerDisplay = styled.div`
   &.READY {
     color: green;
   }
+
+  &.full {
+    display: none;
+  }
+
+  &.full.READY,
+  &.full.RUNNING {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 2000;
+    background: #fff;
+    justify-content: center;
+    align-items: center;
+
+    @media (min-width: 768px) {
+      font-size: 15rem;
+    }
+  }
 `;
 
 const GradeButton = styled.button`
@@ -36,7 +60,20 @@ const Solution = styled.div`
   font-size: 1rem;
 `;
 
-class Timer extends React.Component {
+const Display = ({ timerState, elapsedTime, className, containerRef }) => (
+  <TimerDisplay
+    className={classNames(timerState, className)}
+    innerRef={containerRef}
+  >
+    {elapsedTime}
+  </TimerDisplay>
+);
+
+const FullDisplay = props => {
+  return createPortal(<Display className="full" {...props} />, document.body);
+};
+
+class Timer extends Component {
   constructor(props) {
     super();
 
@@ -47,6 +84,8 @@ class Timer extends React.Component {
       elapsedTime: 0, // The displayed  elapsed time.
       graded: true, // Whether or not the attempt has been graded or not.
     };
+
+    this.fullDisplayRef = React.createRef();
   }
 
   tick = () => {
@@ -83,6 +122,7 @@ class Timer extends React.Component {
     });
 
     this.props.grade(this.props.currentAlgorithm, level);
+
     this.props.onAttemptFinished(
       this.state.elapsedTime,
       this.props.selectedScrambler,
@@ -161,19 +201,23 @@ class Timer extends React.Component {
     }
   };
 
-  handleTouchStart = event => {
-    if (this.state.timerState === 'RUNNING') {
-      this.finishAttempt();
-    } else if (this.state.timerState === 'NORMAL' && !this.state.holdStarted) {
+  handleTouchStart = () => {
+    if (this.state.timerState === 'NORMAL' && !this.state.holdStarted) {
       this.setHolding();
     }
   };
 
-  handleTouchEnd = event => {
+  handleTouchEnd = () => {
     if (this.state.timerState === 'READY') {
       this.setRunning();
     } else if (this.state.timerState === 'HOLDING') {
       this.setNormal();
+    }
+  };
+
+  handleTouchStopTimer = () => {
+    if (this.state.timerState === 'RUNNING') {
+      this.finishAttempt();
     }
   };
 
@@ -183,11 +227,16 @@ class Timer extends React.Component {
     document.body.addEventListener('keydown', this.handleKeyDown);
 
     // Touch screen event listeners.
-    // TODO: Refactor this, perhaps use a saga.
     document
       .querySelector('#timer-view')
       .addEventListener('touchstart', this.handleTouchStart);
+
     document.body.addEventListener('touchend', this.handleTouchEnd);
+
+    this.fullDisplayRef.current.addEventListener(
+      'touchstart',
+      this.handleTouchStopTimer,
+    );
   }
 
   componentWillUnmount() {
@@ -197,7 +246,13 @@ class Timer extends React.Component {
     document
       .querySelector('#timer-view')
       .removeEventListener('touchstart', this.handleTouchStart);
+
     document.body.removeEventListener('touchend', this.handleTouchEnd);
+
+    this.fullDisplayRef.current.removeEventListener(
+      'touchstart',
+      this.handleTouchStopTimer,
+    );
   }
 
   render() {
@@ -219,53 +274,30 @@ class Timer extends React.Component {
     );
 
     return (
-      <TimerDisplay className={this.state.timerState}>
-        {elapsedTime}
+      <Fragment>
+        <Display timerState={this.state.timerState} elapsedTime={elapsedTime} />
+
+        <FullDisplay
+          timerState={this.state.timerState}
+          elapsedTime={elapsedTime}
+          containerRef={this.fullDisplayRef}
+        />
 
         {this.props.selectedScrambler === 'algs' && (
           <div>
             {solution}
 
             {this.props.remaindingAlgorithmCount}
-            <GradeButton
-              onClick={() => this.gradeAttempt(0)}
-              disabled={this.state.graded}
-            >
-              0
-            </GradeButton>
-            <GradeButton
-              onClick={() => this.gradeAttempt(1)}
-              disabled={this.state.graded}
-            >
-              1
-            </GradeButton>
-            <GradeButton
-              onClick={() => this.gradeAttempt(2)}
-              disabled={this.state.graded}
-            >
-              2
-            </GradeButton>
-            <GradeButton
-              onClick={() => this.gradeAttempt(3)}
-              disabled={this.state.graded}
-            >
-              3
-            </GradeButton>
-            <GradeButton
-              onClick={() => this.gradeAttempt(4)}
-              disabled={this.state.graded}
-            >
-              4
-            </GradeButton>
-            <GradeButton
-              onClick={() => this.gradeAttempt(5)}
-              disabled={this.state.graded}
-            >
-              5
-            </GradeButton>
+
+            {[0, 1, 2, 3, 4, 5].map(i => (
+              <GradeButton
+                onClick={() => this.gradeAttempt(i)}
+                disabled={this.state.grade}
+              />
+            ))}
           </div>
         )}
-      </TimerDisplay>
+      </Fragment>
     );
   }
 }
