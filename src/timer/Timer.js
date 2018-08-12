@@ -89,11 +89,11 @@ class Timer extends Component {
   }
 
   tick = () => {
-    this.setState({
-      elapsedTime: Date.now() - this.state.solveStart,
-    });
-
     if (this.state.timerState === 'RUNNING') {
+      this.setState({
+        elapsedTime: Date.now() - this.state.solveStart,
+      });
+
       window.requestAnimationFrame(this.tick);
     }
   };
@@ -130,23 +130,23 @@ class Timer extends Component {
   }
 
   finishAttempt = () => {
-    this.setState({
-      timerState: 'NORMAL',
-    });
-
-    // Force a tick to ensure elapsed time is up to date.
-    this.tick();
-
-    if (this.props.selectedScrambler === 'algs') {
-      this.setState({
-        graded: false,
-      });
-    } else {
-      this.props.onAttemptFinished(
-        this.state.elapsedTime,
-        this.props.selectedScrambler,
-      );
-    }
+    this.setState(
+      {
+        timerState: 'NORMAL',
+      },
+      () => {
+        if (this.props.selectedScrambler === 'algs') {
+          this.setState({
+            graded: false,
+          });
+        } else {
+          this.props.onAttemptFinished(
+            this.state.elapsedTime,
+            this.props.selectedScrambler,
+          );
+        }
+      },
+    );
   };
 
   setRunning = () => {
