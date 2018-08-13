@@ -30,7 +30,7 @@ const result = (state = {}, action, scrambler, scramble) => {
 const results = (state = [], action, scrambler, scramble) => {
   switch (action.type) {
     case ADD_RESULT:
-      return [...state, result(undefined, action, scrambler, scramble)];
+      return [result(undefined, action, scrambler, scramble), ...state];
 
     case CLEAR_SESSION:
       return [];
