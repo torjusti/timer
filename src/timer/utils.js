@@ -7,9 +7,16 @@ export const parseTime = time => {
   return { minutes, seconds };
 };
 
+const truncate = (value, n) => {
+  const truncated = Math.floor(value * Math.pow(10, n)) / Math.pow(10, n);
+
+  // Add zeroes to the number.
+  return truncated.toFixed(n);
+};
+
 export const formatElapsedTime = (time, precision) => {
   const parsedTime = parseTime(time);
-  const seconds = parsedTime.seconds.toFixed(precision);
+  const seconds = truncate(parsedTime.seconds, precision);
   return parsedTime.minutes ? `${parsedTime.minutes}:${seconds}` : seconds;
 };
 

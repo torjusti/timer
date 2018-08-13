@@ -130,23 +130,20 @@ class Timer extends Component {
   }
 
   finishAttempt = () => {
-    this.setState(
-      {
-        timerState: 'NORMAL',
-      },
-      () => {
-        if (this.props.selectedScrambler === 'algs') {
-          this.setState({
-            graded: false,
-          });
-        } else {
-          this.props.onAttemptFinished(
-            this.state.elapsedTime,
-            this.props.selectedScrambler,
-          );
-        }
-      },
-    );
+    this.setState({
+      timerState: 'NORMAL',
+    });
+
+    if (this.props.selectedScrambler === 'algs') {
+      this.setState({
+        graded: false,
+      });
+    } else {
+      this.props.onAttemptFinished(
+        this.state.elapsedTime,
+        this.props.selectedScrambler,
+      );
+    }
   };
 
   setRunning = () => {
