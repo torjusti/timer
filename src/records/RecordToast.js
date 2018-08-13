@@ -65,6 +65,8 @@ class PersonalBest extends Component {
           vertical: 'bottom',
           horizontal: 'center',
         }}
+        autoHideDuration={6000}
+        onClose={this.handleClose}
         open={this.props.visible}
         ContentProps={{
           'aria-describedby': 'message-id',

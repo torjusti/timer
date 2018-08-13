@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import ScramblerSelect from 'scrambles/ScramblerSelect';
 import { toggleDrawer } from './actions';
 import { toggleSessionsDialog } from 'sessions/actions';
+import routes from 'routes';
 
 const MenuButton = styled(IconButton)`
   margin-left: -12px;
@@ -20,7 +22,7 @@ const Title = styled(Typography)`
   flex: 1;
 `;
 
-const Header = ({ showDrawer, showSessionsDialog }) => (
+const Header = ({ showDrawer, showSessionsDialog, location }) => (
   <AppBar position="static">
     <Toolbar>
       <MenuButton color="inherit" aria-label="Menu" onClick={showDrawer}>
@@ -31,11 +33,16 @@ const Header = ({ showDrawer, showSessionsDialog }) => (
         Timer
       </Title>
 
-      <ScramblerSelect />
+      {console.log(location, routes, location.pathname, routes.home)}
+      {location.pathname === routes.home && (
+        <Fragment>
+          <ScramblerSelect />
 
-      <Button color="inherit" onClick={showSessionsDialog}>
-        Sessions
-      </Button>
+          <Button color="inherit" onClick={showSessionsDialog}>
+            Sessions
+          </Button>
+        </Fragment>
+      )}
     </Toolbar>
   </AppBar>
 );
@@ -50,7 +57,9 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(
-  undefined,
-  mapDispatchToProps,
-)(Header);
+export default withRouter(
+  connect(
+    undefined,
+    mapDispatchToProps,
+  )(Header),
+);
