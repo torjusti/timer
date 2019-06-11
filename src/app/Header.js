@@ -29,7 +29,7 @@ const Header = ({ showDrawer, showSessionsDialog, location }) => (
         <MenuIcon />
       </MenuButton>
 
-      <Title variant="title" color="inherit">
+      <Title variant="h6" color="inherit">
         Timer
       </Title>
 

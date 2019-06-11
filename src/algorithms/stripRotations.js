@@ -22,7 +22,7 @@ let wideMoves = {
 
 // Translate wide moves into objects as used internally by alg.js.
 Object.keys(wideMoves).forEach(move => {
-  wideMoves[move] = alg.cube.fromString(wideMoves[move]);
+  wideMoves[move] = alg.parse(wideMoves[move]);
 });
 
 /**
@@ -33,7 +33,7 @@ Object.keys(wideMoves).forEach(move => {
 const stripRotations = algorithm => {
   let moves = Array.isArray(algorithm)
     ? algorithm
-    : alg.cube.fromString(alg.cube.expand(algorithm));
+    : alg.parse(alg.cube.expand(algorithm));
 
   // Translate all wide moves to moves and a rotation.
   moves = moves.reduce((acc, move) => {

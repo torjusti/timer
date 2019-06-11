@@ -1,5 +1,5 @@
 import { takeLatest, put } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import { delay } from 'redux-saga/effects';
 
 import { NEW_RECORD, showRecordMessage, hideRecordMessage } from './actions';
 

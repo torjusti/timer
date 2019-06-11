@@ -63,7 +63,7 @@ const Solution = styled.div`
 const Display = ({ timerState, elapsedTime, className, containerRef }) => (
   <TimerDisplay
     className={classNames(timerState, className)}
-    innerRef={containerRef}
+    ref={containerRef}
   >
     {elapsedTime}
   </TimerDisplay>
@@ -230,10 +230,12 @@ class Timer extends Component {
 
     document.body.addEventListener('touchend', this.handleTouchEnd);
 
-    this.fullDisplayRef.current.addEventListener(
-      'touchstart',
-      this.handleTouchStopTimer,
-    );
+    if (this.fullDisplayRef.current) {
+      this.fullDisplayRef.current.addEventListener(
+        'touchstart',
+        this.handleTouchStopTimer,
+      );
+    }
   }
 
   componentWillUnmount() {

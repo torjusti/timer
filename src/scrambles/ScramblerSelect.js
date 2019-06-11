@@ -34,9 +34,6 @@ const SCRAMBLE_TYPES = [
 ];
 
 const WhiteSelect = styled(Select)`
-  color: #fff;
-  background: none;
-
   &:after,
   &:before,
   &&&&:hover::after,
@@ -44,6 +41,11 @@ const WhiteSelect = styled(Select)`
     border-bottom-color: #fff;
   }
 
+  &.MuiInputBase-root.MuiInput-underline:before {
+    border-bottom-color: #fff;
+  }
+
+  .MuiSelect-selectMenu,
   svg {
     color: #fff;
   }

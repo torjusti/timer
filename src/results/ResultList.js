@@ -5,6 +5,7 @@ import Zoom from '@material-ui/core/Zoom';
 import Portal from '@material-ui/core/Portal';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -26,12 +27,6 @@ import { Penalties } from './actions';
 
 const ResultListPaper = styled(Paper)`
   margin: 2rem;
-`;
-
-const DeleteButton = styled(Button)`
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
 `;
 
 const DialogScramble = styled(DialogContent)`
@@ -133,15 +128,15 @@ class ResultList extends React.Component {
 
         <Portal>
           <Zoom in={this.props.visible}>
-            <DeleteButton
+            <Fab
               disabled={this.state.checked.length === 0}
-              variant="fab"
+              variant="round"
               color="secondary"
               aria-label="add"
               onClick={this.handleDelete}
             >
               <DeleteIcon />
-            </DeleteButton>
+            </Fab>
           </Zoom>
         </Portal>
 
@@ -156,9 +151,7 @@ class ResultList extends React.Component {
 
               <DialogScramble>
                 <a
-                  href={`https://alg.cubing.net/?setup=${
-                    currentResult.scramble
-                  }`}
+                  href={`https://alg.cubing.net/?setup=${currentResult.scramble}`}
                   rel="noopener noreferrer"
                   target="_blank"
                 >

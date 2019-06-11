@@ -57,7 +57,6 @@ class ViewTabs extends Component {
             onChange={this.handleChange}
             indicatorColor="primary"
             textColor="primary"
-            fullWidth
           >
             <Tab label="Statistics" />
             <Tab label="Timer" />
