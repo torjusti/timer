@@ -9,6 +9,7 @@ const solveScramble = event => {
       Cross: solve(scramble, 'cross'),
       EOLine: solve(scramble, 'eoline'),
       FirstBlock: solve(scramble, 'fb'),
+      XCross: solve(scramble, 'xcross'),
       scramble, // Used to re-render when the scramble changes.
     }),
   );

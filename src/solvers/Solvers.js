@@ -7,8 +7,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import SolverWorker from './solver.worker'; // eslint-disable-line
 
-console.log(SolverWorker);
-
 const SolverPaper = styled(Paper)`
   width: 80%;
   margin: 1rem auto;
@@ -37,8 +35,6 @@ class Solvers extends React.Component {
   componentWillMount() {
     this.solverWorker = new SolverWorker();
 
-    console.log(this.solverWorker);
-
     this.solverWorker.onmessage = event => {
       const result = JSON.parse(event.data);
 
@@ -47,6 +43,7 @@ class Solvers extends React.Component {
           EOLine: result.EOLine,
           Cross: result.Cross,
           FirstBlock: result.FirstBlock,
+          XCross: result.XCross,
           scramble: result.scramble,
         });
       }
@@ -55,13 +52,11 @@ class Solvers extends React.Component {
 
   componentDidMount() {
     if (this.props.scrambler === '333') {
-      console.log('sending message');
       this.solverWorker.postMessage(
         JSON.stringify({
           scramble: this.props.currentScramble,
         }),
       );
-      console.log('message sent');
     }
   }
 
@@ -102,6 +97,11 @@ class Solvers extends React.Component {
             <TableRow>
               <TableCell>First block</TableCell>
               <Solution>{this.state.FirstBlock}</Solution>
+            </TableRow>
+
+            <TableRow>
+              <TableCell>XCross</TableCell>
+              <Solution>{this.state.XCross}</Solution>
             </TableRow>
           </TableBody>
         </Table>
