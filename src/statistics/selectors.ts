@@ -5,8 +5,7 @@ import { Result } from 'sessions/actions';
 import { TimerAppState } from 'reducers';
 
 /**
- * Returns an object containing different types of
- * statistics concerning the current array of results.
+ * Returns an object containing different types of statistics concerning the current array of results.
  */
 export const statisticsSelector = createSelector<TimerAppState, Result[] | undefined, CubingStatistics | undefined>(
   resultsSelector,

@@ -12,8 +12,6 @@ import SessionOptionsMenu from './SessionOptionsMenu';
 import CreateSession from './CreateSession';
 import { TimerAppState } from '../reducers';
 
-// TODO: Mobile dialog thing.
-
 const SessionItem = styled(ListItem)`
   background: ${({ selected }) => selected && '#f5f5f5'};
 `;

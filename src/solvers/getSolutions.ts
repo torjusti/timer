@@ -1,4 +1,3 @@
-
 import { solve } from 'cube-solver';
       
 export const getSolutions = (scramble: string) => ({
