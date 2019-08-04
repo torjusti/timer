@@ -43,7 +43,7 @@ export interface SessionState {
   name: string;
   id: string;
   results: actions.Result[];
-  scrambler: Scrambler;
+  scrambler: string;
   scramble?: string;
 }
 

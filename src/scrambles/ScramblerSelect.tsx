@@ -49,7 +49,7 @@ const ScramblerSelect: React.FC = () => {
   return (
     <WhiteSelect
       value={scrambler}
-      onChange={event => dispatch(selectScrambler(event.target.value as Scrambler))}
+      onChange={event => dispatch(selectScrambler(event.target.value as string))}
     >
       {Object.keys(scramblers).map(scrambler => (
         <MenuItem value={scrambler} key={scrambler}>

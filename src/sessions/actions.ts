@@ -1,5 +1,4 @@
 
-import { Scrambler } from 'scrambo';
 import uuidv4 from 'uuid/v4';
 
 export const SELECT_SCRAMBLER = 'SELECT_SCRAMBLER';
@@ -15,10 +14,10 @@ export const DELETE_RESULTS = 'DELETE_RESULTS';
 
 export interface SelectScramblerAction {
   type: typeof SELECT_SCRAMBLER;
-  payload: Scrambler;
+  payload: string;
 }
 
-export const selectScrambler = (scrambler: Scrambler): SelectScramblerAction => ({
+export const selectScrambler = (scrambler: string): SelectScramblerAction => ({
   type: SELECT_SCRAMBLER,
   payload: scrambler,
 });
@@ -38,12 +37,12 @@ export interface CreateSessionAction {
 
   payload: {
     name: string;
-    scrambler: Scrambler;
+    scrambler: string;
     id: string;
   };
 }
 
-export const createSession = (name: string, scrambler: Scrambler = '333'): CreateSessionAction => ({
+export const createSession = (name: string, scrambler: string = '333'): CreateSessionAction => ({
   type: CREATE_SESSION,
 
   payload: {
