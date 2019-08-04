@@ -1,23 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <noscript id="jss-insertion-point"></noscript>
-    <style data-styled-components="true"></style>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="https://use.fontawesome.com/926f41215b.js"></script>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
     <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <!--
-      Notice the use of %PUBLIC_URL% in the tag above.
+      Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
 
@@ -25,15 +19,8 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <title>ttimer</title>
 
-    <title>React App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <!--
-      We need to use script tags here, as these are compiled using GWT from Java. Since
-      all ES6 modules uses strict mode, we cannot have these as modules without significant work.
-    -->
     <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_222.js"></script>
     <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_333.js"></script>
     <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_clock.js"></script>
@@ -42,5 +29,19 @@
     <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_pyram.js"></script>
     <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_skewb.js"></script>
     <script type="text/javascript" src="%PUBLIC_URL%/js/scramble_sq1.js"></script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
   </body>
 </html>
