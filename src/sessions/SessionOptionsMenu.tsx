@@ -23,12 +23,12 @@ const SessionOptionsMenu: React.FC<SessionOptionsMenuProps> = ({ session, deleti
 
   const [anchor, setAnchor] = useState();
   const [renameOpen, setRenameOpen] = useState(false);
-  const [updatedName, setUpdatedName] = useState<string>();
+  const [updatedName, setUpdatedName] = useState<string>('');
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [clearOpen, setClearOpen] = useState(false);
 
   const handleOpenRename = () => {
-    setUpdatedName(undefined);
+    setUpdatedName('');
     setRenameOpen(true);
     setAnchor(null);
   };
@@ -113,6 +113,7 @@ const SessionOptionsMenu: React.FC<SessionOptionsMenuProps> = ({ session, deleti
             value={updatedName}
             onChange={event => setUpdatedName( event.target.value )}
             onKeyPress={handleKeyPress}
+            autoFocus
           />
         </DialogContent>
 

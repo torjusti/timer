@@ -15,15 +15,16 @@ import { createSession } from './actions';
 
 const CreateSession: React.FC = () => {
   const dispatch = useDispatch();
+
   const [open, setOpen] = useState<boolean>(false);
-  const [name, setName] = useState<string>();
+  const [name, setName] = useState<string>('');
 
   const handleOpen = (): void => {
     setOpen(true);
   };
 
   const handleClose = (): void => {
-    setName(undefined);
+    setName('');
     setOpen(false);
   };
 
@@ -64,6 +65,7 @@ const CreateSession: React.FC = () => {
             value={name}
             onChange={event => setName( event.target.value )}
             onKeyPress={handleKeyPress}
+            autoFocus
           />
         </DialogContent>
 
