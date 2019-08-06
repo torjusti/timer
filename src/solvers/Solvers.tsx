@@ -15,6 +15,9 @@ const SolverPaper = styled(Paper)`
   display: flex;
   justify-content: center;
   width: 80%;
+  // We unfortunately disable selecting, as enabling selection on this
+  // element seems to break touch timer starting on mobile.
+  user-select: none;
 `;
 
 const Solution = styled(TableCell)`

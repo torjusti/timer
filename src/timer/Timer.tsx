@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, RefObject } from 'react';
 import TimerDisplay, { TimerDisplayState } from './TimerDisplay';
 
 const HOLD_DURATION = 1000;
@@ -7,6 +7,7 @@ interface TimerProps {
   onSolveFinished?: (time: number) => void;
   // If this is set, new solves cannot be started.
   disabled?: boolean;
+  touchContainer: RefObject<HTMLElement>;
 }
 
 interface TimerState {
@@ -17,6 +18,16 @@ interface TimerState {
 }
 
 class Timer extends Component<TimerProps, TimerState> {
+  timerDisplay: React.RefObject<HTMLDivElement>;
+  fullDisplay: React.RefObject<HTMLDivElement>;
+
+  constructor(props: TimerProps) {
+    super(props);
+
+    this.timerDisplay = React.createRef();
+    this.fullDisplay = React.createRef();
+  }
+  
   state = {
     // The current state of the timer.
     timerState: TimerDisplayState.IDLE,
@@ -123,14 +134,53 @@ class Timer extends Component<TimerProps, TimerState> {
     }
   };
 
+  handleTouchStart = (event: TouchEvent) => {
+    if (event.target !== this.props.touchContainer.current && event.target !== this.timerDisplay.current) {
+      return;
+    }
+
+    if (this.state.timerState === TimerDisplayState.IDLE && !this.state.holdingStart) {
+      this.setHolding();
+    }
+  };
+
+  handleTouchEnd = () => {
+    if (this.state.timerState === TimerDisplayState.READY) {
+      this.setRunning();
+    } else if (this.state.timerState === TimerDisplayState.HOLDING) {
+      this.setIdle();
+    }
+  };
+
+  handleTouchStopTimer = () => {
+    if (this.state.timerState === TimerDisplayState.RUNNING) {
+      this.finishAttempt();
+    }
+  };
+
+
   componentDidMount() {
     document.body.addEventListener('keyup', this.handleKeyUp);
     document.body.addEventListener('keydown', this.handleKeyDown);
+
+    document.body.addEventListener('touchstart', this.handleTouchStart);
+    document.body.addEventListener('touchend', this.handleTouchEnd);
+
+    if (this.fullDisplay.current) {
+      this.fullDisplay.current.addEventListener('touchstart', this.handleTouchStopTimer);
+    }
   }
 
   componentWillUnmount() {
     window.removeEventListener('keyup', this.handleKeyUp);
     window.removeEventListener('keydown', this.handleKeyDown);
+
+    document.body.removeEventListener('touchstart', this.handleTouchStart);
+    document.body.removeEventListener('touchend', this.handleTouchEnd);
+
+    if (this.fullDisplay.current) {
+      this.fullDisplay.current.removeEventListener('touchstart', this.handleTouchStopTimer);
+    }
   }
 
   render() {
@@ -138,6 +188,8 @@ class Timer extends Component<TimerProps, TimerState> {
       <TimerDisplay
         time={this.state.elapsedTime}
         state={this.state.timerState}
+        displayRef={this.timerDisplay}
+        fullDisplayRef={this.fullDisplay}
       />
     )
   }

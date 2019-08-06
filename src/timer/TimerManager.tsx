@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { addResult } from 'sessions/actions';
 import Timer from './Timer';
 import { currentScrambleSelector } from 'sessions/selectors';
 
-const TimerManager: React.FC = () => {
+interface Props {
+  touchContainer: RefObject<HTMLElement>;
+}
+
+const TimerManager: React.FC<Props> = ({ touchContainer }) => {
   const dispatch = useDispatch();
 
   const scramble = useSelector(currentScrambleSelector);
@@ -19,6 +23,7 @@ const TimerManager: React.FC = () => {
     <Timer
       onSolveFinished={handleFinished}
       disabled={scramble === undefined}
+      touchContainer={touchContainer}
     />
   );
 };

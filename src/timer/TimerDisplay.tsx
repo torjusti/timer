@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { Ref } from 'react';
 import styled from 'styled-components';
 import { formatElapsedTime } from './utils';
-import { createPortal } from 'react-dom';
 
 export enum TimerDisplayState {
   IDLE,
@@ -13,6 +12,8 @@ export enum TimerDisplayState {
 interface TimerDisplayProps {
   state: TimerDisplayState;
   time: number;
+  displayRef: Ref<HTMLDivElement>;
+  fullDisplayRef: Ref<HTMLDivElement>;
 }
 
 const getDisplayColor = (state: TimerDisplayState) => {
@@ -58,21 +59,17 @@ const StyledFullDisplay = styled(StyledTimerDisplay)<{ state: TimerDisplayState 
   bottom: 0;
 `;
 
-const TimerDisplay: React.FC<TimerDisplayProps> = ({ time, state }) => {
+const TimerDisplay: React.FC<TimerDisplayProps> = ({ time, state, displayRef, fullDisplayRef }) => {
   const digits = state === TimerDisplayState.RUNNING ? 1 : 2;
   const formattedTime = formatElapsedTime(time, digits);
 
-  const FullDisplay = () => createPortal((
-    <StyledFullDisplay state={state}>
-      {formattedTime}
-    </StyledFullDisplay>
-  ), document.body);
-
   return (
     <>
-      <FullDisplay />
+      <StyledFullDisplay ref={fullDisplayRef} state={state}>
+        {formattedTime}
+      </StyledFullDisplay>
 
-      <StyledTimerDisplay state={state}>
+      <StyledTimerDisplay state={state} ref={displayRef}>
         {formattedTime}
       </StyledTimerDisplay>
     </>

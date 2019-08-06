@@ -9,6 +9,7 @@ import DrawerMenu from './DrawerMenu';
 
 const Title = styled(Typography)`
   flex: 1;
+  user-select: none;
 `;
 
 const Header: React.FC = () => (
