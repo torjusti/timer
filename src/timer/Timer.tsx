@@ -122,14 +122,9 @@ class Timer extends Component<TimerProps, TimerState> {
   };
 
   handleKeyDown = (event: KeyboardEvent): void => {
-    if (event.keyCode === 32 && event.target === document.body) {
-      // Prevent scrolling using spacebar.
-      event.preventDefault();
-    }
-
     if (this.state.timerState === TimerDisplayState.RUNNING) {
       this.finishAttempt();
-    } else if (this.state.timerState === TimerDisplayState.IDLE && event.keyCode === 32) {
+    } else if (this.state.timerState === TimerDisplayState.IDLE && event.keyCode === 32 && event.target === document.body) {
       this.setHolding();
     }
   };
