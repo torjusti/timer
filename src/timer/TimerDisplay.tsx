@@ -34,7 +34,6 @@ const StyledTimerDisplay = styled.div<{ state: TimerDisplayState }>`
 
   font-family: monospace;
   font-size: 7rem;
-  user-select: none;
   text-align: center;
 
   @media (min-width: 768px) {

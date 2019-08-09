@@ -8,6 +8,10 @@ const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+
+  @media (max-width: 800px) {
+    user-select: none;
+  }
 `;
 
 const Home: React.FC = () => {

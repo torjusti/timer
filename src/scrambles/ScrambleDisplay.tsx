@@ -10,7 +10,6 @@ const StyledScrambleDisplay = styled.span`
   text-align: center;
   font-size: 1.5rem;
   color: #000;
-  user-select: none;
 `;
 
 const ScrambleDisplay: React.FC = () => {
