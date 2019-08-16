@@ -15,14 +15,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import withMobileDialog, { WithMobileDialog } from '@material-ui/core/withMobileDialog';
 import { Penalty, deleteResults, setPenalty } from 'sessions/actions';
 import { useSelector, useDispatch } from 'react-redux';
+import FullResult from './FullResult';
 import { resultsSelector } from './selectors';
 import { formatResult } from './utils';
 
@@ -34,11 +33,6 @@ const FloatingFab = styled(Fab)`
 
 const ResultListPaper = styled(Paper)`
   margin: 2rem;
-`;
-
-const DialogScramble = styled(DialogContent)`
-  font-family: 'Roboto Mono', monospace;
-  font-size: 0.8rem;
 `;
 
 const PenaltyItem = styled(MenuItem)`
@@ -138,21 +132,10 @@ const Results: React.FC<WithMobileDialog> = ({ fullScreen }) => {
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
+        maxWidth="xl"
       >
         {currentResultData && (
-          <div>
-            <DialogTitle>{currentResultData && formatResult(currentResultData)}</DialogTitle>
-
-            <DialogScramble>
-              <a
-                href={`https://alg.cubing.net/?setup=${currentResultData.scramble}`}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {currentResultData && currentResultData.scramble}
-              </a>
-            </DialogScramble>
-          </div>
+          <FullResult data={currentResultData} />
         )}
 
         <DialogActions>
