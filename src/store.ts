@@ -42,12 +42,7 @@ const saveState = (data: TimerAppState) => {
 store.subscribe(
   throttle(() => {
     const state = store.getState();
-
-    saveState({
-      selectedSession: state.selectedSession,
-      sessions: state.sessions,
-      solutions: state.solutions,
-    });
+    saveState(state);
   }, 500),
 );
 

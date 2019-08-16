@@ -3,11 +3,13 @@ import { SessionAction } from './sessions/actions';
 import solutionsReducer from 'solvers/reducers';
 import { SolversAction } from 'solvers/actions';
 import { SettingsAction, SET_STORE_DATA } from 'settings/actions';
+import settings from 'settings/reducers';
 
 export interface TimerAppState {
   selectedSession: ReturnType<typeof selectedSession>;
   sessions: ReturnType<typeof sessions>;
   solutions: ReturnType<typeof solutionsReducer>;
+  settings: ReturnType<typeof settings>;
 }
 
 export type Action = SessionAction | SolversAction | SettingsAction;
@@ -20,6 +22,7 @@ const timerApp = (state: Partial<TimerAppState> | undefined = {}, action: Action
 
   const updatedState: Partial<TimerAppState> = {
     solutions: solutionsReducer(state.solutions, action),
+    settings: settings(state.settings, action),
   };
 
   updatedState.sessions = sessions(

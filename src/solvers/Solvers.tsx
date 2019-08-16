@@ -27,10 +27,11 @@ const ProgressContainer = styled.div`
 `;
 
 const Solvers: React.FC = () => {
-  const scrambler = useSelector(selectedScramblerSelector);
+  const solutionsEnabled = useSelector((state: TimerAppState) => state.settings.solutionsEnabled);
   const solutions = useSelector((state: TimerAppState) => state.solutions);
+  const scrambler = useSelector(selectedScramblerSelector);
 
-  if (scrambler !== '333') {
+  if (scrambler !== '333' || !solutionsEnabled) {
     return null;
   }
 
