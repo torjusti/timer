@@ -11,7 +11,8 @@ import { useSelector } from 'react-redux';
 import { TimerAppState } from 'reducers';
 
 const SolverPaper = styled(Paper)`
-  margin: 1rem auto;
+  margin: auto;
+  margin-bottom: 3rem;
   display: flex;
   justify-content: center;
   width: 80%;
