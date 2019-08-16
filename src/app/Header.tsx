@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import { withRouter } from 'react-router-dom';
+import { Location } from 'history';
 import SessionsButton from '../sessions/SessionsButton';
 import ScramblerSelect from 'scrambles/ScramblerSelect';
 import DrawerMenu from './DrawerMenu';
+import routes from './routes';
 
 const Title = styled(Typography)`
   flex: 1;
@@ -15,21 +18,30 @@ const Title = styled(Typography)`
   }
 `;
 
-const Header: React.FC = () => (
-  <AppBar position="static">
-    <Toolbar>
-      <DrawerMenu />
+interface Props {
+  location: Location<any>;
+}
 
-      <Title variant="h6" color="inherit">
-        Timer
-      </Title>
+const Header: React.FC<Props> = ({ location }) => {
+  const isHomeRoute = location.pathname === routes.home;
+  
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <DrawerMenu />
 
-      <>
-        <ScramblerSelect />
+        <Title variant="h6" color="inherit">
+          Timer
+        </Title>
+
+        {isHomeRoute && (
+          <ScramblerSelect />
+        )}
+
         <SessionsButton />
-      </>
-    </Toolbar>
-  </AppBar>
-);
+      </Toolbar>
+    </AppBar>
+  );
+};
 
-export default Header;
+export default withRouter(Header);
