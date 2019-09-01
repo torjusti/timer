@@ -16,7 +16,7 @@
     "@types/redux-logger": "^3.0.7",
     "@types/styled-components": "^4.1.18",
     "@types/uuid": "^3.4.5",
-    "cube-solver": "^2.0.0",
+    "cube-solver": "^2.1.0",
     "file-saver": "^2.0.2",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",

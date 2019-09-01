@@ -3329,10 +3329,10 @@ csstype@^2.2.0, csstype@^2.5.2, csstype@^2.6.5:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.6.tgz#c34f8226a94bbb10c32cc0d714afdf942291fc41"
   integrity sha512-RpFbQGUE74iyPgvr46U9t1xoQBM8T4BL8SxrN66Le2xYAPSaDJJKeztV3awugusb3g3G9iL8StmkBBXhcbbXhg==
 
-cube-solver@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/cube-solver/-/cube-solver-2.0.0.tgz#5b7c8a36e363d65e4f2c3134f949a2591def9573"
-  integrity sha512-DIs5OmL59U2rfyxO65BiBUxNnRsoDeOQXZiC8YR2fJyomyHjCGVwGv4+4+DMF18Tah2UJQRRKJVTPDEqyso/DA==
+cube-solver@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/cube-solver/-/cube-solver-2.1.0.tgz#adddcf7643780a4f732cff3e2efcb3f5092db9c7"
+  integrity sha512-Oo1MNvJUh+jrW50edvrPU6A2Qi1T+t7U20gPuzFyHwwKcFcQWIFFGHYePo5d/X5pki/sVNVIWy/0x0H6yNfp8Q==
 
 cyclist@~0.2.2:
   version "0.2.2"
