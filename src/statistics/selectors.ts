@@ -1,13 +1,11 @@
 import { createSelector } from 'reselect';
-import { resultsSelector } from 'results/selectors';
-import { calculateStatistics, CubingStatistics } from 'statistics/cubingStatistics';
-import { Result } from 'sessions/actions';
-import { TimerAppState } from 'reducers';
+import { selectedSessionSelector } from 'sessions/selectors';
+import { CubingStatistics } from './cubingStatistics';
 
 /**
  * Returns an object containing different types of statistics concerning the current array of results.
  */
-export const statisticsSelector = createSelector<TimerAppState, Result[] | undefined, CubingStatistics | undefined>(
-  resultsSelector,
-  (results) => results && calculateStatistics(results),
+export const statisticsSelector = createSelector(
+  selectedSessionSelector,
+  (selectedSession): CubingStatistics | undefined => selectedSession && selectedSession.statistics,
 );

@@ -1,5 +1,6 @@
 import * as actions from './actions';
 import { Action } from 'reducers';
+import { CubingStatistics } from 'statistics/cubingStatistics';
 
 const result = (state: actions.Result, action: Action): actions.Result => {
   switch (action.type) {
@@ -45,6 +46,7 @@ export interface SessionState {
   results: actions.Result[];
   scrambler: string;
   scramble?: string;
+  statistics: CubingStatistics;
 }
 
 const session = (state: SessionState | undefined, action: Action ): SessionState | undefined => {
@@ -52,6 +54,7 @@ const session = (state: SessionState | undefined, action: Action ): SessionState
     return {
       ...action.payload,
       results: results(undefined, action),
+      statistics: {},
     };
   }
 
@@ -76,6 +79,12 @@ const session = (state: SessionState | undefined, action: Action ): SessionState
       return {
         ...state,
         scramble: action.payload,
+      };
+
+    case actions.SET_STATISTICS:
+      return {
+        ...state,
+        statistics: action.payload.statistics,
       };
     
     case actions.ADD_RESULT:
@@ -105,6 +114,8 @@ export const sessions = (
       return state.filter(session => session.id !== action.payload);
 
     case actions.RENAME_SESSION:
+    case actions.SET_STATISTICS:
+    case actions.CLEAR_SESSION:
       return state.map(s => {
         if (s.id !== action.payload.id) {
           return s;
@@ -112,11 +123,10 @@ export const sessions = (
 
         return session(s, action) as SessionState;
       });
-
+          
       case actions.SELECT_SCRAMBLER:
       case actions.SET_SCRAMBLE:
       case actions.ADD_RESULT:
-      case actions.CLEAR_SESSION:
       case actions.DELETE_RESULTS:
       case actions.SET_PENALTY:
         return state.map(s => {

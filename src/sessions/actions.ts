@@ -1,5 +1,6 @@
 
 import uuidv4 from 'uuid/v4';
+import { CubingStatistics } from 'statistics/cubingStatistics';
 
 export const SELECT_SCRAMBLER = 'SELECT_SCRAMBLER';
 export const SET_SCRAMBLE = 'SET_SCRAMBLE';
@@ -11,6 +12,7 @@ export const SET_SESSION = 'SET_SESSION';
 export const ADD_RESULT = 'ADD_RESULT';
 export const SET_PENALTY = 'SET_PENALTY';
 export const DELETE_RESULTS = 'DELETE_RESULTS';
+export const SET_STATISTICS = 'SET_STATISTICS';
 
 export interface SelectScramblerAction {
   type: typeof SELECT_SCRAMBLER;
@@ -78,12 +80,12 @@ export const deleteSession = (id: string) => ({
 
 export interface ClearSessionAction {
   type: typeof CLEAR_SESSION;
-  payload: string;
+  payload: { id: string; };
 }
 
 export const clearSession = (id: string): ClearSessionAction => ({
   type: CLEAR_SESSION,
-  payload: id,
+  payload: { id },
 });
 
 export interface SetSessionAction {
@@ -147,7 +149,24 @@ export const deleteResults = (id: string[]) => ({
   payload: id,
 });
 
+export interface SetStatisticsAction { 
+  type: typeof SET_STATISTICS;
+  
+  payload: {
+    id: string;
+    statistics: Partial<CubingStatistics>;
+  };
+}
+
+/* 
+ * Used to asynchronously update statistics for a given session.
+ */
+export const setStatistics = (id: string, statistics: Partial<CubingStatistics>) => ({
+  type: SET_STATISTICS,
+  payload: { id, statistics },
+});
+
 export type SessionAction = SelectScramblerAction | SetScrambleAction
   | CreateSessionAction | RenameSessionAction | ClearSessionAction
   | AddResultAction | SetPenaltyAction | DeleteResultsAction
-  | DeleteSessionAction | SetSessionAction;
+  | DeleteSessionAction | SetSessionAction | SetStatisticsAction;

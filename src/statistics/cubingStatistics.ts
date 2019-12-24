@@ -34,9 +34,10 @@ export const getPercentiles = (entries: number[], percentile: number): Percentil
 /**
  * Average using the cubing definition. The top and bottom five
  * percent of entries are ignored when the mean is calculated.
- * The input needs to be sorted.
  */
 export const average = (entries: number[], percentileToRemove = 5 / 100): number => {
+  entries.sort((a, b) => a - b);
+
   const percentiles = getPercentiles(entries, percentileToRemove);
   return mean(entries.slice(percentiles.start, percentiles.end + 1));
 };
@@ -83,11 +84,10 @@ export const fastestCubingAverage = (results: Result[], num: number) => {
 
     return isFinite(fastest) ? fastest : 'DNF';
   }
-
 };
 
 export interface CubingStatistics {
-  resultCount: number;
+  resultCount?: number;
   bestSingle?: number;
   globalMean?: number;
   globalAverage?: number;
