@@ -2,8 +2,6 @@ import React, { Component, RefObject } from 'react';
 import TimerDisplay, { TimerDisplayState } from './TimerDisplay';
 import { Penalty } from 'sessions/actions';
 
-const USE_INSPECTION = true;
-
 const HOLD_DURATION = 300;
 
 interface TimerProps {
@@ -11,6 +9,7 @@ interface TimerProps {
   // If this is set, new solves cannot be started.
   disabled?: boolean;
   touchContainer: RefObject<HTMLElement>;
+  useInspection: boolean;
 }
 
 interface TimerState {
@@ -141,7 +140,7 @@ class Timer extends Component<TimerProps, TimerState> {
       return;
     }
 
-    if (USE_INSPECTION) {
+    if (this.props.useInspection) {
       this.setReady();
       return;
     }
@@ -168,7 +167,7 @@ class Timer extends Component<TimerProps, TimerState> {
   handleKeyUp = (event: KeyboardEvent): void => {
     if (event.keyCode === 32) {
       if (this.state.timerState === TimerDisplayState.READY) {
-        if (USE_INSPECTION && this.state.inspectionStart === undefined) {
+        if (this.props.useInspection && this.state.inspectionStart === undefined) {
           this.setInspecting();
         } else {
           this.setRunning();
