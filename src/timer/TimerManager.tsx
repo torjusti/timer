@@ -1,6 +1,6 @@
 import React, { RefObject } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { addResult } from 'sessions/actions';
+import { addResult, Penalty } from 'sessions/actions';
 import Timer from './Timer';
 import { currentScrambleSelector } from 'sessions/selectors';
 
@@ -13,9 +13,9 @@ const TimerManager: React.FC<Props> = ({ touchContainer }) => {
 
   const scramble = useSelector(currentScrambleSelector);
   
-  const handleFinished = (time: number) => {
+  const handleFinished = (time: number, penalty?: Penalty) => {
     if (scramble) {
-      dispatch(addResult(time, scramble));
+      dispatch(addResult(time, scramble, penalty));
     }
   };
 

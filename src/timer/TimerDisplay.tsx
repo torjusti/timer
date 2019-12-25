@@ -1,11 +1,12 @@
 import React, { Ref } from 'react';
 import styled from 'styled-components';
-import { formatElapsedTime } from './utils';
+import { formatElapsedTime, formatRemainder } from './utils';
 
 export enum TimerDisplayState {
   IDLE,
   HOLDING,
   READY,
+  INSPECTING,
   RUNNING,
 }
 
@@ -14,6 +15,7 @@ interface TimerDisplayProps {
   time: number;
   displayRef: Ref<HTMLDivElement>;
   fullDisplayRef: Ref<HTMLDivElement>;
+  inspectionRemainder?: number;
 }
 
 const getDisplayColor = (state: TimerDisplayState) => {
@@ -42,7 +44,7 @@ const StyledTimerDisplay = styled.div<{ state: TimerDisplayState }>`
 `;
 
 const getFullDisplayVisible = (state: TimerDisplayState) =>
-  state === TimerDisplayState.READY || state === TimerDisplayState.RUNNING;
+  state === TimerDisplayState.READY || state === TimerDisplayState.RUNNING || state === TimerDisplayState.INSPECTING;
 
 const StyledFullDisplay = styled(StyledTimerDisplay)<{ state: TimerDisplayState }>`
   display: ${({ state }) =>  getFullDisplayVisible(state) ? 'flex' : 'none'};
@@ -58,14 +60,16 @@ const StyledFullDisplay = styled(StyledTimerDisplay)<{ state: TimerDisplayState 
   bottom: 0;
 `;
 
-const TimerDisplay: React.FC<TimerDisplayProps> = ({ time, state, displayRef, fullDisplayRef }) => {
+const TimerDisplay: React.FC<TimerDisplayProps> = ({ time, state, displayRef, fullDisplayRef, inspectionRemainder }) => {
   const digits = state === TimerDisplayState.RUNNING ? 1 : 2;
-  const formattedTime = formatElapsedTime(time, digits);
+
+  let formattedTime = formatElapsedTime(time, digits);
 
   return (
     <>
       <StyledFullDisplay ref={fullDisplayRef} state={state}>
-        {formattedTime}
+        {(inspectionRemainder !== undefined && state !== TimerDisplayState.RUNNING) ? 
+          formatRemainder(inspectionRemainder) : formattedTime}
       </StyledFullDisplay>
 
       <StyledTimerDisplay state={state} ref={displayRef}>

@@ -1,20 +1,25 @@
 import React, { Component, RefObject } from 'react';
 import TimerDisplay, { TimerDisplayState } from './TimerDisplay';
+import { Penalty } from 'sessions/actions';
 
-const HOLD_DURATION = 1000;
+const USE_INSPECTION = true;
+
+const HOLD_DURATION = 300;
 
 interface TimerProps {
-  onSolveFinished?: (time: number) => void;
+  onSolveFinished?: (time: number, penalty?: Penalty) => void;
   // If this is set, new solves cannot be started.
   disabled?: boolean;
   touchContainer: RefObject<HTMLElement>;
 }
 
 interface TimerState {
-  timerState: TimerDisplayState,
-  holdingStart?: number,
-  startTime?: number,
-  elapsedTime: number,
+  timerState: TimerDisplayState;
+  holdingStart?: number;
+  startTime?: number;
+  elapsedTime: number;
+  inspectionStart?: number;
+  inspectionRemainder?: number;
 }
 
 class Timer extends Component<TimerProps, TimerState> {
@@ -37,11 +42,23 @@ class Timer extends Component<TimerProps, TimerState> {
     startTime: undefined,
     // The time shown in the timer display.
     elapsedTime: 0,
+    // Time when inspection was started.
+    inspectionStart: undefined,
+    // Time left of the inspection phase.
+    inspectionRemainder: undefined,
   }
 
   getElapsedTime = () => this.state.startTime ? Date.now() - (this.state.startTime as unknown as number): 0;
 
   tick = (): void => {
+    if (this.state.inspectionStart && this.state.timerState !== TimerDisplayState.RUNNING) {
+      this.setState({
+        inspectionRemainder: 15 - Math.floor((Date.now() - (this.state.inspectionStart as unknown as number)) / 1000),
+      });
+
+      window.requestAnimationFrame(this.tick);
+    }
+
     if (this.state.timerState === TimerDisplayState.RUNNING) {
       this.setState({
         // The start time is set here, as it is never undefined again after the timer starting.
@@ -52,17 +69,35 @@ class Timer extends Component<TimerProps, TimerState> {
     }
   };
 
+  getPenalty = (): Penalty | undefined => {
+    const remainder = this.state.inspectionRemainder;
+
+    if (remainder !== undefined) {
+      if (remainder <= 0) {
+        if (remainder > -2) {
+          return Penalty.PLUS_TWO;
+        } else {
+          return Penalty.DNF;
+        }
+      }
+    }
+  };
+
   finishAttempt = (): void => {
     const elapsedTime = this.getElapsedTime();
 
+    const penalty = this.getPenalty();
+
     this.setState({ 
       timerState: TimerDisplayState.IDLE,
+      inspectionStart: undefined,
+      inspectionRemainder: undefined,
       elapsedTime,
     });
 
     if (this.props.onSolveFinished) {
       if (this.props.onSolveFinished) {
-        this.props.onSolveFinished(elapsedTime);
+        this.props.onSolveFinished(elapsedTime, penalty);
       }
     }
   };
@@ -84,14 +119,18 @@ class Timer extends Component<TimerProps, TimerState> {
     });
   };
 
+  setReady = (): void => {
+    this.setState({
+      timerState: TimerDisplayState.READY,
+      elapsedTime: 0,
+    });
+  };
+
   checkReady = (): void => {
     const holdingStart = this.state.holdingStart;
 
-    if (holdingStart && Date.now() - holdingStart >= 1000) {
-      this.setState({
-        timerState: TimerDisplayState.READY,
-        elapsedTime: 0,
-      });
+    if (holdingStart && Date.now() - holdingStart >= HOLD_DURATION) {
+      this.setReady();
     }
   };
 
@@ -99,6 +138,11 @@ class Timer extends Component<TimerProps, TimerState> {
     // Do not start holding again if multiple keys are pressed.
     // Also, check if the timer is disabled before starting.
     if (this.state.holdingStart || this.props.disabled) {
+      return;
+    }
+
+    if (USE_INSPECTION) {
+      this.setReady();
       return;
     }
 
@@ -111,10 +155,24 @@ class Timer extends Component<TimerProps, TimerState> {
     setTimeout(this.checkReady, HOLD_DURATION);
   };
 
+  setInspecting = (): void => {
+    this.setState({
+      timerState: TimerDisplayState.INSPECTING,
+      inspectionStart: Date.now(),
+      inspectionRemainder: 15,
+    });
+
+    window.requestAnimationFrame(this.tick);
+  };
+
   handleKeyUp = (event: KeyboardEvent): void => {
     if (event.keyCode === 32) {
       if (this.state.timerState === TimerDisplayState.READY) {
-        this.setRunning();
+        if (USE_INSPECTION && this.state.inspectionStart === undefined) {
+          this.setInspecting();
+        } else {
+          this.setRunning();
+        }
       } else if (this.state.timerState === TimerDisplayState.HOLDING) {
         this.setIdle();
       }
@@ -122,9 +180,12 @@ class Timer extends Component<TimerProps, TimerState> {
   };
 
   handleKeyDown = (event: KeyboardEvent): void => {
-    if (this.state.timerState === TimerDisplayState.RUNNING) {
+    const state = this.state.timerState;
+
+    if (state === TimerDisplayState.RUNNING) {
       this.finishAttempt();
-    } else if (this.state.timerState === TimerDisplayState.IDLE && event.keyCode === 32 && event.target === document.body) {
+    } else if ((state === TimerDisplayState.IDLE || state === TimerDisplayState.INSPECTING) &&
+        event.keyCode === 32 && event.target === document.body) {
       this.setHolding();
     }
   };
@@ -185,6 +246,7 @@ class Timer extends Component<TimerProps, TimerState> {
         state={this.state.timerState}
         displayRef={this.timerDisplay}
         fullDisplayRef={this.fullDisplay}
+        inspectionRemainder={this.state.inspectionRemainder}
       />
     )
   }
