@@ -10,6 +10,7 @@ interface TimerProps {
   disabled?: boolean;
   touchContainer: RefObject<HTMLElement>;
   useInspection: boolean;
+  selectedSession?: string;
 }
 
 interface TimerState {
@@ -235,6 +236,15 @@ class Timer extends Component<TimerProps, TimerState> {
 
     if (this.fullDisplay.current) {
       this.fullDisplay.current.removeEventListener('touchstart', this.handleTouchStopTimer);
+    }
+  }
+
+  componentDidUpdate(prevProps: TimerProps) {
+    // Clear display when session is changed.
+    if (this.props.selectedSession !== prevProps.selectedSession) {
+      this.setState({
+        elapsedTime: 0,
+      });
     }
   }
 

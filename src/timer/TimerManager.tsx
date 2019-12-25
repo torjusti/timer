@@ -40,6 +40,7 @@ const TimerManager: React.FC<Props> = ({ touchContainer }) => {
         disabled={scramble === undefined}
         touchContainer={touchContainer}
         useInspection={useInspection}
+        selectedSession={selectedSession}
       />
 
       <PenaltySwitch id={lastResult} />
