@@ -30,3 +30,18 @@ export const formatElapsedTime = (time: number, precision: number): string => {
   const seconds = truncate(parsedTime.seconds, precision);
   return parsedTime.minutes ? `${parsedTime.minutes}:${seconds}` : seconds;
 };
+
+/**
+ * Format remainding time when using inspection.
+ */
+export const formatRemainder = (remainder: number): string => {
+  if (remainder <= 0) {
+    if (remainder > -2) {
+      return '+2';
+    } else {
+      return 'DNF';
+    }
+  }
+
+  return String(remainder);
+};

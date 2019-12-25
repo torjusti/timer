@@ -115,13 +115,14 @@ export interface AddResultAction {
   payload: Result;
 }
 
-export const addResult = (time: number, scramble: string): AddResultAction => ({
+export const addResult = (time: number, scramble: string, penalty?: Penalty): AddResultAction => ({
   type: ADD_RESULT,
 
   payload: {
     id: uuidv4(),
     scramble,
     time,
+    penalty,
   },
 });
 
