@@ -141,7 +141,7 @@ class Timer extends Component<TimerProps, TimerState> {
       return;
     }
 
-    if (this.props.useInspection) {
+    if (this.props.useInspection && this.state.inspectionStart === undefined) {
       this.setReady();
       return;
     }
@@ -213,7 +213,6 @@ class Timer extends Component<TimerProps, TimerState> {
       this.finishAttempt();
     }
   };
-
 
   componentDidMount() {
     document.body.addEventListener('keyup', this.handleKeyUp);

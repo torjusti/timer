@@ -43,11 +43,8 @@ const StyledTimerDisplay = styled.div<{ state: TimerDisplayState }>`
   }
 `;
 
-const getFullDisplayVisible = (state: TimerDisplayState) =>
-  state === TimerDisplayState.READY || state === TimerDisplayState.RUNNING || state === TimerDisplayState.INSPECTING;
-
-const StyledFullDisplay = styled(StyledTimerDisplay)<{ state: TimerDisplayState }>`
-  display: ${({ state }) =>  getFullDisplayVisible(state) ? 'flex' : 'none'};
+const StyledFullDisplay = styled(StyledTimerDisplay)<{ visible: boolean, state: TimerDisplayState }>`
+  display: ${({ visible }) => visible ? 'flex' : 'none'};
 
   justify-content: center;
   align-items: center;
@@ -65,9 +62,12 @@ const TimerDisplay: React.FC<TimerDisplayProps> = ({ time, state, displayRef, fu
 
   let formattedTime = formatElapsedTime(time, digits);
 
+  const fullDisplayVisible = state === TimerDisplayState.READY || state === TimerDisplayState.RUNNING
+    || inspectionRemainder !== undefined;
+
   return (
     <>
-      <StyledFullDisplay ref={fullDisplayRef} state={state}>
+      <StyledFullDisplay ref={fullDisplayRef} visible={fullDisplayVisible} state={state}>
         {(inspectionRemainder !== undefined && state !== TimerDisplayState.RUNNING) ? 
           formatRemainder(inspectionRemainder) : formattedTime}
       </StyledFullDisplay>

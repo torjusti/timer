@@ -30,17 +30,17 @@ const PenaltySwitch = ({ id }: { id?: string }) => {
     }
   };
 
+  const disabled = !(lastResult && lastResult.id === id);
+
   let selectedPenalty = 'none';
 
-  if (lastResult) {
+  if (!disabled && lastResult) {
     if (lastResult.penalty === Penalty.DNF) {
       selectedPenalty = 'dnf';
     } else if (lastResult.penalty === Penalty.PLUS_TWO) {
       selectedPenalty = 'plus';
     }
   }
-  
-  const disabled = !(lastResult && lastResult.id === id);
 
   return (
     <SwitchContainer value={selectedPenalty} onChange={handleChange} exclusive>
