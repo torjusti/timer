@@ -8,6 +8,10 @@ import { selectedSessionSelector } from './selectors';
 const StyledButton = styled(Button)`
   text-transform: none;
   margin-left: 1rem;
+
+  &:focus {
+    background: rgba(0, 0, 0, 0.05);
+  }
 `;
 
 const SessionsButton: React.FC = () => {
