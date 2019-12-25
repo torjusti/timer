@@ -180,7 +180,7 @@ const Results: React.FC<WithMobileDialog> = ({ fullScreen }) => {
         >
           <PenaltyItem
             onClick={() => dispatch(setPenalty(currentResultData.id, undefined))}
-            selected={!currentResultData.penalty}
+            selected={currentResultData.penalty === undefined}
           >
             None
           </PenaltyItem>
@@ -190,7 +190,7 @@ const Results: React.FC<WithMobileDialog> = ({ fullScreen }) => {
             selected={currentResultData.penalty === Penalty.PLUS_TWO}
           >
             + 2
-          </PenaltyItem>8
+          </PenaltyItem>
 
           <PenaltyItem
             onClick={() => dispatch(setPenalty(currentResultData.id, Penalty.DNF))}
