@@ -2,6 +2,7 @@
   "name": "ttimer",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ive.land/timer",
   "dependencies": {
     "@material-ui/core": "^4.8.1",
     "@material-ui/icons": "^4.5.1",

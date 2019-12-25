@@ -191,23 +191,30 @@ class Timer extends Component<TimerProps, TimerState> {
   };
 
   handleTouchStart = (event: TouchEvent) => {
-    if (event.target !== this.props.touchContainer.current && event.target !== this.timerDisplay.current) {
+    if (!this.state.inspectionStart && event.target !== this.props.touchContainer.current
+        && event.target !== this.timerDisplay.current) {
       return;
     }
 
-    if (this.state.timerState === TimerDisplayState.IDLE && !this.state.holdingStart) {
+    const state = this.state.timerState;
+
+    if ((state === TimerDisplayState.IDLE || state === TimerDisplayState.INSPECTING) && !this.state.holdingStart) {
       this.setHolding();
     }
   };
 
   handleTouchEnd = () => {
     if (this.state.timerState === TimerDisplayState.READY) {
-      this.setRunning();
+      if (this.props.useInspection && this.state.inspectionStart === undefined) {
+        this.setInspecting();
+      } else {
+        this.setRunning();
+      }
     } else if (this.state.timerState === TimerDisplayState.HOLDING) {
       this.setIdle();
     }
   };
-
+  
   handleTouchStopTimer = () => {
     if (this.state.timerState === TimerDisplayState.RUNNING) {
       this.finishAttempt();
