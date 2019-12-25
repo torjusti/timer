@@ -120,7 +120,7 @@ const Results: React.FC<WithMobileDialog> = ({ fullScreen }) => {
     <>
       <ResultListPaper>
         {results && results.length === 0 && (
-          <NoDataMessage component="p">
+          <NoDataMessage>
             There are no results in this session. Go do some solves!
           </NoDataMessage>
         )}
