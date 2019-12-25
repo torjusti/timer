@@ -9,7 +9,7 @@ const downloadFile = (text: string) => {
     type: 'text/plain;charset=utf-8',
   });
 
-  FileSaver.saveAs(blob, `timer-data-${Date.now()}.txt`);
+  FileSaver.saveAs(blob, `timer-data-${Date.now()}.json`);
 };
 
 const ExportDataButton: React.FC = () => {
