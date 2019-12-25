@@ -21,6 +21,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import withMobileDialog, { WithMobileDialog } from '@material-ui/core/withMobileDialog';
 import { Penalty, deleteResults, setPenalty } from 'sessions/actions';
 import { useSelector, useDispatch } from 'react-redux';
+import { AutoSizer, List as VirtualizedList } from 'react-virtualized';
 import FullResult from './FullResult';
 import { resultsSelector } from './selectors';
 import { formatResult } from './utils';
@@ -33,6 +34,7 @@ const FloatingFab = styled(Fab)`
 
 const ResultListPaper = styled(Paper)`
   margin: 2rem;
+  flex: 1;
 `;
 
 const PenaltyItem = styled(MenuItem)`
@@ -51,7 +53,7 @@ const Results: React.FC<WithMobileDialog> = ({ fullScreen }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [anchor, setAnchor] = useState<HTMLElement>();
 
-  const results = useSelector(resultsSelector)
+  const results = useSelector(resultsSelector);
 
   const handleToggle = (id: string) => {
     const index = checked.indexOf(id);
@@ -83,6 +85,37 @@ const Results: React.FC<WithMobileDialog> = ({ fullScreen }) => {
   const currentResultData = currentResult && results &&
     results.find(result => result.id === currentResult);
 
+  const rowRenderer = ({ key, index, style }: any) => {
+    if (!results) {
+      return null;
+    }
+
+    const result = results[index];
+    
+    return (
+      <div style={style} key={result.id}>
+        <ListItem
+          dense
+          button
+          onClick={() => handleToggle(result.id)}
+        >
+          <Checkbox
+            checked={checked.includes(result.id)}
+            disableRipple
+          />
+
+          <ListItemText primary={formatResult(result)} />
+
+          <ListItemSecondaryAction>
+            <IconButton onClick={() => handleOpen(result.id)}>
+              <SettingsIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      </div>
+    );
+  };
+
   return (
     <>
       <ResultListPaper>
@@ -92,28 +125,20 @@ const Results: React.FC<WithMobileDialog> = ({ fullScreen }) => {
           </NoDataMessage>
         )}
 
-        <List>
-          {results && results.map(result => (
-            <ListItem
-              key={result.id}
-              dense
-              button
-              onClick={() => handleToggle(result.id)}
-            >
-              <Checkbox
-                checked={checked.includes(result.id)}
-                disableRipple
-              />
-
-              <ListItemText primary={formatResult(result)} />
-
-              <ListItemSecondaryAction>
-                <IconButton onClick={() => handleOpen(result.id)}>
-                  <SettingsIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
+        <List style={{ height: '100%' }}>
+          {results && (
+            <AutoSizer>
+              {({ height, width }) => (
+                <VirtualizedList
+                  rowHeight={50}
+                  width={width}
+                  height={height}
+                  rowCount={results.length}
+                  rowRenderer={rowRenderer}
+                />
+              )}
+            </AutoSizer>
+          )}
         </List>
       </ResultListPaper>
 
