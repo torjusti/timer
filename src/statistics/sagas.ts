@@ -44,22 +44,11 @@ function* recordNotificationSaga(oldStatistics: CubingStatistics) {
     const oldStatistic = oldStatistics[key];
     return statistics[key] && (oldStatistic === undefined || statistics[key] < oldStatistic);
   }).map(record => descriptions[record] as string);
+
   if (records.length > 0) {
     toast(`New personal best ${arrayToString(records)}`);
   }
 }
-
-export const SELECT_SCRAMBLER = 'SELECT_SCRAMBLER';
-export const SET_SCRAMBLE = 'SET_SCRAMBLE';
-export const CREATE_SESSION = 'CREATE_SESSION';
-export const RENAME_SESSION = 'RENAME_SESSION';
-export const DELETE_SESSION = 'DELETE_SESSION';
-export const CLEAR_SESSION = 'CLEAR_SESSION';
-export const SET_SESSION = 'SET_SESSION';
-export const ADD_RESULT = 'ADD_RESULT';
-export const SET_PENALTY = 'SET_PENALTY';
-export const DELETE_RESULTS = 'DELETE_RESULTS';
-export const SET_STATISTICS = 'SET_STATISTICS';
 
 function* statisticsSaga() {
   let oldStatistics = yield select(statisticsSelector);
