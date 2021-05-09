@@ -21,7 +21,7 @@
     "@types/uuid": "^3.4.5",
     "cube-solver": "^2.2.1",
     "file-saver": "^2.0.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-app-rewired": "^2.1.3",
